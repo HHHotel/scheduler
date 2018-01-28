@@ -1,1 +1,1 @@
-# scheduler-electron
+# Electron App

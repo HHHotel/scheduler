@@ -1,0 +1,14 @@
+{
+  "name": "electron-scheduler-app",
+  "version": "0.0.0",
+  "description": "Scheduling App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Matt Rochford",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "1.7.11"
+  }
+}
