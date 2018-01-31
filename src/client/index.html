@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html ng-app = "scheduler">
+  <head>
+    <title>HHH Scheduler</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="controllers/titlebar.js"></script>
+    <link rel = "stylesheet" href = "css/style.css" />
+  </head>
+
+  <body>
+
+    <div ng-controller = "titleBar" id = "titleBar"> <!-- Title Bar with close buttons -->
+      <div>HHH Scheduler</div>
+      <div class = "titleBarButtons">
+        <span ng-click = "minimize()">-</span>
+        <span ng-click = "maximize()">+</span>
+        <span ng-click = "close()">X</span>
+      </div>
+    </div>
+
+    <div ng-controller = "schedCtrl" class = "app-wrapper">
+
+      <div class = "header"> <!-- App Header -->
+
+      </div>
+
+      <div class = "content"> <!-- Content Wrapper -->
+
+      </div>
+
+    </div>
+
+  </body>
+
+
+</html>
