@@ -17,7 +17,13 @@
   box-sizing: border-box;
   font-family: 'Raleway';
 
-  user-select: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
   cursor: default;
 }
 
@@ -46,16 +52,12 @@ html {
   height: 2rem;
 }
 
-#titleBar * {
-  user-select: none;
-}
-
 #titleBar span {
   padding: .25rem;
   -webkit-app-region: no-drag;
   display: inline-block;
   text-align: center;
-  width: 2`qfrem;
+  width: 2rem;
   height: 100%;
 }
 
@@ -106,4 +108,55 @@ html {
 
 .day-title {
   text-align: center;
+}
+
+.dog-list {
+  color: black;
+  order: 10;
+}
+
+.arrivals {
+  color: blue;
+  order: 3;
+}
+.arrivals::after {
+  content: ' - Arrives';
+}
+
+.departures {
+  color: red;
+  order: 4;
+}
+.departures::after {
+  content: ' - Leaves';
+}
+
+.boarding {
+  order: 1;
+  color: maroon;
+}
+
+.daycare {
+  order: 2;
+  color: hotpink;
+}
+
+.grooming {
+  order: 5;
+  color: green;
+}
+.fosters {
+  color: darkblue;
+  order:7;
+}
+
+.general {
+  order: 5;
+  color: darkslategrey;
+}
+
+.forms {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
