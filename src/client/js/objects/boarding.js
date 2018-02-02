@@ -2,7 +2,7 @@
 /* eslint padded-blocks: ["error", { "classes": "always" }] */
 
 // eslint-disable-next-line no-unused-vars
-class Booking {
+class Boarding {
 
   constructor (sDate, eDate) {
     this.start = sDate.replace(/-/g, '/');
@@ -14,18 +14,25 @@ class Booking {
   toDateString () { return new Date(this.start).toDateString() + ' - ' + new Date(this.end).toDateString(); }
 
   getStartTime () {
-    return this.getStart().getHours() < 12 ? '8:00 AM' : '4:00 PM';
+    let hours = this.getStart().getHours();
+    return Boarding.formatTime(hours);
   }
 
   getEndTime () {
-    return this.getEnd().getHours() < 12 ? '8:00 AM' : '4:00 PM';
+    let hours = this.getEnd().getHours();
+    return Boarding.formatTime(hours);
   }
 
-  dayType (date) {
+  contains (date) {
     let d = new Date(date.getTime());
     let sTime = d.setHours(0);
     let eTime = d.setHours(24);
-    if (!(eTime > this.getStart().getTime() && sTime <= this.getEnd().getTime())) return;
+    return eTime > this.getStart().getTime() && sTime <= this.getEnd().getTime();
+  }
+
+  dayType (date) {
+
+    if (!this.contains(date)) return;
 
     if (this.getStart().toDateString() === date.toDateString()) {
       return 'arrivals';
@@ -46,3 +53,9 @@ class Booking {
   // }
 
 }
+
+Boarding.formatTime = function (hours) {
+  hours = hours % 12 === 0 ? 12 : hours % 12;
+  hours += hours > 12 ? ' PM' : ' AM';
+  return hours;
+};

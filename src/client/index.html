@@ -3,31 +3,70 @@
 <html ng-app = "scheduler">
   <head>
     <title>HHH Scheduler</title>
+
+    <!-- Imports  -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="controllers/titlebar.js"></script>
+
+    <!-- Main -->
+    <script src ="js/main.js"></script>
+
+    <!-- Controllers  -->
+    <!-- <script src="js/controllers/titlebar.js"></script> -->
+    <script src="js/controllers/scheduler.js"></script>
+
+    <!-- Objects -->
+    <script src="js/objects/week.js"></script>
+    <script src="js/objects/boarding.js"></script>
+    <script src="js/objects/daycare.js"></script>
+    <script src="js/objects/sevent.js"></script>
+    <script src="js/objects/dog.js"></script>
+
     <link rel = "stylesheet" href = "css/style.css" />
   </head>
 
   <body>
 
-    <div ng-controller = "titleBar" id = "titleBar"> <!-- Title Bar with close buttons -->
-      <div>HHH Scheduler</div>
-      <div class = "titleBarButtons">
-        <span ng-click = "minimize()">-</span>
-        <span ng-click = "maximize()">+</span>
-        <span ng-click = "close()">X</span>
-      </div>
-    </div>
+    <!-- Title Bar with close buttons -->
+    <!-- <div ng-controller = "titleBar" id = "titleBar">
+     <div>HHH Scheduler</div>
+     <div class = "titleBarButtons">
+       <span ng-click = "minimize()" class = "hand">-</span>
+       <span ng-click = "maximize()" class = "hand">+</span>
+       <span ng-click = "close()" class = "hand">X</span>
+     </div>
+    </div> -->
 
     <div ng-controller = "schedCtrl" class = "app-wrapper">
 
       <div class = "header"> <!-- App Header -->
+        <div class = "menu-bttn">
+          <span class = "hand">Menu</span>
+        </div>
+
+
+        <h1>{{week.toString()}}</h1>
+
+        <div class = "week-scroller">
+          <span ng-click = "week.prevWeek()" class = "prev-week hand">Prev</span>
+          <span ng-click = "week.nextWeek()" class = "next-week hand">Next</span>
+        </div>
 
       </div>
 
       <div class = "content"> <!-- Content Wrapper -->
 
+        <div class = "week">
+          <div ng-repeat = "day in week.days" class = "day">
+            <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
+            <div ng-repeat = "event in getEvents(day)"class = "dog-list">
+              <p>{{event.text}}</p>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+
 
     </div>
 

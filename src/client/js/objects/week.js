@@ -3,23 +3,15 @@
 
 class Week {
 
-  constructor () {
-    let sDate;
-    let eDate;
-    if (arguments.length === 2) {
-      sDate = arguments[0];
-      eDate = arguments[1];
-    } else if (arguments.length === 1) {
-      let startEnd = Week.getStartEnd(arguments[0]);
-      sDate = startEnd[0];
-      eDate = startEnd[1];
-    }
-    this.initWeek(sDate, eDate);
+  constructor (date) {
+    let startEnd = Week.getStartEnd(arguments[0] ? arguments[0] : new Date());
+    this.initWeek(startEnd[0], startEnd[1]);
   }
 
   getDay (i) { return this.days[i]; }
   getFirst () { return this.days[0]; }
   getLast () { return this.days[this.days.length - 1]; }
+
   nextWeek () {
     let dates = Week.getStartEnd(this.getFirst().getTime() + 604800000);
     this.initWeek(dates[0], dates[1]);

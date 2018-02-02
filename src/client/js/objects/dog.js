@@ -1,25 +1,15 @@
 /* eslint semi: ["error", "always"] */
 /* eslint padded-blocks: ["error", { "classes": "always" }] */
-/* global Booking SEvent Daycare */
+/* global Boarding SEvent Daycare */
 
 // eslint-disable-next-line no-unused-vars
 class Dog {
 
   constructor () {
     let args = arguments[0];
-    if (args.bookings) { // Loading from JSON
+    if (args.bookings) this.loadJSON(args); // Loading from JSON
 
-      this.name = args.name;
-      this.cName = args.cName;
-      this.ID = args.ID ? args.ID : SEvent.getNewID();
-      this.bookings = [];
-
-      for (let booking of args.bookings) {
-        if (booking.start) this.addBooking(booking.start, booking.end);
-        else if (booking.date) this.addDaycare(booking.date);
-      }
-
-    } else if (args.name) { // Adding a new Dog
+    else if (args.name) { // Adding a new Dog
       this.name = args.name;
       this.cName = args.cName;
       this.bookings = [];
@@ -27,23 +17,40 @@ class Dog {
     }
   }
 
-  addBooking (start, end) { this.bookings.push(new Booking(start, end)); }
+  loadJSON (json) {
+    this.name = json.name;
+    this.cName = json.cName;
+    this.ID = json.ID ? json.ID : SEvent.getNewID();
+    this.bookings = [];
+
+    for (let booking of json.bookings) {
+      if (booking.start) this.addBooking(booking.start, booking.end);
+      else if (booking.date) this.addDaycare(booking.date);
+    }
+  }
+
+  addBoarding (start, end) { this.bookings.push(new Boarding(start, end)); }
   addDaycare (date) { this.bookings.push(new Daycare(date)); }
 
   getName () { return this.name; }
-  // Dog.prototype.getClient = function () { return this.clientName; };
-  getLastBooking () { return this.bookings[this.bookings.length - 1]; }
-  getDate () { return this.getLastBooking(); }
   getBookings () { return this.bookings; }
+
+  getBooking (date) {
+    let filteredBookings = this.bookings.filter(booking => booking.contains(date));
+    return filteredBookings[filteredBookings.length - 1];
+  }
 
   get (date) {
     if (!this.getLastBooking()) return;
-    let dogStatus = this.getLastBooking(date).dayType(date);
-    let text = '';
+
+    let booking = this.getBookings(date);
+    let dogStatus = booking.dateType(date);
+
+    let text;
     if (dogStatus === 'arriving') {
-      text = this.getText() + ' (' + this.getLastBooking().getStartTime() + ')';
+      text = this.getText() + ' (' + booking.getStartTime() + ')';
     } else if (dogStatus === 'departing') {
-      text = this.getText() + ' (' + this.getLastBooking().getEndTime() + ')';
+      text = this.getText() + ' (' + booking.getEndTime() + ')';
     } else if (dogStatus === 'daycare') {
       text = this.getText() + ' (8:00 AM)';
     } else {

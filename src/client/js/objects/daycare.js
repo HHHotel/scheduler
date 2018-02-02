@@ -12,8 +12,10 @@ class Daycare {
   toString () { return this.date; }
   toDateString () { return this.getDate().toDateString(); }
 
+  contains (date) { return date.toDateString() === this.getDate().toDateString(); }
+
   dayType (date) {
-    if (date.toDateString() === this.getDate().toDateString()) return 'daycare';
+    if (this.contains(date)) return 'daycare';
   }
 
 }
