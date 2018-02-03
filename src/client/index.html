@@ -32,28 +32,21 @@
     <!-- Stylesheets -->
     <link rel = "stylesheet" href = "css/style.css" />
     <link rel = "stylesheet" href = "css/form-style.css" />
+    <link rel = "stylesheet" href = "css/titlebar.css" />
 
   </head>
 
   <body>
 
     <!-- Title Bar with close buttons -->
-    <div ng-controller = "titleBar" id = "titleBar">
-     <div>HHH Scheduler</div>
-     <div class = "titleBarButtons">
-       <span ng-click = "minimize()" class = "hand">-</span>
-       <span ng-click = "maximize()" class = "hand">+</span>
-       <span ng-click = "close()" class = "hand">X</span>
-     </div>
-    </div>
+    <ng-include src = "'views/titlebar.html'"></ng-include>
 
     <div ng-controller = "schedCtrl" class = "app-wrapper">
 
       <div class = "header"> <!-- App Header -->
-        <div class = "menu-bttn">
+        <div class = "menu-btn">
           <span class = "hand">Menu</span>
         </div>
-
 
         <h1>{{week.toString()}}</h1>
 
@@ -62,6 +55,13 @@
           <span ng-click = "week.nextWeek()" class = "next-week hand">Next</span>
         </div>
 
+      </div>
+
+      <div class = "add-btn">
+        <svg xmlns="http://www.w3.org/2000/svg"
+          transform="translate(12, 12)" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
+        </svg>
       </div>
 
       <div class = "content"> <!-- Content Wrapper -->
@@ -77,11 +77,9 @@
 
       </div>
 
-      <div class = "forms"> <!-- Forms  -->
+      <div class = "forms" ng-show = "formDisplay.val"> <!-- Forms  -->
         <ng-include src = "'views/new-dog-form.html'"></ng-include>
       </div>
-
-
 
     </div>
 

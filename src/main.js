@@ -20,8 +20,9 @@ function createWindow () {
     height: 600,
     frame: false,
     webPreferences: {
-      experimentalFeatures: true,
-    }
+      experimentalFeatures: true
+    },
+    icon: 'client/images/web-app-icon.png'
   });
 
   // and load the index.html of the app.

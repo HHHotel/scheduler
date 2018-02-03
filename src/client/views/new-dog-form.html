@@ -1,6 +1,16 @@
-<form>
-  Name
-  <input type = "text" name = "name" />
-  Client Name
-  <input type = "text" name = "cName"/>
-</form>
+<div class = "form-wrapper" ng-controller = "formCtrl" ng-click = "$event.stopPropagation();">
+  <div class = "form-heading">
+    <h3>New Dog</h3>
+    <div ng-click = "closeForms()" class = "hand">X</div>
+  </div>
+  <form>
+    Name <br />
+    <input ng-model = "event.name" type = "text" name = "name" />
+    <br />
+    Client Name <br />
+    <input ng-model = "event.cName" type = "text" name = "cName"/>
+    <br />
+    <h1>{{event.name + ' ' + event.cName[0]}}</h1>
+  </form>
+
+</div>

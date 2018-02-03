@@ -9,5 +9,8 @@ angular.module('scheduler').
         $scope.getEvents = function (date) {
           return [{text: 'Bob', color: 'boarding', id: 'ABCDEFG'}];
         }
+
+        $scope.formDisplay = {val: true};
+
       }
     ]);
