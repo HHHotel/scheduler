@@ -25,6 +25,8 @@ function createWindow () {
     icon: 'client/images/web-app-icon.png'
   });
 
+  mainWindow.setMinimumSize(800, 600);
+
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'client/index.html'),

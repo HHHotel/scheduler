@@ -11,7 +11,9 @@ angular.module('scheduler').
       }
 
       $scope.maximize = function () {
-        BrowserWindow.getFocusedWindow().maximize();
+        let win = BrowserWindow.getFocusedWindow();
+        if (win.isMaximized()) win.unmaximize();
+        else win.maximize();
       }
 
       $scope.close = function () {

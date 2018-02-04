@@ -13,9 +13,13 @@
 
     <!-- Imports  -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 
     <!-- Main -->
     <script src ="js/main.js"></script>
+
+    <!-- Services -->
+    <script src="js/services/ServerInterface.service.js"></script>
 
     <!-- Controllers  -->
     <script src="js/controllers/titlebar.controller.js"></script>
@@ -24,10 +28,6 @@
 
     <!-- Objects -->
     <script src="js/objects/week.js"></script>
-    <script src="js/objects/boarding.js"></script>
-    <script src="js/objects/daycare.js"></script>
-    <script src="js/objects/sevent.js"></script>
-    <script src="js/objects/dog.js"></script>
 
     <!-- Stylesheets -->
     <link rel = "stylesheet" href = "css/style.css" />
@@ -57,7 +57,7 @@
 
       </div>
 
-      <div class = "add-btn">
+      <div class = "add-btn" ng-click = "formDisplay.val = true">
         <svg xmlns="http://www.w3.org/2000/svg"
           transform="translate(12, 12)" width="24" height="24" viewBox="0 0 24 24">
           <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
