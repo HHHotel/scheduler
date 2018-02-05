@@ -2,19 +2,19 @@
 
 angular
   .module('scheduler')
-    .factory('ServerInterface', [
+    .factory('Scheduler', [
       'socket',
       function (socket) {
 
         let self = {};
 
-        let storage = {
-          days: [],
+        self.week = [];
 
-
+        self.queryServer = function (sDate) {
+          socket.emit('getevents', sDate, function (respWeek) {
+            self.week = respWeek;
+          });
         }
-
-
 
         socket.on('load', function (data) {
           // storage.load(data);

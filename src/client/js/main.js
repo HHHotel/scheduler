@@ -1,8 +1,8 @@
 /* eslint-disable */
 
-angular.module('scheduler', [])
+angular.module('scheduler', ['ngRoute'])
   .factory('socket', function ($rootScope) {
-    var socket = io('http://localhost:8000');
+    var socket = io('http://localhost:8080');
     return {
       on: function (eventName, callback) {
         socket.on(eventName, function () {

@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 
-<html ng-app = "scheduler">
+<html ng-app = "HHH.Scheduler.App">
   <head>
     <title>HHH Scheduler</title>
 
     <!-- Meta Data -->
     <link rel="icon" href = "images/web-app-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="apple-touch-icon" href="images/web-app-icon-white.png">
+
+    <!-- Stylesheets -->
+    <link rel = "stylesheet" href = "css/style.css" />
+    <link rel = "stylesheet" href = "css/form-style.css" />
+    <link rel = "stylesheet" href = "css/titlebar.css" />
+
+  </head>
+
+  <body ng-controller = "bodyCtrl">
+
+    <!-- Title Bar with close buttons -->
+    <ng-include src = "'titlebar.html'"></ng-include>
+
+    <div class = "ui" ng-view></div>
 
     <!-- Imports  -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
@@ -29,59 +40,6 @@
     <!-- Objects -->
     <script src="js/objects/week.js"></script>
 
-    <!-- Stylesheets -->
-    <link rel = "stylesheet" href = "css/style.css" />
-    <link rel = "stylesheet" href = "css/form-style.css" />
-    <link rel = "stylesheet" href = "css/titlebar.css" />
-
-  </head>
-
-  <body>
-
-    <!-- Title Bar with close buttons -->
-    <ng-include src = "'views/titlebar.html'"></ng-include>
-
-    <div ng-controller = "schedCtrl" class = "app-wrapper">
-
-      <div class = "header"> <!-- App Header -->
-        <div class = "menu-btn">
-          <span class = "hand">Menu</span>
-        </div>
-
-        <h1>{{week.toString()}}</h1>
-
-        <div class = "week-scroller">
-          <span ng-click = "week.prevWeek()" class = "prev-week hand">Prev</span>
-          <span ng-click = "week.nextWeek()" class = "next-week hand">Next</span>
-        </div>
-
-      </div>
-
-      <div class = "add-btn" ng-click = "formDisplay.val = true">
-        <svg xmlns="http://www.w3.org/2000/svg"
-          transform="translate(12, 12)" width="24" height="24" viewBox="0 0 24 24">
-          <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
-        </svg>
-      </div>
-
-      <div class = "content"> <!-- Content Wrapper -->
-
-        <div class = "week">
-          <div ng-repeat = "day in week.days" ng-init = "events = getEvents(day)" class = "day">
-            <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
-            <div ng-repeat = "event in events" class = "dog-list">
-              <p class = "{{event.color}}" id = "{{event.id}}">{{event.text}}</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class = "forms" ng-show = "formDisplay.val"> <!-- Forms  -->
-        <ng-include src = "'views/new-dog-form.html'"></ng-include>
-      </div>
-
-    </div>
 
   </body>
 
