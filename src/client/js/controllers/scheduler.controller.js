@@ -5,12 +5,6 @@ angular.module('scheduler').
       '$scope',
       'ServerInterface',
       function ($scope, ServerInterface) {
-        $scope.week = new Week();
-
-        ServerInterface.queryServer($scope.week.days[0]);
-
-
-        $scope.events = {list: ServerInterface.week};
 
         $scope.formDisplay = {val: false};
 
