@@ -22,7 +22,8 @@ function createWindow () {
     webPreferences: {
       experimentalFeatures: true
     },
-    icon: 'client/images/icon.png'
+    icon: 'client/images/icon.png',
+    backgroundColor: '#386351'
   });
 
   mainWindow.setMinimumSize(800, 600);
