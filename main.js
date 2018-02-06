@@ -27,6 +27,7 @@ function createWindow () {
   });
 
   mainWindow.setMinimumSize(800, 600);
+  mainWindow.maximize();
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
