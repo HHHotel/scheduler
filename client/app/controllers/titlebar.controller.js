@@ -2,8 +2,9 @@
 
 let BrowserWindow = require('electron').remote.BrowserWindow;
 
-angular.module('scheduler').
-  controller('titleBar', [
+angular
+  .module(DEFAULT.MAIN_PKG)
+  .controller('titleBar', [
     '$scope',
     function ($scope) {
       $scope.minimize = function () {

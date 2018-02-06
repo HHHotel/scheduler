@@ -21,11 +21,12 @@
 
 #titleBar h3 {
   display: inline;
-  padding: 4px 0 0 4px;
+  vertical-align: middle;
 }
 
 #titleBar img {
-  height: 1rem;
+  padding: .05rem 0;
+  height: 1.9rem;
 }
 
 #titleBar span {

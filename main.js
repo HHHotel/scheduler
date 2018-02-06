@@ -22,7 +22,7 @@ function createWindow () {
     webPreferences: {
       experimentalFeatures: true
     },
-    icon: 'client/images/web-app-icon.png'
+    icon: 'client/images/icon.png'
   });
 
   mainWindow.setMinimumSize(800, 600);

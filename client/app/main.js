@@ -1,8 +1,25 @@
 /* eslint-disable */
 
-angular.module('scheduler', ['ngRoute'])
+angular
+  .module(DEFAULT.MAIN_PKG, [
+
+    'ngRoute'
+
+  ])
+
+  .config(function ($routeProvider) {
+
+     // To-DO add login.html
+     $routeProvider
+     .when('/', {
+       templateUrl: 'views/main.html'
+     });
+
+   })
+
+
   .factory('socket', function ($rootScope) {
-    var socket = io('http://localhost:8080');
+    var socket = io(DEFAULT.API.BASE_URL);
     return {
       on: function (eventName, callback) {
         socket.on(eventName, function () {
@@ -23,4 +40,8 @@ angular.module('scheduler', ['ngRoute'])
         })
       }
     };
+  })
+
+  .controller('bodyCtrl', function () {
+
   });

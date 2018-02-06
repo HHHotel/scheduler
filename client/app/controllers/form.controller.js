@@ -1,13 +1,13 @@
 /* eslint-disable */
-let app = angular.module('scheduler');
+angular
+  .module(DEFAULT.MAIN_PKG)
+  .controller('formCtrl', [
+    '$scope',
+    function ($scope) {
+      $scope.event = {};
 
-app.controller('formCtrl', [
-  '$scope',
-  function ($scope) {
-    $scope.event = {};
-
-    $scope.closeForms = function () {
-      $scope.$parent.formDisplay.val = false;
+      $scope.closeForms = function () {
+        $scope.$parent.formDisplay.val = false;
+      }
     }
-  }
-]);
+  ]);

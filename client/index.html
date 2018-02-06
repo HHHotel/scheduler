@@ -18,27 +18,29 @@
   <body ng-controller = "bodyCtrl">
 
     <!-- Title Bar with close buttons -->
-    <ng-include src = "'titlebar.html'"></ng-include>
+    <ng-include src = "'views/titlebar.html'"></ng-include>
 
     <div class = "ui" ng-view></div>
 
     <!-- Imports  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 
     <!-- Main -->
-    <script src ="js/main.js"></script>
+    <script src ="app/default.js"></script>
+    <script src ="app/main.js"></script>
 
     <!-- Services -->
-    <script src="js/services/ServerInterface.service.js"></script>
+    <script src="app/services/Scheduler.service.js"></script>
 
     <!-- Controllers  -->
-    <script src="js/controllers/titlebar.controller.js"></script>
-    <script src="js/controllers/scheduler.controller.js"></script>
-    <script src="js/controllers/form.controller.js"></script>
+    <script src="app/controllers/titlebar.controller.js"></script>
+    <script src="app/controllers/scheduler.controller.js"></script>
+    <script src="app/controllers/form.controller.js"></script>
 
     <!-- Objects -->
-    <script src="js/objects/week.js"></script>
+    <script src="app/objects/week.js"></script>
 
 
   </body>

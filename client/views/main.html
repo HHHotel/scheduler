@@ -24,7 +24,7 @@
   <div class = "content"> <!-- Content Wrapper -->
 
     <div class = "week">
-      <div ng-repeat = "day in week.days" ng-init = "list = events.list[$index]" class = "day">
+      <div ng-repeat = "day in week.days" ng-init = "list = weekEvents[0][$index]" class = "day">
         <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
         <div class = "dog-list">
           <div ng-repeat = "event in list" class = "{{event.color}}" id = "{{event.id}}">{{event.text}}</div>
@@ -35,7 +35,7 @@
   </div>
 
   <div class = "forms" ng-show = "formDisplay.val"> <!-- Forms  -->
-    <ng-include src = "'new-dog-form.html'"></ng-include>
+    <ng-include src = "'views/new-dog-form.html'"></ng-include>
   </div>
 
 </div>
