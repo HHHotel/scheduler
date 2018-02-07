@@ -6,11 +6,17 @@ angular.module(DEFAULT.MAIN_PKG).
       '$Scheduler',
       function ($scope, $Scheduler) {
 
-        $scope.week = new Week();
+        $scope.week = $Scheduler.week;
 
-        $scope.weekEvents = [];
+        $scope.cache = $Scheduler.cache;
 
-        $Scheduler.attach($scope.weekEvents, 'load');
+        $scope.nextWeek = function () {
+          $Scheduler.nextWeek();
+        }
+
+        $scope.prevWeek = function () {
+          $Scheduler.prevWeek();
+        }
 
         $scope.formDisplay = {val: false};
 

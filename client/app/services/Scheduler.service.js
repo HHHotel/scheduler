@@ -3,9 +3,9 @@
 angular
   .module(DEFAULT.MAIN_PKG)
     .factory('$Scheduler', [
-      'socket',
-      '$q',
-      function (socket, $q) {
+      'Socket',
+      'Week',
+      function (Socket, Week) {
 
       // // Wrap the socket requests
       //  function wrap (fn) {
@@ -16,15 +16,36 @@ angular
 
        class SchedulerService {
 
-          constructor (socket) {
+          constructor (Socket, Week) {
 
-            this.socket = socket;
+            let self = this;
 
-            this.cache = {
+            self.socket = Socket;
+
+            self.week = Week;
+
+            self.cache = {
               events: []
             }
 
-            this.load(new Date('2/4/2018'));
+            self.socket.on('load', function (data) {
+
+              self.cache.events = data;
+              // console.log(self.cache.events);
+
+            });
+
+          }
+
+          nextWeek () {
+            this.week.nextWeek();
+            this.socket.emit('week.change', this.week.days[0]);
+
+          }
+
+          prevWeek () {
+            this.week.prevWeek();
+            this.socket.emit('week.change', this.week.days[0]);
 
           }
 
@@ -44,42 +65,13 @@ angular
 
           }
 
-          load(sDate) {
+          getDayEvents(i) {
 
-            let self = this;
-
-            self.socket.emit('getevents', sDate, function (response) {
-
-              console.log(response);
-
-              self.cache.events = response;
-
-            });
+            return this.cache.events[i];
 
           }
-
-          getWeekEvents(sDate) {
-
-            return this.cache.events;
-
-          }
-
-          attach (sto, evt) {
-
-            this.socket.on(evt, function (res) {
-
-              console.log(res);
-              sto.push(res);
-
-            })
-
-          }
-
-
-
-
         }
 
-        return new SchedulerService(socket);
+        return new SchedulerService(Socket, Week);
 
     }]);

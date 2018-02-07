@@ -8,8 +8,8 @@
     <h1>{{week.toString()}}</h1>
 
     <div class = "week-scroller">
-      <span ng-click = "week.prevWeek()" class = "prev-week hand">Prev</span>
-      <span ng-click = "week.nextWeek()" class = "next-week hand">Next</span>
+      <span ng-click = "prevWeek()" class = "prev-week hand">Prev</span>
+      <span ng-click = "nextWeek()" class = "next-week hand">Next</span>
     </div>
 
   </div>
@@ -24,10 +24,10 @@
   <div class = "content"> <!-- Content Wrapper -->
 
     <div class = "week">
-      <div ng-repeat = "day in week.days" ng-init = "list = weekEvents[0][$index]" class = "day">
+      <div ng-repeat = "day in week.days" class = "day">
         <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
         <div class = "dog-list">
-          <div ng-repeat = "event in list" class = "{{event.color}}" id = "{{event.id}}">{{event.text}}</div>
+          <div ng-repeat = "event in cache.events[$index]" class = "{{event.color}}" id = "{{event.id}}">{{event.text}}</div>
         </div>
       </div>
     </div>
