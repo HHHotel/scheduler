@@ -146,8 +146,9 @@ html {
   color: blue;
   order: 3;
 }
+
 .arrivals::after {
-  content: ' - Arrives';
+  content: '- Arrives';
 }
 
 .departures {
@@ -155,7 +156,7 @@ html {
   order: 4;
 }
 .departures::after {
-  content: ' - Leaves';
+  content: '- Leaves';
 }
 
 .boarding {

@@ -25,7 +25,8 @@ angular
             self.week = Week;
 
             self.cache = {
-              events: []
+              events: [],
+              queriedEvents: []
             }
 
             self.socket.on('load', function (data) {
@@ -49,11 +50,13 @@ angular
 
           }
 
-          pushEvent(evt) {
+          addEvent(evt) {
 
             let self = this;
 
-            self.socket.emit('push', evt);
+            self.socket.emit('event.new', evt, function (res) {
+              console.log(res);
+            });
 
           }
 
@@ -61,13 +64,7 @@ angular
 
             let self = this;
 
-            self.socket.emit('remove', evtID);
-
-          }
-
-          getDayEvents(i) {
-
-            return this.cache.events[i];
+            self.socket.emit('event.remove', evtID);
 
           }
         }

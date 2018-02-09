@@ -1,0 +1,17 @@
+<div class = "form-wrapper" ng-controller = "formCtrl" ng-click = "$event.stopPropagation();">
+  <div class = "form-heading">
+    <h3>New Dog</h3>
+    <div ng-click = "closeForms()" class = "hand"><svg name="TitleBarClose" width="12" height="12" viewBox="0 0 12 12"><polygon fill="#ffffff" fill-rule="evenodd" points="11 1.576 6.583 6 11 10.424 10.424 11 6 6.583 1.576 11 1 10.424 5.417 6 1 1.576 1.576 1 6 5.417 10.424 1"></polygon></svg></div>
+  </div>
+  <form>
+    Name <br />
+    <input ng-model = "event.name" type = "text" name = "name" />
+    <br />
+    Client Name <br />
+    <input ng-model = "event.cName" type = "text" name = "cName"/>
+    <br />
+    <button class = "hand" ng-click = "submit()" type = "button">Submit</button>
+    <h1>{{event.name + ' ' + event.cName}}</h1>
+  </form>"
+
+</div>

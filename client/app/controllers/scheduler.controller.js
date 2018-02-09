@@ -4,7 +4,8 @@ angular.module(DEFAULT.MAIN_PKG).
   controller('schedCtrl', [
       '$scope',
       '$Scheduler',
-      function ($scope, $Scheduler) {
+      '$form',
+      function ($scope, $Scheduler, $form) {
 
         $scope.week = $Scheduler.week;
 
@@ -18,7 +19,7 @@ angular.module(DEFAULT.MAIN_PKG).
           $Scheduler.prevWeek();
         }
 
-        $scope.formDisplay = {val: false};
+        $scope.forms = $form.forms;
 
       }
     ]);

@@ -32,6 +32,39 @@ form input {
   width: 100%;
 }
 
+form button {
+  margin: 0px 35%;
+  width: 30%;
+}
+
+button {
+  padding: .5rem;
+
+  background-color: var(--background-dark);
+  color: var(--font-light);
+
+  border: none;
+  border-radius: .2rem .5rem;
+
+  box-shadow: 3px 2px 5px var(--shadow)
+  , -2px 2px 5px var(--shadow);
+
+  transition-duration: .5s;
+}
+
+button:focus {
+  outline: 0px;
+}
+
+button:active {
+  opacity: .7;
+}
+
+button:hover {
+  box-shadow: 3px 2px 20px var(--shadow)
+  , -2px 2px 20px var(--shadow);
+}
+
 .form-heading {
   background: var(--background-ex-dark);
   color: var(--font-light);

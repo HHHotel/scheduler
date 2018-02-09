@@ -3,11 +3,16 @@ angular
   .module(DEFAULT.MAIN_PKG)
   .controller('formCtrl', [
     '$scope',
-    function ($scope) {
+    '$form',
+    function ($scope, $form) {
       $scope.event = {};
 
-      $scope.closeForms = function () {
-        $scope.$parent.formDisplay.val = false;
+      $scope.submit = function () {
+        $form.submit($scope.event, 'Dog');
+        $scope.event = {};
       }
+
+      $scope.closeForms = $form.closeForms;
+
     }
   ]);

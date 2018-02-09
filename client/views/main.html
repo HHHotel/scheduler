@@ -14,12 +14,12 @@
 
   </div>
 
-  <div class = "add-btn hand" ng-click = "formDisplay.val = true">
+  <button class = "add-btn hand" ng-click = "forms.open = true">
     <svg xmlns="http://www.w3.org/2000/svg"
-      style = "transform: translate(12px, 12px)" width="24" height="24" viewBox="0 0 24 24">
+      style = "transform: translate(0px, 1px)" width="24" height="24" viewBox="0 0 24 24">
       <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
     </svg>
-  </div>
+  </button>
 
   <div class = "content"> <!-- Content Wrapper -->
 
@@ -27,15 +27,15 @@
       <div ng-repeat = "day in week.days" class = "day">
         <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
         <div class = "dog-list">
-          <div ng-repeat = "event in cache.events[$index]" class = "{{event.color}}" id = "{{event.id}}">{{event.text}}</div>
+          <pre ng-repeat = "event in cache.events[$index]" class = "{{event.color}}" id = "{{event.id}}">{{event.text}}</pre>
         </div>
       </div>
     </div>
 
   </div>
 
-  <div class = "forms" ng-show = "formDisplay.val"> <!-- Forms  -->
-    <ng-include src = "'views/new-dog-form.html'"></ng-include>
+  <div class = "forms" ng-show = "forms.open"> <!-- Forms  -->
+    <ng-include src = "'views/widgets/new-dog-form.html'"></ng-include>
   </div>
 
 </div>
