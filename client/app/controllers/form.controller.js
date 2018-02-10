@@ -12,7 +12,10 @@ angular
         $scope.event = {};
       }
 
-      $scope.closeForms = $form.closeForms;
+      $scope.closeForms = function () {
+        $form.closeForms();
+        $scope.event = {};
+      }
 
     }
   ]);
