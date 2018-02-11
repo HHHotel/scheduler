@@ -35,7 +35,8 @@
   </div>
 
   <div class = "forms" ng-show = "forms.open"> <!-- Forms  -->
-    <ng-include src = "'views/widgets/new-dog-form.html'"></ng-include>
+    <ng-include ng-show = "forms.index === 0" src = "'views/widgets/new-dog-form.html'"></ng-include>
+    <ng-include ng-show = "forms.index === 1" src = "'views/widgets/new-boarding-form.html'"></ng-include>
   </div>
 
 </div>

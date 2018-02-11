@@ -2,7 +2,7 @@
   position: fixed;
   z-index: 10;
 
-  top: 6rem;
+  top: 3.5rem;
   left: 30%;
 
   width: 40%;
@@ -12,7 +12,6 @@
 form {
   background: var(--background-light);
   padding: 1rem;
-
 }
 
 form input {
@@ -30,6 +29,36 @@ form input {
   margin: .5rem 0 1rem;
   padding: .5rem;
   width: 100%;
+}
+
+.dog-search {
+  padding: .5rem;
+  height: 8rem;
+  overflow-y: scroll;
+}
+
+.dog-search > * {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.dog-search button {
+  margin: .25rem 0;
+  float: right;
+}
+
+.highlighted {
+  background-color: #38635155;
+}
+
+.clearfix {
+  overflow: auto;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
 
 form button {
@@ -74,16 +103,14 @@ button:hover {
 }
 
 .form-heading div {
-  background: #444b;
   color: var(--font-light);
 
-  font-weight: 900;
-
-  border-radius: 5px;
+  height: 2.3rem;
+  width: 2.3rem;
 
   position: fixed;
-  right: calc(30% - 1.8rem);
-  top: calc(6rem - 1.5rem);
+  right: 30%;
+  top: 3.5rem;
 
   padding: .25rem .4rem;
 }

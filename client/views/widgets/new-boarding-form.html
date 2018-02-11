@@ -1,4 +1,6 @@
-<div class = "form-wrapper" ng-controller = "formCtrl" ng-click = "$event.stopPropagation();">
+<div class = "form-wrapper" ng-controller = "formCtrl"
+ng-click = "$event.stopPropagation();"
+ng-init = "bookingType = 'boarding'">
 
   <div class = "form-heading">
 
@@ -12,13 +14,28 @@
 
     Dog Name <br />
 
-    <ng-include src = 'views/widgets/dog-search.html'></ng-include>
+    <input ng-keydown = "findEvents()" ng-model = "form.dogName" type = "text"/>
+
+    <div class = "dog-search">
+      <div ng-repeat = "event in cache.searchEvents | filter : {name: '!!'} | limitTo: 7"
+      ng-class = "{'highlighted': form.id === event.ID}"
+      class = "clearfix">
+        {{event.name + ' ' + event.cName}}
+        <button ng-click = "cacheID($event, event.ID)" class = "hand" type = 'button'>select</button>
+        <br />
+      </div>
+
+    </div>
 
     <br />
 
-    <button ng-click = "submit()" type = "button">Submit</button>
+    Start
+    <input ng-model = "form.start" type = "datetime-local" />
 
-    <h1>{{event.name + ' ' + event.cName}}</h1>
+    End
+    <input ng-model = "form.end" type = "datetime-local" />
+
+    <button ng-click = "addBooking()" type = "button">Submit</button>
 
   </form>
 

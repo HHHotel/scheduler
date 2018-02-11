@@ -13,13 +13,18 @@ angular
           this.$scheduler = scheduler;
 
           this.forms = {
-            open: false
+            open: false,
+            index: 1
           };
 
         }
 
-        submit (evt, type) {
+        addEvent (evt, type) {
           this.$scheduler.addEvent({obj: evt, type: type});
+        }
+
+        addBooking (booking) {
+          this.$scheduler.addBooking(booking);
         }
 
         closeForms () {
