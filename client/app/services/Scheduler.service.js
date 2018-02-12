@@ -54,11 +54,18 @@ angular
 
           }
 
-          addEvent(evt) {
+          jumpToWeek (date) {
+            this.week.advanceToDate(date);
+            this.socket.emit('week.change', this.week.days[0]);
+          }
+
+          addEvent(evt, type) {
 
             let self = this;
 
-            self.socket.emit('events.new', evt, function (res) {
+            let data = {obj: evt, type: type}
+
+            self.socket.emit('events.new', data, function (res) {
               console.log(res);
             });
 
@@ -67,8 +74,12 @@ angular
           addBooking(booking) {
             let self = this;
 
-            booking.start = booking.start.toString();
-            booking.end = booking.end.toString();
+            if (booking.start) {
+              booking.start = booking.start.toString();
+              booking.end = booking.end.toString();
+            } else if (booking.date) {
+              booking.date = booking.date.toString();
+            }
 
             self.socket.emit('events.addbooking', booking, function (res) {
               console.log(res);

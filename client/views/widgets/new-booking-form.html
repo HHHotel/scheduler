@@ -1,0 +1,58 @@
+<div class = "form-wrapper" ng-click = "$event.stopPropagation();">
+
+  <div class = "sidebar-sub-heading">
+
+    <h3>New Booking</h3>
+
+  </div>
+
+  <form class = "sidebar-panel"
+  ng-init = "booking.type = 'boarding'">
+
+  <div class = "booking-type-wrapper">
+    <button ng-click = "booking.type = 'boarding'" id = "booking-type-btn">Boarding</button>
+    <button ng-click = "booking.type = 'daycare'" id = "booking-type-btn">Daycare</button>
+  </div>
+
+    <br />
+
+    Dog Name <br />
+
+    <input ng-keyup = "findEvents(form.dogName)" ng-model = "form.dogName" type = "text"/>
+
+    <div class = "search">
+      <div ng-repeat = "event in cache.searchEvents | filter : {name: '!!'} | limitTo: 7"
+      ng-class = "{'highlighted': form.id === event.ID}"
+      class = "clearfix">
+        {{event.name + ' ' + event.cName}}
+        <button ng-click = "form.id = event.ID" class = "hand" type = 'button'>select</button>
+        <br />
+      </div>
+
+    </div>
+
+    <br />
+
+    <div ng-show = "booking.type === 'boarding'">
+
+      Start
+      <input ng-model = "form.start" type = "datetime-local" />
+
+      End
+      <input ng-model = "form.end" type = "datetime-local" />
+
+    </div>
+
+    <div ng-show = "booking.type === 'daycare'">
+
+      Date
+      <input ng-model = "form.date" type = "datetime-local" />
+
+    </div>
+
+
+    <button ng-click = "addBooking()" type = "button">Submit</button>
+
+  </form>
+
+</div>

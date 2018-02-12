@@ -1,42 +1,95 @@
 <div ng-controller = "schedCtrl" class = "app-wrapper">
 
-  <div class = "header"> <!-- App Header -->
-    <div class = "menu-btn">
-      <span class = "hand">Menu</span>
-    </div>
+  <div ng-show = "sidebar.open" class = "sidebar-wrapper" ng-controller = "sidebarCtrl">
 
-    <h1>{{week.toString()}}</h1>
+    <div class = "sidebar-header">
 
-    <div class = "week-scroller">
-      <span ng-click = "prevWeek()" class = "prev-week hand">Prev</span>
-      <span ng-click = "nextWeek()" class = "next-week hand">Next</span>
-    </div>
-
-  </div>
-
-  <button class = "add-btn hand" ng-click = "forms.open = true">
-    <svg xmlns="http://www.w3.org/2000/svg"
-      style = "transform: translate(0px, 1px)" width="24" height="24" viewBox="0 0 24 24">
-      <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
-    </svg>
-  </button>
-
-  <div class = "content"> <!-- Content Wrapper -->
-
-    <div class = "week">
-      <div ng-repeat = "day in week.days" class = "day">
-        <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
-        <div class = "dog-list">
-          <pre ng-repeat = "event in cache.events[$index]" class = "{{event.color}}" id = "{{event.id}}">{{event.text}}</pre>
-        </div>
+      <div ng-click = "index = 0" class = "sidebar-button">
+        <svg xmlns="http://www.w3.org/2000/svg"
+          fill = "black"
+          width="24" height="24" viewBox="0 0 24 24">
+          <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
+        </svg>
       </div>
+
+      <div ng-click = "index = 1" class = "sidebar-button">
+          <img src = "images/calender-icon.png"/>
+      </div>
+
+      <div ng-click = "index = 3" class = "sidebar-button">
+        <svg xmlns="http://www.w3.org/2000/svg"
+        width="12" height="12" viewBox="0 0 12 12">
+          <g stroke-width="2" stroke="black" fill="none">
+            <path d="M11.29 11.71l-4-4"/>
+            <circle cx="5" cy="5" r="4"/>
+          </g>
+        </svg>
+      </div>
+
+      <div ng-click = "index = 4" class = "sidebar-button">
+        <svg xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1" x="0px" y="0px" width="36px" height="36px"
+        viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve"
+        fill = "black">
+          <g id="Icons">
+          	<g id="arched-arrow-ltr">
+          		<path id="arrow_3_" style="fill-rule:evenodd;clip-rule:evenodd;" d="M19.925,14.937l-2.391-6.901l-1.48,2.329    c-0.964-0.845-2.699-1.85-5.513-1.823c-4.887,0.046-6.524,4.244-6.524,4.244s2.753-2.639,6.925-1.949    c1.729,0.286,3.007,1.206,3.675,1.791l-1.474,2.319L19.925,14.937z"/>
+          	</g>
+          </g>
+          <g id="Guides" style="display:none;"></g>
+        </svg>
+      </div>
+
+
     </div>
+
+    <ng-include ng-show = "index === 0" src = "'views/widgets/new-dog-form.html'"></ng-include>
+    <ng-include ng-show = "index === 1" src = "'views/widgets/new-booking-form.html'"></ng-include>
+    <ng-include ng-show = "index === 3" src = "'views/widgets/event-search.html'"></ng-include>
+    <ng-include ng-show = "index === 4" src = "'views/widgets/week-jump.html'"></ng-include>
+
+
 
   </div>
 
-  <div class = "forms" ng-show = "forms.open"> <!-- Forms  -->
-    <ng-include ng-show = "forms.index === 0" src = "'views/widgets/new-dog-form.html'"></ng-include>
-    <ng-include ng-show = "forms.index === 1" src = "'views/widgets/new-boarding-form.html'"></ng-include>
+  <div class = "main-content">
+
+      <div class = "header"> <!-- App Header -->
+        <div ng-click = "toggleSidebar()" class = "menu-btn">
+          <span class = "hand">Sidebar</span>
+        </div>
+
+        <h1>{{week.toString()}}</h1>
+
+        <div class = "week-scroller">
+          <span ng-click = "prevWeek()" class = "prev-week hand">Prev</span>
+          <span ng-click = "nextWeek()" class = "next-week hand">Next</span>
+        </div>
+
+      </div>
+
+      <div class = "week-wrapper"> <!-- Week Wrapper -->
+
+        <div class = "week">
+          <div ng-repeat = "day in week.days" class = "day">
+            <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
+            <div class = "dog-list">
+              <pre ng-repeat = "event in cache.events[$index]" class = "{{event.color}}" id = "{{event.id}}">{{event.text}}</pre>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Plus svg -->
+
+      <!-- <svg xmlns="http://www.w3.org/2000/svg"
+        style = "transform: translate(0px, 1px)" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
+      </svg> -->
+
   </div>
 
 </div>

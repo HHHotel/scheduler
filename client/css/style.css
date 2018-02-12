@@ -23,7 +23,7 @@
   box-sizing: border-box;
   font-family: 'Poppins';
 
-  -webkit-user-select: none; /* Safari */
+  -webkit-user-select: none;
   user-select: none;
   cursor: default;
 }
@@ -34,60 +34,67 @@ html {
   overflow: hidden;
 }
 
+input {
+  cursor: text;
+  user-select: all;
+
+  background: var(--input-background-color);
+
+  border: none;
+  border-bottom: 2px solid var(--background-dark);
+  border-radius: 2px;
+
+  box-shadow: 1px 1px 3px var(--shadow);
+
+  margin: .5rem 0 1rem;
+  padding: .5rem;
+  width: 100%;
+}
+
+
+button {
+  padding: .5rem;
+
+  background-color: var(--background-dark);
+  color: var(--font-light);
+
+  border: none;
+  border-radius: .2rem .5rem;
+
+  box-shadow: 3px 2px 5px var(--shadow)
+  , -2px 2px 5px var(--shadow);
+
+  transition-duration: .5s;
+}
+
+button:focus {
+  outline: 0px;
+}
+
+button:active {
+  opacity: .7;
+}
+
+button:hover {
+  box-shadow: 3px 2px 20px var(--shadow)
+  , -2px 2px 20px var(--shadow);
+}
+
+
 .hand,
 .hand * {
   user-select: none;
   cursor: pointer;
 }
 
-.app-wrapper {
-  margin-top: 2rem;
+.clearfix {
+  overflow: auto;
 }
 
-.header {
-  height: 3rem;
-
-  color: var(--font-light);
-  background-color: var(--background-dark);
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.header div {
-  height: 100%;
-}
-
-.header * {
-  line-height: 3rem;
-  vertical-align: middle;
-
-  padding: 0px 5px;
-}
-
-.add-btn {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  height: 48px;
-  width: 48px;
-
-  background: var(--background-dark);
-  fill: var(--font-light);
-
-  border-radius: 100%;
-
-}
-
-.add-btn:hover {
-  fill: var(--input-background-color);
-}
-
-.content {
-  height: calc(100vh - 5rem);
-  overflow-y: scroll;
-  overflow-x: hidden;
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
 
 *::-webkit-scrollbar {
@@ -106,92 +113,19 @@ html {
   box-shadow: 3px 0px 5px var(--shadow);
 }
 
-
-.day {
-  height: calc(100vh - 6rem);
-  box-shadow: 3px 3px 5px var(--shadow);
-
-  background-color: var(--background-ex-light);
+.app-wrapper {
+  margin-top: 2rem;
 }
 
-.week {
-  width: 95%;
-  margin: .25rem auto;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: .5rem;
+.app-wrapper > * {
+  float: left;
 }
 
-.day-title {
-  text-align: center;
+.main-content {
+  width: 70%;
 }
 
-.dog-list {
-  display: flex;
-  flex-flow: column wrap;
-  height: 95%;
-  width: 100%;
-  overflow-x: scroll;
-}
-
-.dog-list * {
-  color: black;
-  order: 10;
-  display: inline-flex;
-  margin: 0 4px;
-}
-
-.arrivals {
-  color: blue;
-  order: 3;
-}
-
-.arrivals::after {
-  content: '- Arrives';
-}
-
-.departures {
-  color: red;
-  order: 4;
-}
-.departures::after {
-  content: '- Leaves';
-}
-
-.boarding {
-  order: 1;
-  color: maroon;
-}
-
-.daycare {
-  order: 3;
-  color: hotpink;
-}
-
-.grooming {
-  order: 5;
-  color: green;
-}
-.fosters {
-  color: darkblue;
-  order: 2;
-}
-
-.general {
-  order: 5;
-  color: darkslategrey;
-}
-
-.forms {
-  position: fixed;
-  top: 2rem;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
-
-  overflow: visible;
-
-  background-color: var(--cover-color);
+.sidebar-wrapper {
+  width: 30%;
+  height: calc(100vh - 5rem);
 }

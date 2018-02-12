@@ -1,0 +1,24 @@
+<div class = "sidebar-sub-heading">
+
+  <h3>Search Events</h3>
+
+</div>
+
+<div class = "sidebar-panel" ng-click = "$event.stopPropagation();" ng-init = "search = {}">
+
+  <input ng-keydown = "findEvents(search.input)" ng-model = "search.input" type = "text"/>
+
+  <div class = "search">
+    <div ng-repeat = "event in cache.searchEvents | limitTo: 20"
+    class = "clearfix">
+      {{event.name || event.text + ' ' + event.cName}}
+
+      <!-- TODO add click event to do things like delete and edit event -->
+      <button class = "hand" type = 'button'>...</button>
+      <br />
+    </div>
+
+  </div>
+
+
+</div>

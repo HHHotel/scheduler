@@ -4,8 +4,11 @@ angular.module(DEFAULT.MAIN_PKG).
   controller('schedCtrl', [
       '$scope',
       '$Scheduler',
-      '$form',
-      function ($scope, $Scheduler, $form) {
+      function ($scope, $Scheduler) {
+
+        $scope.sidebar = {
+          open: true
+        };
 
         $scope.week = $Scheduler.week;
 
@@ -19,7 +22,9 @@ angular.module(DEFAULT.MAIN_PKG).
           $Scheduler.prevWeek();
         }
 
-        $scope.forms = $form.forms;
+        $scope.toggleSidebar = function () {
+
+        }
 
       }
     ]);
