@@ -7,7 +7,7 @@ angular.module(DEFAULT.MAIN_PKG).
       function ($scope, $Scheduler) {
 
         $scope.sidebar = {
-          open: true
+          open: false
         };
 
         $scope.week = $Scheduler.week;
@@ -23,7 +23,7 @@ angular.module(DEFAULT.MAIN_PKG).
         }
 
         $scope.toggleSidebar = function () {
-
+          $scope.sidebar.open = !$scope.sidebar.open;
         }
 
       }

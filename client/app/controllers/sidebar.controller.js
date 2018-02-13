@@ -18,7 +18,6 @@ angular
       }
 
       $scope.addBooking = function () {
-        console.log($scope.form)
         $Scheduler.addBooking($scope.form);
         $scope.form = {};
         $Scheduler.cache.resEvents = $scope.findEvents();

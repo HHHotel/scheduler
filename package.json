@@ -1,6 +1,6 @@
 {
   "name": "electron-scheduler-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Scheduling App",
   "main": "main.js",
   "scripts": {

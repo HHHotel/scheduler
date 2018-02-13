@@ -125,6 +125,10 @@ button:hover {
   width: 70%;
 }
 
+.sidebar-closed {
+  width: 100%;
+}
+
 .sidebar-wrapper {
   width: 30%;
   height: calc(100vh - 5rem);

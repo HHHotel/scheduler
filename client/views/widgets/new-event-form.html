@@ -1,0 +1,22 @@
+<div class = "sidebar-sub-heading">
+  <h3>New Event</h3>
+</div>
+
+<form class = "sidebar-panel"
+ng-click = "$event.stopPropagation();"
+ng-init = "form.type = 'SEvent'">
+  Text <br />
+
+  <input ng-model = "form.event.text" type = "text"/>
+
+  <br />
+  Date <br />
+
+  <input ng-model = "form.event.date" type = "datetime-local"/>
+
+  <br />
+  <button class = "hand" ng-click = "addEvent()" type = "button">Submit</button>
+
+</form>
+
+</div>
