@@ -48,10 +48,10 @@
 
 .dog-list {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   height: 95%;
   width: 100%;
-  overflow-x: scroll;
+  overflow: auto;
 }
 
 .dog-list * {
@@ -84,12 +84,12 @@
 }
 
 .daycare {
-  order: 3;
+  order: 5;
   color: hotpink;
 }
 
 .grooming {
-  order: 5;
+  order: 9;
   color: green;
 }
 .fosters {
@@ -98,6 +98,6 @@
 }
 
 .general {
-  order: 5;
+  order: 10;
   color: darkslategrey;
 }

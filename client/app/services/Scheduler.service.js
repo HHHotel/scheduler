@@ -96,7 +96,9 @@ angular
 
             let self = this;
 
-            self.socket.emit('events.remove', evtID);
+            self.socket.emit('events.remove', evtID, function (res) {
+              console.log(res);
+            });
 
           }
         }
