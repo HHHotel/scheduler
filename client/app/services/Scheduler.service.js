@@ -81,7 +81,7 @@ angular
               booking.date = booking.date.toString();
             }
 
-            self.socket.emit('events.addbooking', booking, function (res) {
+            self.socket.emit('events.new.booking', booking, function (res) {
               console.log(res);
             })
           }

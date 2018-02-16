@@ -5,14 +5,25 @@
 <form class = "sidebar-panel"
 ng-click = "$event.stopPropagation();"
 ng-init = "form.type = 'SEvent'">
-  Text <br />
+
+  Text
+  <br />
 
   <input ng-model = "form.event.text" type = "text"/>
 
   <br />
-  Date <br />
+  Date
+  <br />
 
   <input ng-model = "form.event.date" type = "datetime-local"/>
+
+  <br />
+  Event Type
+  <br />
+  <select ng-model = "form.event.color">
+    <option>grooming</option>
+    <option>general</option>
+  </select>
 
   <br />
   <button class = "hand" ng-click = "addEvent()" type = "button">Submit</button>
