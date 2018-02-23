@@ -10,11 +10,5 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "1.7.11"
-  },
-  "dependencies": {
-    "btford.socket-io": "",
-    "jquery": "^3.3.1",
-    "socket.io": "^2.0.4",
-    "socket.io-client": "^2.0.4"
   }
 }
