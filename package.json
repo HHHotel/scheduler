@@ -8,7 +8,14 @@
   },
   "author": "Matt Rochford",
   "license": "CC0-1.0",
+  "dependencies": {
+    "angular": "^1.6.9",
+    "angular-route": "^1.6.9",
+    "electron": "^1.7.11",
+    "socket.io": "^2.0.4"
+  },
   "devDependencies": {
-    "electron": "1.7.11"
+    "eslint": "^4.18.2",
+    "eslint-config-google": "^0.9.1"
   }
 }

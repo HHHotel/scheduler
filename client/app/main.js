@@ -3,7 +3,7 @@
 angular
   .module(DEFAULT.MAIN_PKG, [
 
-    'ngRoute'
+    require('angular-route')
 
   ])
 
