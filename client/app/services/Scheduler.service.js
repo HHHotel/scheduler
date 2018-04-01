@@ -29,34 +29,26 @@ angular
               searchEvents: []
             }
 
-            self.socket.on('load', function (data) {
+            self.socket.on('update', function () {
 
-              self.cache.events = data;
-              // console.log(self.cache.events);
+              self.socket.emit('load', self.week.days[0], function (response) {
+                self.cache.events = response;
+              });
 
-            });
-
-            self.socket.on('events.find.response', function (res) {
-              self.cache.searchEvents = res;
             });
 
           }
 
           nextWeek () {
             this.week.nextWeek();
-            this.socket.emit('week.change', this.week.days[0]);
-
           }
 
           prevWeek () {
             this.week.prevWeek();
-            this.socket.emit('week.change', this.week.days[0]);
-
           }
 
           jumpToWeek (date) {
             this.week.advanceToDate(date);
-            this.socket.emit('week.change', this.week.days[0]);
           }
 
           addEvent(evt, type) {
@@ -65,9 +57,7 @@ angular
 
             let data = {obj: evt, type: type}
 
-            self.socket.emit('events.new', data, function (res) {
-              console.log(res);
-            });
+            self.socket.emit('events.new', data); 
 
           }
 
@@ -89,7 +79,9 @@ angular
           findEvents (eventText) {
             let self = this;
 
-            self.socket.emit('events.find', eventText);
+            self.socket.emit('events.find', eventText, function (response) {
+              self.cache.searchEvents = response;
+            });
           }
 
           removeEvent(evtID) {
