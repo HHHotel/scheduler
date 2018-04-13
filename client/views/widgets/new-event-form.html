@@ -3,24 +3,23 @@
 </div>
 
 <form class = "sidebar-panel"
-ng-click = "$event.stopPropagation();"
-ng-init = "form.type = 'SEvent'">
+ng-click = "$event.stopPropagation();">
 
   Text
   <br />
 
-  <input ng-model = "form.event.text" type = "text"/>
+  <input ng-model = "form.text" type = "text"/>
 
   <br />
   Date
   <br />
 
-  <input ng-model = "form.event.date" type = "datetime-local"/>
+  <input ng-model = "form.start" type = "datetime-local"/>
 
   <br />
   Event Type
   <br />
-  <select ng-model = "form.event.color">
+  <select ng-model = "form.type">
     <option>grooming</option>
     <option>general</option>
   </select>

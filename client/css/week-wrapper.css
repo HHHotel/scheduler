@@ -61,21 +61,21 @@
   margin: 0 4px;
 }
 
-.arrivals {
+.arriving {
   color: blue;
   order: 3;
 }
 
-.arrivals::after {
-  content: '- Arrives';
+.arriving::after {
+  content: ' - Arrives';
 }
 
-.departures {
+.departing {
   color: red;
   order: 4;
 }
-.departures::after {
-  content: '- Leaves';
+.departing::after {
+  content: ' - Leaves';
 }
 
 .boarding {

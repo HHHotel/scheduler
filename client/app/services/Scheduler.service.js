@@ -7,19 +7,12 @@ angular
       'Week',
       function (Socket, Week) {
 
-      // // Wrap the socket requests
-      //  function wrap (fn) {
-      //    return function () {
-      //      (fn || angular.noop).apply(self, arguments)
-      //    };
-      //  };
-
        class SchedulerService {
 
           constructor (Socket, Week) {
 
             let self = this;
-
+            
             self.socket = Socket;
 
             self.week = Week;
@@ -29,68 +22,60 @@ angular
               searchEvents: []
             }
 
+            self.load();
+
             self.socket.on('update', function () {
-
-              self.socket.emit('load', self.week.days[0], function (response) {
-                self.cache.events = response;
-              });
-
+              self.load();
             });
 
           }
 
+          load () {
+            let self = this;
+
+            self.socket.emit('load', self.week.days[0], function (response) {
+                self.cache.events = response;
+            });
+          }
+
           nextWeek () {
             this.week.nextWeek();
+            this.load();
           }
 
           prevWeek () {
             this.week.prevWeek();
+            this.load();
           }
 
           jumpToWeek (date) {
             this.week.advanceToDate(date);
+            this.load();
           }
 
-          addEvent(evt, type) {
+          addEvent(evt) {
 
             let self = this;
 
-            let data = {obj: evt, type: type}
+            self.socket.emit('add', evt); 
 
-            self.socket.emit('events.new', data); 
-
-          }
-
-          addBooking(booking) {
-            let self = this;
-
-            if (booking.start) {
-              booking.start = booking.start.toString();
-              booking.end = booking.end.toString();
-            } else if (booking.date) {
-              booking.date = booking.date.toString();
-            }
-
-            self.socket.emit('events.new.booking', booking, function (res) {
-              console.log(res);
-            })
           }
 
           findEvents (eventText) {
             let self = this;
 
-            self.socket.emit('events.find', eventText, function (response) {
+            self.socket.emit('find', eventText, function (response) {
               self.cache.searchEvents = response;
+              console.log(response);
             });
+
           }
 
           removeEvent(evtID) {
 
             let self = this;
 
-            self.socket.emit('events.remove', evtID, function (res) {
-              console.log(res);
-            });
+            self.socket.emit('remove_event', evtID);
 
           }
         }

@@ -6,12 +6,12 @@
 
 <div class = "sidebar-panel" ng-click = "$event.stopPropagation();" ng-init = "search = {}">
 
-  <input ng-keydown = "findEvents(search.input)" ng-model = "search.input" type = "text"/>
+  <input ng-change = "findEvents(search.input)" ng-model = "search.input" type = "text"/>
 
   <div class = "search">
     <div ng-repeat = "event in cache.searchEvents | limitTo: 20"
     class = "clearfix">
-      {{event.name || event.text + ' ' + event.cName}} <br />
+      {{event.dog_name + ' ' + event.client_name}} <br />
       {{getDate(event)}}
 
       <!-- TODO add click event to do things like delete and edit event -->

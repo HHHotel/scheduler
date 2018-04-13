@@ -81,7 +81,7 @@
           <div ng-repeat = "day in week.days" class = "day">
             <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
             <div class = "dog-list">
-              <pre ng-repeat = "event in cache.events[$index]" class = "{{event.color}}" id = "{{event.id}}">{{event.text}}</pre>
+              <pre ng-repeat = "event in cache.events[$index]" class = "{{event.type}}" id = "{{event.id}}">{{event.text}}</pre>
             </div>
           </div>
 

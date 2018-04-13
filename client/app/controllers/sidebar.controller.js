@@ -13,14 +13,10 @@ angular
       $scope.index = 0;
 
       $scope.addEvent = function () {
-        $Scheduler.addEvent($scope.form.event, $scope.form.type);
+        $Scheduler.addEvent($scope.form);
+        $Scheduler.findEvents();
         $scope.form = {};
-      }
-
-      $scope.addBooking = function () {
-        $Scheduler.addBooking($scope.form);
-        $scope.form = {};
-        $Scheduler.cache.resEvents = $scope.findEvents();
+        $Scheduler.cache.resEvents = [];
       }
 
       $scope.removeEvent = function (id) {
@@ -35,19 +31,19 @@ angular
         $Scheduler.jumpToWeek(date);
       }
 
-      $scope.getDate = function (event) {
-          // event.date ||
-          // event.bookings[event.bookings.length - 1].date ||
-          // event.bookings[event.bookings.length - 1].start + ' - ' + event.bookings[event.bookings.length - 1].end;
+      // $scope.getDate = function (event) {
+      //     // event.date ||
+      //     // event.bookings[event.bookings.length - 1].date ||
+      //     // event.bookings[event.bookings.length - 1].start + ' - ' + event.bookings[event.bookings.length - 1].end;
 
-          if (event.date) {return new Date(event.date).toDateString();}
+      //     if (event.date) {return new Date(event.date).toDateString();}
 
-          else if (event.bookings[event.bookings.length - 1]) {
-            let lastBooking = event.bookings[event.bookings.length - 1];
-            if (lastBooking.date) return new Date(lastBooking.date).toDateString();
-            else if (lastBooking.start) return new Date(lastBooking.start).toDateString() + ' - ' + new Date(lastBooking.end).toDateString();
-          }
-      }
+      //     else if (event.bookings[event.bookings.length - 1]) {
+      //       let lastBooking = event.bookings[event.bookings.length - 1];
+      //       if (lastBooking.date) return new Date(lastBooking.date).toDateString();
+      //       else if (lastBooking.start) return new Date(lastBooking.start).toDateString() + ' - ' + new Date(lastBooking.end).toDateString();
+      //     }
+      // }
 
 
     }
