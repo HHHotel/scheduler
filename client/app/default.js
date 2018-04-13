@@ -5,9 +5,8 @@ const DEFAULT = {
   MAIN_PKG: 'HHH.Scheduler.App',
 
   API: {
-    //BASE_URL: process.env.NODE_ENV !== 'DEVELOPMENT' ? "http://localhost:8080" : "http://localhost:8080"
-    //BASE_URL: 'https://happy-hound-server.herokuapp.com/'
-    BASE_URL: 'http://localhost:8080'
+    BASE_URL: 'https://happy-hound-server.herokuapp.com/'
+    // BASE_URL: 'http://localhost:8080'
   },
 
   PKG: function (suffix) {
