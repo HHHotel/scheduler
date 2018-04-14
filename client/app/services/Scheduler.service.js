@@ -15,6 +15,8 @@ angular
             
             self.socket = Socket;
 
+            self.socket.on('disconnect', () => console.log('Disconnected from the server'));
+
             self.week = Week;
 
             self.cache = {
@@ -66,7 +68,6 @@ angular
 
             self.socket.emit('find', eventText, function (response) {
               self.cache.searchEvents = response;
-              console.log(response);
             });
 
           }

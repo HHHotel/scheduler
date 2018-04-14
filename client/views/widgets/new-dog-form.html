@@ -3,8 +3,7 @@
   </div>
 
   <form class = "sidebar-panel"
-  ng-click = "$event.stopPropagation();"
-  ng-init = "form.type = 'dog'">
+  ng-click = "$event.stopPropagation();">
     Name <br />
 
     <input ng-model = "form.name" type = "text" name = "name" />
@@ -15,7 +14,7 @@
     <input ng-model = "form.cName" type = "text" name = "cName"/>
 
     <br />
-    <button class = "hand" ng-click = "addEvent()" type = "button">Submit</button>
+    <button class = "hand" ng-click = "form.type = 'dog'; addEvent()" type = "button">Submit</button>
 
     <h1>{{form.event.name + ' ' + form.event.cName}}</h1>
 
