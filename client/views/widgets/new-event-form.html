@@ -25,7 +25,11 @@ ng-click = "$event.stopPropagation();">
   </select>
 
   <br />
-  <button class = "hand" ng-click = "addEvent()" type = "button">Submit</button>
+
+  <button class = "hand" 
+  ng-click = "form.type = form.type === 'boarding' || form.type === 'daycare' ? '': form.type; 
+  addEvent()"
+  type = "button">Submit</button>
 
 </form>
 
