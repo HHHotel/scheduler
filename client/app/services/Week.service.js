@@ -9,10 +9,6 @@ angular
         this.advanceToDate(arguments[0] ? arguments[0] : new Date());
       }
 
-      getDay (i) { return this.days[i]; }
-      getFirst () { return this.days[0]; }
-      getLast () { return this.days[this.days.length - 1]; }
-
       advanceToDate(date) {
         let startEnd = Week.getStartEnd(date);
         this.initWeek(startEnd[0], startEnd[1]);

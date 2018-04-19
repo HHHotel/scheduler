@@ -10,6 +10,8 @@ angular.module(DEFAULT.MAIN_PKG).
           open: false
         };
 
+        $scope.conn = $Scheduler.conn;
+
         $scope.week = $Scheduler.week;
 
         $scope.cache = $Scheduler.cache;

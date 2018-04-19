@@ -13,22 +13,20 @@ angular
 
             let self = this;
             
-            self.socket = Socket;
-
-            self.socket.on('disconnect', () => console.log('Disconnected from the server'));
-
             self.week = Week;
-
             self.cache = {
               events: [],
               searchEvents: []
             }
 
-            self.load();
+            self.socket = Socket;
+            self.conn = {
+              connected: false
+            };
 
-            self.socket.on('update', function () {
-              self.load();
-            });
+            self.socket.on('connected', () => self.conn.connected = true);
+            self.socket.on('disconnect', () => self.conn.connected = false);
+            self.socket.on('update', () => self.load());
 
           }
 

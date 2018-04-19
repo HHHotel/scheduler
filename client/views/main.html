@@ -68,6 +68,10 @@
 
         <h1>{{week.toString()}}</h1>
 
+        <disconnect-notice ng-show = '!conn.connected'>
+          <div>Disconnected! - changes will NOT be saved</div>
+        </disconnect-notice>
+
         <div class = "week-scroller">
           <span ng-click = "prevWeek()" class = "prev-week hand">Prev</span>
           <span ng-click = "nextWeek()" class = "next-week hand">Next</span>
