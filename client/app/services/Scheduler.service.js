@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 angular
-  .module(DEFAULT.MAIN_PKG)
+ .module(DEFAULT.MAIN_PKG)
     .factory('$Scheduler', [
       'Socket',
       'Week',
@@ -12,11 +12,15 @@ angular
           constructor (Socket, Week) {
 
             let self = this;
-            
+
             self.week = Week;
             self.cache = {
               events: [],
-              searchEvents: []
+              searchEvents: [],
+              dogInfo: {
+                events: []
+              }
+
             }
 
             self.socket = Socket;
@@ -57,7 +61,7 @@ angular
 
             let self = this;
 
-            self.socket.emit('add', evt); 
+            self.socket.emit('add', evt);
 
           }
 
@@ -77,6 +81,22 @@ angular
             self.socket.emit('remove_event', evtID);
 
           }
+
+          getInfo (dogID) {
+
+            let self = this;
+
+            self.socket.emit('get_info', dogID, function (res) {
+              let events = res.events;
+
+
+            });
+
+
+
+          }
+
+
         }
 
         return new SchedulerService(Socket, Week);

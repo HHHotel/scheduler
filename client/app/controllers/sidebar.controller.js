@@ -31,6 +31,10 @@ angular
         $Scheduler.jumpToWeek(date);
       }
 
+      $scope.getInfo = function (dogID) {
+        $Scheduler.getInfo(dogID);
+      }
+
       // $scope.getDate = function (event) {
       //     // event.date ||
       //     // event.bookings[event.bookings.length - 1].date ||

@@ -56,7 +56,6 @@
     <ng-include ng-show = "index === 4" src = "'views/widgets/week-jump.html'"></ng-include>
 
 
-
   </div>
 
   <div ng-class = "{'sidebar-closed': !sidebar.open}" class = "main-content">
@@ -101,5 +100,7 @@
       </svg> -->
 
   </div>
+
+  <ng-include ng-show = "dogProfile.open" src = "'views/profile.html'"></ng-include>
 
 </div>

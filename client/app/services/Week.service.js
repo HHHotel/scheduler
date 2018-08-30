@@ -16,13 +16,13 @@ angular
 
       nextWeek () {
 
-        let dates = Week.getStartEnd(this.getFirst().getTime() + 604800000);
+        let dates = Week.getStartEnd(this.days[0].getTime() + 604800000);
         this.initWeek(dates[0], dates[1]);
 
       }
       prevWeek () {
 
-        let dates = Week.getStartEnd(this.getFirst().getTime() - 604800000);
+        let dates = Week.getStartEnd(this.days[0].getTime() - 604800000);
         this.initWeek(dates[0], dates[1]);
 
       }
@@ -55,8 +55,8 @@ angular
 
         } else {
 
-          let mStart = months[this.getFirst().getMonth()].slice(0, 3);
-          let mEnd = months[this.getLast().getMonth()].slice(0, 3);
+          let mStart = months[this.days[0].getMonth()].slice(0, 3);
+          let mEnd = months[this.days[6].getMonth()].slice(0, 3);
           return mStart + ' - ' + mEnd + ' ' + year;
 
         }

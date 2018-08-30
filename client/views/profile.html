@@ -1,0 +1,31 @@
+<div class = "cover"></div>
+
+
+<div class = "dog-profile">
+
+  <div  class = "close dog-profile-close"><svg class = "hand" ng-click = "dogProfile.open = false" name="ProfileClose" width="24" height="24" viewBox="0 0 12 12"><polygon fill="#ffffff" fill-rule="evenodd" points="11 1.576 6.583 6 11 10.424 10.424 11 6 6.583 1.576 11 1 10.424 5.417 6 1 1.576 1.576 1 6 5.417 10.424 1"></polygon></svg></div>
+
+  <div class = "dog-profile-content">
+    <div class = "dog-profile-img"> 
+      <img width = "100%" src = "images/icon.png" />
+    </div>
+
+    <div class = "dog-info">
+      <div class = "dog-profile-name">{{dogProfile.name + ' ' + dogProfile.clientName}}</div>
+      <div class = "dog-profile-breed">{{dogProfile.breed}}</div>
+
+
+      <div class = "dog-profile-bookings">
+        <div class = "dog-profile-dog-booking" ng-repeat = "booking in dogProfile.bookings">
+          <span>{{booking.end + ' -'}}</span>
+          <span>{{booking.end}}</span>
+          <button class = "booking-edit-button">Edit</button>
+          <button class = "booking-delete-button">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
