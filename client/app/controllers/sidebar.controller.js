@@ -21,6 +21,7 @@ angular
 
       $scope.removeEvent = function (id) {
         $Scheduler.removeEvent(id);
+        $Scheduler.findEvents($scope.search);
       }
 
       $scope.findEvents = function (search) {
@@ -31,8 +32,16 @@ angular
         $Scheduler.jumpToWeek(date);
       }
 
-      $scope.getInfo = function (dogID) {
-        $Scheduler.getInfo(dogID);
+      $scope.retrieveDog = function (dogID) {
+        $Scheduler.retrieveDog(dogID);
+      }
+
+      $scope.getText = function (event) {
+        if (event.dog_name) {
+          return event.dog_name + ' ' + event.client_name;
+        } else {
+          return event.event_text;
+        }
       }
 
       // $scope.getDate = function (event) {

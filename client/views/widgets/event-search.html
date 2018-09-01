@@ -11,11 +11,13 @@
   <div class = "search">
     <div ng-repeat = "event in cache.searchEvents | limitTo: 20"
     class = "clearfix">
-      {{event.dog_name + ' ' + event.client_name}} <br />
-      {{getDate(event)}}
+      {{ getText(event) }} <br />
+      <i> {{ formatDate(event.event_start) }} </i>
+
 
       <!-- TODO add click event to do things like delete and edit event -->
-      <button ng-click = 'getInfo(event.ID)' class = "hand" type = 'button'>...</button>
+      <button ng-show = "event.dog_name" ng-click = "retrieveDog(event.id)" class = "hand" type = "button">...</button>
+      <button ng-show = "event.event_text" ng-click = "removeEvent(event.event_id)" class = "hand" type = "button">Delete</button>
       <br />
     </div>
 

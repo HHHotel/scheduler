@@ -17,10 +17,10 @@ angular
             self.cache = {
               events: [],
               searchEvents: [],
-              dogInfo: {
-                events: []
-              }
 
+              dogProfile: {
+                open: false
+              }
             }
 
             self.socket = Socket;
@@ -82,20 +82,16 @@ angular
 
           }
 
-          getInfo (dogID) {
+          retrieveDog (dogID) {
 
             let self = this;
 
-            self.socket.emit('get_info', dogID, function (res) {
-              let events = res.events;
-
-
+            self.socket.emit('retrieve_dog', dogID, function (res) {
+              self.cache.dogProfile = res;
+              self.cache.dogProfile.open = true;
             });
 
-
-
           }
-
 
         }
 
