@@ -8,11 +8,11 @@
     "lint" : "eslint ."
   },
   "author": "Matt Rochford",
-  "license": "CC0-1.0",
+  "license": "MIT",
   "dependencies": {
     "angular": "^1.6.9",
     "angular-route": "^1.6.9",
-    "electron": "^1.8.6",
+    "electron": "^1.8.8",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
