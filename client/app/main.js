@@ -12,9 +12,11 @@ angular
      // To-DO add login.html
      $routeProvider
      .when('/', {
+       templateUrl: 'views/login.html'
+     })
+     .when('/main', {
        templateUrl: 'views/main.html'
      });
-
    })
 
   .controller('bodyCtrl', function () {

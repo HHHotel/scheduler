@@ -21,6 +21,7 @@ angular
               dogProfile: {
                 open: false
               }
+
             }
 
             self.socket = Socket;
@@ -31,6 +32,19 @@ angular
             self.socket.on('connected', () => self.conn.connected = true);
             self.socket.on('disconnect', () => self.conn.connected = false);
             self.socket.on('update', () => self.load());
+
+          }
+
+          login (username, password, callback) {
+            let self = this;
+
+            let user = {
+              username: username,
+              password: password
+            }
+            self.socket.emit('login', user, function(response) {
+              callback(response.success);
+            });
 
           }
 
