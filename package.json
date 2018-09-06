@@ -1,13 +1,14 @@
 {
-  "name": "electron-scheduler-app",
+  "name": "hhh-scheduler",
   "version": "1.0.0",
   "description": "Scheduling App",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "lint" : "eslint ."
+    "lint": "eslint ."
   },
   "author": "Matt Rochford",
+  "repository": "https://github.com/hhhotel/scheduler",
   "license": "MIT",
   "dependencies": {
     "angular": "^1.6.9",
