@@ -1,12 +1,19 @@
 /* eslint-disable */
 
-const DEFAULT = {
+const fs = require('fs');
+const path = require('path');
 
+let Settings;
+
+const SETTINGS_PATH = path.join(__dirname, 'settings.json');
+
+loadSettings();
+
+const DEFAULT = {
   MAIN_PKG: 'HHH.Scheduler.App',
 
   API: {
-    // BASE_URL: 'https://happy-hound-server.herokuapp.com/'
-    BASE_URL: 'http://localhost:8080'
+    BASE_URL: Settings.BASE_URL
   },
 
   PKG: function (suffix) {
@@ -16,4 +23,16 @@ const DEFAULT = {
       return DEFAULT.MAIN_PKG;
     }
   }
+};
+
+function loadSettings () {
+  Settings = JSON.parse(fs.readFileSync(SETTINGS_PATH));
 }
+
+function writeSettings () {
+  fs.writeFile(SETTINGS_PATH, JSON.stringify(Settings), function (err) {
+    if (err) throw err;
+    console.log('Settings saved');
+  });
+}
+

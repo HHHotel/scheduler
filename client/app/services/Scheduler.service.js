@@ -42,6 +42,7 @@ angular
               username: username,
               password: password
             }
+
             self.socket.emit('login', user, function(response) {
               callback(response.success);
             });

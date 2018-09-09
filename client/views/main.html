@@ -1,6 +1,6 @@
 <div ng-controller = "schedCtrl" class = "app-wrapper">
 
-  <div ng-show = "sidebar.open" class = "sidebar-wrapper" ng-controller = "sidebarCtrl">
+  <div ng-show = "Settings.SIDEBAR_OPEN" class = "sidebar-wrapper" ng-controller = "sidebarCtrl">
 
     <div class = "sidebar-header">
 
@@ -58,7 +58,7 @@
 
   </div>
 
-  <div ng-class = "{'sidebar-closed': !sidebar.open}" class = "main-content">
+  <div ng-class = "{'sidebar-closed': !Settings.SIDEBAR_OPEN}" class = "main-content">
 
       <div class = "header"> <!-- App Header -->
         <div ng-click = "toggleSidebar()" class = "menu-btn">
@@ -83,7 +83,7 @@
         <div class = "week">
           <div ng-repeat = "day in week.days" class = "day">
             <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
-            <div class = "dog-list">
+            <div class = "dog-list"
               <pre ng-repeat = "event in cache.events[$index]" class = "{{event.type}}" id = "{{event.id}}">{{event.text}}</pre>
             </div>
           </div>

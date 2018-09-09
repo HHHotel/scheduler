@@ -2,13 +2,11 @@
 
 angular.module(DEFAULT.MAIN_PKG).
   controller('schedCtrl', [
+      '$rootScope',
       '$scope',
       '$Scheduler',
-      function ($scope, $Scheduler) {
-
-        $scope.sidebar = {
-          open: false
-        };
+      function ($rootScope, $scope, $Scheduler) {
+        $rootScope.Settings = Settings;
 
         $scope.conn = $Scheduler.conn;
 
@@ -25,7 +23,7 @@ angular.module(DEFAULT.MAIN_PKG).
         }
 
         $scope.toggleSidebar = function () {
-          $scope.sidebar.open = !$scope.sidebar.open;
+          Settings.SIDEBAR_OPEN = !Settings.SIDEBAR_OPEN;
         }
 
         $scope.removeEvent = function (id) {
