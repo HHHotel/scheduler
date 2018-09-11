@@ -31,6 +31,10 @@ angular.module(DEFAULT.MAIN_PKG).
           $Scheduler.retrieveDog($Scheduler.cache.dogProfile.id);
         }
 
+        $scope.removeDog = function (id) {
+          $Scheduler.removeDog(id);
+        }
+
         $scope.formatDate = function (date) {
           if (date) {
             date = new Date(date);

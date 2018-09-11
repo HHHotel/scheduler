@@ -11,6 +11,8 @@
     </div>
 
     <div class = "dog-info">
+
+      <button style = "float: left; margin-top: 1rem" ng-click = "removeDog(cache.dogProfile.id)">Delete Dog</button>
       <div class = "dog-profile-name">{{cache.dogProfile.name + ' ' + cache.dogProfile.clientName}}</div>
       <div class = "dog-profile-breed">{{cache.dogProfile.breed}}</div>
 

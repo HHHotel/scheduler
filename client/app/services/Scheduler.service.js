@@ -1,13 +1,16 @@
-/* eslint-disable */
-
+//eslint-disable-next-line
 angular
+//eslint-disable-next-line
  .module(DEFAULT.MAIN_PKG)
     .factory('$Scheduler', [
       'Socket',
       'Week',
-      function (Socket, Week) {
+      '$location',
+      function (Socket, Week, $location) {
 
-       class SchedulerService {
+        $location.path('/');
+
+        class SchedulerService {
 
           constructor (Socket, Week) {
 
@@ -20,6 +23,11 @@ angular
 
               dogProfile: {
                 open: false
+              },
+
+              user: {
+                username: '',
+                password: ''
               }
 
             }
@@ -32,6 +40,7 @@ angular
             self.socket.on('connected', () => self.conn.connected = true);
             self.socket.on('disconnect', () => self.conn.connected = false);
             self.socket.on('update', () => self.load());
+            self.socket.on('unauthorized_access', () => alert('Permissions for access not met'));
 
           }
 
@@ -94,6 +103,12 @@ angular
             let self = this;
 
             self.socket.emit('remove_event', evtID);
+
+          }
+
+          removeDog(dogID) {
+
+            this.socket.emit('remove_dog', dogID);
 
           }
 

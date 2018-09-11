@@ -70,9 +70,8 @@
   box-shadow: 2px 3px 10px var(--shadow);
 }
 
-.booking-edit-button, 
 .booking-delete-button {
   float: right;
   margin-right: .3rem;
-  margin-bottom: .2rem;
+  margin-top: -.3rem;
 }
