@@ -6,6 +6,10 @@ angular
     '$Scheduler',
     function ($scope, $Scheduler) {
 
+      $scope.saveSettings = function () {
+        saveSettings();
+      }
+
       $scope.form = {};
 
       $scope.cache = $Scheduler.cache;

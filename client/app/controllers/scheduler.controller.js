@@ -14,6 +14,32 @@ angular.module(DEFAULT.MAIN_PKG).
 
         $scope.cache = $Scheduler.cache;
 
+        $scope.editMode = false;
+
+        $scope.load = function () {
+          $Scheduler.load();
+        }
+
+        $scope.saveProfile = function () {
+          let dog = $scope.cache.dogProfile;
+          let error = false;
+
+          for (let booking of dog.bookings) {
+            let start = new Date(booking.start);
+            let end = new Date(booking.end);
+
+            if (start.toString() === 'Invalid Date' || end.toString() === 'Invalid Date') {
+              error = true;
+              alert('Invalid Date');
+            }
+          }
+
+          if (dog.name && dog.clientName && !error) {
+            $Scheduler.editDog(dog);
+          }
+
+        }
+
         $scope.nextWeek = function () {
           $Scheduler.nextWeek();
         }
@@ -42,5 +68,29 @@ angular.module(DEFAULT.MAIN_PKG).
           }
         }
 
+        $scope.getEventText = function (event) {
+          let date = event.date ? new Date(event.date) : null;
+          let text = event.text;
+
+          if (date) {
+
+            let hours = Settings.TWENTY_FOUR_HOUR ? date.getHours() : convertHours(date.getHours());
+            let morningOrNight = !Settings.TWENTY_FOUR_HOUR ? (date.getHours() >= 12 ? ' PM' : ' AM') : '';
+            let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+
+            return '(' + hours + ':' + minutes + morningOrNight + ') ' + text;
+
+          } else {
+            return text;
+          }
+
+
+        }
+
       }
     ]);
+
+
+function convertHours ( hours ) {
+  return hours <= 12 ? hours : hours - 12;
+}

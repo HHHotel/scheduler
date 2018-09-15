@@ -29,7 +29,7 @@ function loadSettings () {
   Settings = JSON.parse(fs.readFileSync(SETTINGS_PATH));
 }
 
-function writeSettings () {
+function saveSettings() {
   fs.writeFile(SETTINGS_PATH, JSON.stringify(Settings), function (err) {
     if (err) throw err;
     console.log('Settings saved');

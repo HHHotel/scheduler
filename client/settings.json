@@ -1,4 +1,1 @@
-{
-  "BASE_URL": "http://localhost:8080",
-  "SIDEBAR_OPEN": "true"
-}
+{"BASE_URL":"http://localhost:8080","SIDEBAR_OPEN":true,"TWENTY_FOUR_HOUR":true}

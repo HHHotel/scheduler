@@ -1,0 +1,14 @@
+<div class = "sidebar-sub-heading">
+
+  <h3>Settings</h3>
+
+</div>
+
+<div class = "sidebar-panel" ng-click = "$event.stopPropagation(); load();">
+
+  <label>Twenty Four Hour Time</label>
+  <input class = "radio hand" type = "checkbox" ng-click = "console.log(Settings.TWENTY_FOUR_HOUR);" ng-model = "Settings.TWENTY_FOUR_HOUR"></input>
+
+  <button ng-click = "saveSettings();">Save</button>
+
+</div>

@@ -73,7 +73,7 @@ angular
       const currentDate = new Date(arguments[0]);
 
       sDate = new Date(currentDate.toString());
-      sDate.setDate(currentDate.getDate() - currentDate.getDay());
+      sDate.setDate(currentDate.getDate() - currentDate.getDay() + 1);
 
       eDate = new Date(currentDate.toString());
       eDate.setDate(currentDate.getDate() + (6 - currentDate.getDay()));

@@ -112,12 +112,22 @@ angular
 
           }
 
+          editDog(dogProfile) {
+
+            this.socket.emit('edit_dog', dogProfile);
+
+          }
+
           retrieveDog (dogID) {
 
             let self = this;
 
             self.socket.emit('retrieve_dog', dogID, function (res) {
               self.cache.dogProfile = res;
+              for (let booking of self.cache.dogProfile.bookings) {
+                booking.start = new Date(booking.start);
+                booking.end = new Date(booking.end);
+              }
               self.cache.dogProfile.open = true;
             });
 
