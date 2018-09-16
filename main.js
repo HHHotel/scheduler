@@ -26,7 +26,7 @@ ipcMain.on('config-complete', (event, arg) => {
 function startWindow () {
 
   const fs = require('fs');
-  if (fs.existsSync(path.join(__dirname, 'client/settings.json'))) {
+  if (fs.existsSync(path.join(__dirname, '../settings.json'))) {
     createWindow();
   } else {
     initSettings();
