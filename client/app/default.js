@@ -5,7 +5,7 @@ const path = require('path');
 
 let Settings;
 
-const SETTINGS_PATH = path.join(__dirname, '../../settings.json');
+const SETTINGS_PATH = path.join(__dirname, '../settings.json');
 
 loadSettings();
 
