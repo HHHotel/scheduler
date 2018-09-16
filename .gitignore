@@ -1,3 +1,2 @@
-node_modules
-release_builds
-release_builds/*
+node_modules/
+release_builds/
