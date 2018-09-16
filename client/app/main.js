@@ -1,5 +1,15 @@
 /* eslint-disable */
 
+const {remote} = require('electron');
+
+remote.globalShortcut.register('CommandOrControl+Shift+I', () => {
+  remote.BrowserWindow.getFocusedWindow().webContents.openDevTools()
+})
+
+window.addEventListener('beforeunload', () => {
+  remote.globalShortcut.unregisterAll()
+})
+
 angular
   .module(DEFAULT.MAIN_PKG, [
     require('angular-route')
