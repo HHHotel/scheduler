@@ -13,7 +13,7 @@ const DEFAULT = {
   MAIN_PKG: 'HHH.Scheduler.App',
 
   API: {
-    BASE_URL: Settings.BASE_URL
+    BASE_URL: Settings ? Settings.BASE_URL : ''
   },
 
   PKG: function (suffix) {
@@ -26,7 +26,8 @@ const DEFAULT = {
 };
 
 function loadSettings () {
-  Settings = JSON.parse(fs.readFileSync(SETTINGS_PATH));
+  if (fs.existsSync(path.join(SETTINGS_PATH)))
+    Settings = JSON.parse(fs.readFileSync(SETTINGS_PATH));
 }
 
 function saveSettings() {

@@ -9,9 +9,55 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
 
+// Second window for intializing settings on the first launch
+let configWindow;
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+
+const {ipcMain} = require('electron');
+
+ipcMain.on('config-complete', (event, arg) => {
+  createWindow();
+  configWindow.close();
+});
+
+function startWindow () {
+
+  const fs = require('fs');
+  if (fs.existsSync(path.join(__dirname, 'client/settings.json'))) {
+    createWindow();
+  } else {
+    initSettings();
+  }
+
+}
+
+function initSettings () {
+
+  configWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    frame: false,
+    webPreferences: {
+      experimentalFeatures: true
+    },
+    icon: 'client/images/icon.png',
+    backgroundColor: '#386351'
+  });
+
+  configWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'client/init-settings.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+
+  configWindow.on('closed', function () {
+    configWindow = null;
+  });
+
+}
 
 function createWindow () {
   // Create the browser window.
@@ -36,9 +82,6 @@ function createWindow () {
     slashes: true
   }));
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -51,7 +94,7 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', startWindow);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
