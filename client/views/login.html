@@ -1,0 +1,16 @@
+<div ng-show = "!cache.loggedIn" ng-controller = "loginCtrl">
+
+  <img class = "login-logo" src = "images/icon.png" />
+
+  <div class = "login-inputs">
+    <div class = "login-label">Username</div>
+    <input ng-model = "cache.user.username" class = "login-input"></input>
+    <div class = "login-label">Password</div>
+    <input type = "password" ng-model = "cache.user.password" class = "login-input"></input>
+    <br />
+
+    <button ng-click = "submit()" class = "login-button">login</button>
+    <div ng-show = "cache.loginFailed === true" class = 'login-failed'>Username or Password Incorrect</div>
+  </div>
+
+</div>

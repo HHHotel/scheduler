@@ -1,0 +1,24 @@
+{
+  "name": "hhh-scheduler",
+  "version": "1.0.0",
+  "description": "Scheduling App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "lint": "eslint ."
+  },
+  "author": "Matt Rochford",
+  "repository": "https://github.com/hhhotel/scheduler",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.6.9",
+    "angular-route": "^1.6.9",
+    "electron": "^1.8.8",
+    "fs": "0.0.1-security",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-config-google": "^0.9.1"
+  }
+}

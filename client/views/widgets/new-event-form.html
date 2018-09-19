@@ -1,0 +1,36 @@
+<div class = "sidebar-sub-heading">
+  <h3>New Event</h3>
+</div>
+
+<form class = "sidebar-panel"
+ng-click = "$event.stopPropagation();">
+
+  Text
+  <br />
+
+  <input ng-model = "form.text" type = "text"/>
+
+  <br />
+  Date
+  <br />
+
+  <input ng-model = "form.start" type = "datetime-local"/>
+
+  <br />
+  Event Type
+  <br />
+  <select ng-model = "form.type">
+    <option>grooming</option>
+    <option>general</option>
+  </select>
+
+  <br />
+
+  <button class = "hand" 
+  ng-click = "form.type = form.type === 'dog' || form.type === 'boarding' || form.type === 'daycare' ? '' : form.type; 
+  addEvent()"
+  type = "button">Submit</button>
+
+</form>
+
+</div>
