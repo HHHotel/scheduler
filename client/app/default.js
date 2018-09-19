@@ -45,7 +45,7 @@ function saveSettings(callback) {
   fs.writeFile(SETTINGS_PATH, JSON.stringify(Settings), function (err) {
     if (err) throw err;
     console.log('Settings saved');
-    callback();
+    if (callback) callback();
   });
 }
 

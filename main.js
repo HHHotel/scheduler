@@ -18,7 +18,7 @@ let mainWindow;
 
 const {ipcMain} = require('electron');
 
-ipcMain.on('config-complete', (event, arg) => {
+ipcMain.on('config-complete', () => {
   createWindow();
   configWindow.close();
 });

@@ -53,12 +53,17 @@ angular.module(DEFAULT.MAIN_PKG).
         }
 
         $scope.removeEvent = function (id) {
-          $Scheduler.removeEvent(id);
-          $Scheduler.retrieveDog($Scheduler.cache.dogProfile.id);
+          $Scheduler.removeEvent(id, () => {
+            $Scheduler.retrieveDog($Scheduler.cache.dogProfile.id)
+          });
+
         }
 
         $scope.removeDog = function (id) {
-          $Scheduler.removeDog(id);
+          $Scheduler.removeDog(id, () => {
+            $Scheduler.cache.dogProfile = {};
+            $Scheduler.cache.dogProfile.open = false;
+          });
         }
 
         $scope.formatDate = function (date) {

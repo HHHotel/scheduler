@@ -30,7 +30,7 @@ angular
                 password: ''
               }
 
-            }
+            };
 
             self.socket = Socket;
             self.conn = {
@@ -50,7 +50,7 @@ angular
             let user = {
               username: username,
               password: password
-            }
+            };
 
             self.socket.emit('login', user, function(response) {
               callback(response.success);
@@ -98,17 +98,17 @@ angular
 
           }
 
-          removeEvent(evtID) {
+          removeEvent(evtID, callback) {
 
             let self = this;
 
-            self.socket.emit('remove_event', evtID);
+            self.socket.emit('remove_event', evtID, callback);
 
           }
 
-          removeDog(dogID) {
+          removeDog(dogID, callback) {
 
-            this.socket.emit('remove_dog', dogID);
+            this.socket.emit('remove_dog', dogID, callback);
 
           }
 
