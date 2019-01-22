@@ -13,7 +13,7 @@ angular
       $scope.submit = function () {
         $Scheduler.login($scope.cache.user.username, $scope.cache.user.password, function (result) {
           if (result) $location.path('main');
-          else alert('login failed');
+          else alert('Login failed');
         });
       }
 
