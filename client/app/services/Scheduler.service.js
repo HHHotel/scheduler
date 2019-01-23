@@ -133,6 +133,36 @@ angular
 
           }
 
+          addUser (username, password, permissionLevel) {
+            let self = this;
+            let user = {
+              username: username,
+              password: password,
+              permissionLevel: permissionLevel
+            };
+
+            self.socket.emit('add_user', user);
+
+          }
+
+          deleteUser (username) {
+            let self = this;
+
+            self.socket.emit('delete_user', username);
+          }
+
+          changePassword (username, oldPassword, newPassword) {
+            let self = this;
+            let user = {
+              username: username,
+              oldPassword: oldPassword,
+              newPassword: newPassword
+            };
+
+            self.socket.emit('change_password', user);
+
+          }
+
         }
 
         return new SchedulerService(Socket, Week);

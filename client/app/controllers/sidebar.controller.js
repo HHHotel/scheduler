@@ -16,6 +16,30 @@ angular
 
       $scope.index = 0;
 
+      $scope.newUser = {};
+
+      $scope.addUser = function (username, password, permissionType) {
+        let permissionLevel = 0;
+        if (permissionType === "Viewer") permissionLevel = 0;
+        if (permissionType === "Editor") permissionLevel = 5;
+        if (permissionType === "Admin") permissionLevel = 10;
+
+        $Scheduler.addUser(username, password, permissionLevel);
+        $scope.newUser = {};
+      }
+
+      $scope.deleteUser = function (username) {
+        $Scheduler.deleteUser(username);
+        username = '';
+      }
+
+      $scope.changePassword = function (oldPassword, newPassword) {
+        $Scheduler.changePassword(oldPassword, newPassword);
+        oldPassword = '';
+        newPassword = '';
+      }
+
+
       $scope.addEvent = function () {
         $Scheduler.addEvent($scope.form);
         $Scheduler.findEvents();

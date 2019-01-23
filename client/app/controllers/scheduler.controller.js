@@ -97,5 +97,5 @@ angular.module(DEFAULT.MAIN_PKG).
 
 
 function convertHours ( hours ) {
-  return hours <= 12 ? hours : hours - 12;
+  return hours < 12 ? hours : hours - 12;
 }
