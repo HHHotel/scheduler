@@ -21,8 +21,8 @@ angular
       $scope.addUser = function (username, password, permissionType) {
         let permissionLevel = 0;
         if (permissionType === "Viewer") permissionLevel = 0;
-        if (permissionType === "Editor") permissionLevel = 5;
-        if (permissionType === "Admin") permissionLevel = 10;
+        else if (permissionType === "Inputer") permissionLevel = 5;
+        else if (permissionType === "Admin") permissionLevel = 10;
 
         $Scheduler.addUser(username, password, permissionLevel);
         $scope.newUser = {};
@@ -30,13 +30,10 @@ angular
 
       $scope.deleteUser = function (username) {
         $Scheduler.deleteUser(username);
-        username = '';
       }
 
       $scope.changePassword = function (oldPassword, newPassword) {
         $Scheduler.changePassword(oldPassword, newPassword);
-        oldPassword = '';
-        newPassword = '';
       }
 
 

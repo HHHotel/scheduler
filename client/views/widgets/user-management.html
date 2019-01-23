@@ -22,7 +22,7 @@
     <label>Permissions</label>
     <select ng-model = "newUser.permissionType">
       <option>Viewer</option>
-      <option>Editor</option>
+      <option>Inputer</option>
       <option>Admin</option>
     </select>
 
@@ -34,7 +34,7 @@
     <label>Username</label>
     <input ng-model = "usernameToDelete"/>
     
-    <button ng-click = "deleteUser(usernameToDelete);" class = "hand">Submit</button>
+    <button ng-click = "deleteUser(usernameToDelete); usernameToDelete = '';" class = "hand">Submit</button>
   </div>
 
   <div ng-show = "userManagementAction === 'Change Password'" class = "change-password">
@@ -44,7 +44,7 @@
     <label>New Password</label>
     <input ng-model = "newPassword" />
 
-    <button ng-click = "changePassword(oldPassword, newPassword);" class = "hand">Submit</button>
+    <button ng-click = "changePassword(oldPassword, newPassword); oldPassword = ''; newPassword = '';" class = "hand">Submit</button>
   </div>
 </div>
 
