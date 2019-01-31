@@ -1,4 +1,4 @@
-/* eslint-disable */
+/*global angular Settings DEFAULT*/
 
 angular.module(DEFAULT.MAIN_PKG).
   controller('schedCtrl', [
@@ -18,7 +18,7 @@ angular.module(DEFAULT.MAIN_PKG).
 
         $scope.load = function () {
           $Scheduler.load();
-        }
+        };
 
         $scope.saveProfile = function () {
           let dog = $scope.cache.dogProfile;
@@ -38,40 +38,40 @@ angular.module(DEFAULT.MAIN_PKG).
             $Scheduler.editDog(dog);
           }
 
-        }
+        };
 
         $scope.nextWeek = function () {
           $Scheduler.nextWeek();
-        }
+        };
 
         $scope.prevWeek = function () {
           $Scheduler.prevWeek();
-        }
+        };
 
         $scope.toggleSidebar = function () {
           Settings.SIDEBAR_OPEN = !Settings.SIDEBAR_OPEN;
-        }
+        };
 
         $scope.removeEvent = function (id) {
           $Scheduler.removeEvent(id, () => {
-            $Scheduler.retrieveDog($Scheduler.cache.dogProfile.id)
+            $Scheduler.retrieveDog($Scheduler.cache.dogProfile.id);
           });
 
-        }
+        };
 
         $scope.removeDog = function (id) {
           $Scheduler.removeDog(id, () => {
             $Scheduler.cache.dogProfile = {};
             $Scheduler.cache.dogProfile.open = false;
           });
-        }
+        };
 
         $scope.formatDate = function (date) {
           if (date) {
             date = new Date(date);
             return date.toDateString();
           }
-        }
+        };
 
         $scope.getEventText = function (event) {
           let date = event.date ? new Date(event.date) : null;
@@ -90,7 +90,7 @@ angular.module(DEFAULT.MAIN_PKG).
           }
 
 
-        }
+        };
 
       }
     ]);

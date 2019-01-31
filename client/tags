@@ -1,0 +1,203 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+#booking-type-btn	css/form-style.css	/^#booking-type-btn {$/;"	i
+#titleBar	css/titlebar.css	/^#titleBar {$/;"	i
+#titleBar .btn:hover	css/titlebar.css	/^#titleBar .btn:hover {$/;"	c
+#titleBar .close:hover	css/titlebar.css	/^#titleBar .close:hover {$/;"	c
+#titleBar h3	css/titlebar.css	/^#titleBar h3 {$/;"	s
+#titleBar img	css/titlebar.css	/^#titleBar img {$/;"	s
+#titleBar span	css/titlebar.css	/^#titleBar span {$/;"	s
+*	css/style.css	/^* {$/;"	s
+*::-webkit-scrollbar	css/style.css	/^*::-webkit-scrollbar {$/;"	s
+*::-webkit-scrollbar-thumb	css/style.css	/^*::-webkit-scrollbar-thumb {$/;"	s
+*::-webkit-scrollbar-track	css/style.css	/^*::-webkit-scrollbar-track {$/;"	s
+.app-wrapper	css/style.css	/^.app-wrapper {$/;"	c
+.app-wrapper > *	css/style.css	/^.app-wrapper > * {$/;"	s
+.arriving	css/week-wrapper.css	/^.arriving {$/;"	c
+.arriving::after	css/week-wrapper.css	/^.arriving::after {$/;"	c
+.boarding	css/week-wrapper.css	/^.boarding {$/;"	c
+.booking-delete-button	css/dog-profile-style.css	/^.booking-delete-button {$/;"	c
+.booking-type-wrapper	css/form-style.css	/^.booking-type-wrapper {$/;"	c
+.clearfix	css/style.css	/^.clearfix {$/;"	c
+.clearfix::after	css/style.css	/^.clearfix::after {$/;"	c
+.cover	css/dog-profile-style.css	/^.cover {$/;"	c
+.day	css/week-wrapper.css	/^.day {$/;"	c
+.day-title	css/week-wrapper.css	/^.day-title {$/;"	c
+.daycare	css/week-wrapper.css	/^.daycare {$/;"	c
+.departing	css/week-wrapper.css	/^.departing {$/;"	c
+.departing::after	css/week-wrapper.css	/^.departing::after {$/;"	c
+.dog-info	css/dog-profile-style.css	/^.dog-info {$/;"	c
+.dog-list	css/week-wrapper.css	/^.dog-list {$/;"	c
+.dog-list *	css/week-wrapper.css	/^.dog-list * {$/;"	s
+.dog-profile	css/dog-profile-style.css	/^.dog-profile {$/;"	c
+.dog-profile-bookings	css/dog-profile-style.css	/^.dog-profile-bookings {$/;"	c
+.dog-profile-breed	css/dog-profile-style.css	/^.dog-profile-breed {$/;"	c
+.dog-profile-breed	css/dog-profile-style.css	/^.dog-profile-name, .dog-profile-breed {$/;"	c
+.dog-profile-close	css/dog-profile-style.css	/^.dog-profile-close {$/;"	c
+.dog-profile-content	css/dog-profile-style.css	/^.dog-profile-content {$/;"	c
+.dog-profile-dog-booking	css/dog-profile-style.css	/^.dog-profile-dog-booking {$/;"	c
+.dog-profile-img	css/dog-profile-style.css	/^.dog-profile-img {$/;"	c
+.dog-profile-name	css/dog-profile-style.css	/^.dog-profile-name {$/;"	c
+.dog-profile-name	css/dog-profile-style.css	/^.dog-profile-name, .dog-profile-breed {$/;"	c
+.form-wrapper .search	css/form-style.css	/^.form-wrapper .search {$/;"	c
+.fosters	css/week-wrapper.css	/^.fosters {$/;"	c
+.general	css/week-wrapper.css	/^.general {$/;"	c
+.grooming	css/week-wrapper.css	/^.grooming {$/;"	c
+.hand	css/style.css	/^.hand,$/;"	c
+.hand *	css/style.css	/^.hand * {$/;"	s
+.header	css/week-wrapper.css	/^.header {$/;"	c
+.header *	css/week-wrapper.css	/^.header * {$/;"	s
+.header div	css/week-wrapper.css	/^.header div {$/;"	s
+.highlighted	css/form-style.css	/^.highlighted {$/;"	c
+.login-button	css/login.css	/^.login-button {$/;"	c
+.login-failed	css/login.css	/^.login-failed {$/;"	c
+.login-input	css/login.css	/^.login-input {$/;"	c
+.login-inputs	css/login.css	/^.login-inputs {$/;"	c
+.login-label	css/login.css	/^.login-label {$/;"	c
+.login-logo	css/login.css	/^.login-logo {$/;"	c
+.main-content	css/style.css	/^.main-content {$/;"	c
+.profile-button	css/dog-profile-style.css	/^.profile-button {$/;"	c
+.profile-edit-input	css/dog-profile-style.css	/^.profile-edit-input {$/;"	c
+.radio	css/style.css	/^.radio {$/;"	c
+.search	css/sidebar-style.css	/^.search {$/;"	c
+.search > *	css/sidebar-style.css	/^.search > * {$/;"	s
+.search button	css/sidebar-style.css	/^.search button {$/;"	s
+.sidebar-button	css/sidebar-style.css	/^.sidebar-button {$/;"	c
+.sidebar-button > *	css/sidebar-style.css	/^.sidebar-button > * {$/;"	s
+.sidebar-button:hover	css/sidebar-style.css	/^.sidebar-button:hover {$/;"	c
+.sidebar-closed	css/style.css	/^.sidebar-closed {$/;"	c
+.sidebar-header	css/sidebar-style.css	/^.sidebar-header {$/;"	c
+.sidebar-panel	css/sidebar-style.css	/^.sidebar-panel {$/;"	c
+.sidebar-panel button	css/sidebar-style.css	/^.sidebar-panel button {$/;"	s
+.sidebar-sub-heading	css/sidebar-style.css	/^.sidebar-sub-heading {$/;"	c
+.sidebar-wrapper	css/style.css	/^.sidebar-wrapper {$/;"	c
+.week	css/week-wrapper.css	/^.week {$/;"	c
+.week-wrapper	css/week-wrapper.css	/^.week-wrapper {$/;"	c
+:root	css/style.css	/^:root {$/;"	s
+API	app/default.js	/^  API: {$/;"	c	class:DEFAULT
+AnonymousFunction0719bc1b0100	app/services/Socket.service.js	/^  .factory('Socket', function ($rootScope) {$/;"	f
+AnonymousFunction0719bc1b0200	app/services/Socket.service.js	/^        socket.on(eventName, function () {$/;"	f
+AnonymousFunction0719bc1b0300	app/services/Socket.service.js	/^          $rootScope.$apply(function () {$/;"	f
+AnonymousFunction0719bc1b0400	app/services/Socket.service.js	/^        socket.emit(eventName, data, function () {$/;"	f
+AnonymousFunction0719bc1b0500	app/services/Socket.service.js	/^          $rootScope.$apply(function () {$/;"	f
+AnonymousFunction0ee18c650100	app/default.js	/^  fs.writeFile(SETTINGS_PATH, JSON.stringify(Settings), function (err) {$/;"	f
+AnonymousFunction3f2aed450100	app/main.js	/^  .config(function ($routeProvider) {$/;"	f
+AnonymousFunction3f2aed450200	app/main.js	/^  .controller('bodyCtrl', function () {$/;"	f
+AnonymousFunction615d47fe0100	app/services/Week.service.js	/^  .factory('Week', function () {$/;"	f
+AnonymousFunction88a226770100	app/controllers/scheduler.controller.js	/^      function ($rootScope, $scope, $Scheduler) {$/;"	f
+AnonymousFunctiona1345f110100	app/controllers/login.controller.js	/^    function ($scope, $location, $Scheduler) {$/;"	f
+AnonymousFunctiona1345f110200	app/controllers/login.controller.js	/^        $Scheduler.login($scope.cache.user.username, $scope.cache.user.password, function (resul/;"	f
+AnonymousFunctiona6ec5e320100	app/controllers/sidebar.controller.js	/^    function ($scope, $Scheduler) {$/;"	f
+AnonymousFunctionca01e5af0100	app/controllers/titlebar.controller.js	/^    function ($scope) {$/;"	f
+AnonymousFunctionf761cef10100	app/services/Scheduler.service.js	/^      function (Socket, Week, $location) {$/;"	f
+AnonymousFunctionf761cef10200	app/services/Scheduler.service.js	/^            self.socket.emit('login', user, function(response) {$/;"	f
+AnonymousFunctionf761cef10300	app/services/Scheduler.service.js	/^            self.socket.emit('load', self.week.days[0], function (response) {$/;"	f
+AnonymousFunctionf761cef10400	app/services/Scheduler.service.js	/^            self.socket.emit('find', eventText, function (response) {$/;"	f
+AnonymousFunctionf761cef10500	app/services/Scheduler.service.js	/^            self.socket.emit('retrieve_dog', dogID, function (res) {$/;"	f
+BASE_URL	app/default.js	/^    BASE_URL: Settings ? Settings.BASE_URL : ''$/;"	p	class:DEFAULT.API
+BrowserWindow	app/controllers/titlebar.controller.js	/^let BrowserWindow = require('electron').remote.BrowserWindow;$/;"	v
+Configure Settings	init-settings.html	/^      <h1>Configure Settings<\/h1>$/;"	h
+DEFAULT	app/default.js	/^const DEFAULT = {$/;"	c
+HHH Scheduler	views/widgets/titlebar.html	/^   <h3>HHH Scheduler<\/h3>$/;"	j
+Jump Week	views/widgets/week-jump.html	/^  <h3>Jump Week<\/h3>$/;"	j
+MAIN_PKG	app/default.js	/^  MAIN_PKG: 'HHH.Scheduler.App',$/;"	p	class:DEFAULT
+New Booking	views/widgets/new-booking-form.html	/^    <h3>New Booking<\/h3>$/;"	j
+New Dog	views/widgets/new-dog-form.html	/^    <h3>New Dog<\/h3>$/;"	j
+New Event	views/widgets/new-event-form.html	/^  <h3>New Event<\/h3>$/;"	j
+PKG	app/default.js	/^  PKG: function (suffix) {$/;"	m	class:DEFAULT
+SETTINGS_PATH	app/default.js	/^const SETTINGS_PATH = path.join(__dirname, '..\/..\/settings.json');$/;"	C
+SchedulerService	app/services/Scheduler.service.js	/^        class SchedulerService {$/;"	c	class:AnonymousFunctionf761cef10100
+Search Events	views/widgets/event-search.html	/^  <h3>Search Events<\/h3>$/;"	j
+Server URL	init-settings.html	/^      <h3>Server URL<\/h3>$/;"	j
+Settings	app/default.js	/^let Settings;$/;"	v
+Settings	views/widgets/settings.html	/^  <h3>Settings<\/h3>$/;"	j
+User Management	views/widgets/user-management.html	/^  <h3>User Management<\/h3>$/;"	j
+Week	app/services/Week.service.js	/^    class Week {$/;"	c	class:AnonymousFunction615d47fe0100
+addEvent	app/controllers/sidebar.controller.js	/^      $scope.addEvent = function () {$/;"	f	function:$scope
+addEvent	app/services/Scheduler.service.js	/^          addEvent(evt) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+addUser	app/controllers/sidebar.controller.js	/^      $scope.addUser = function (username, password, permissionType) {$/;"	f	function:$scope
+addUser	app/services/Scheduler.service.js	/^          addUser (username, password, permissionLevel) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+advanceToDate	app/services/Week.service.js	/^      advanceToDate(date) {$/;"	m	class:AnonymousFunction615d47fe0100.Week
+body	css/style.css	/^body,$/;"	s
+button	css/style.css	/^button {$/;"	s
+button:active	css/style.css	/^button:active {$/;"	s
+button:focus	css/style.css	/^button:focus {$/;"	s
+button:hover	css/style.css	/^button:hover {$/;"	s
+cache	app/services/Scheduler.service.js	/^            self.cache = {$/;"	c	class:self
+changePassword	app/controllers/sidebar.controller.js	/^      $scope.changePassword = function (oldPassword, newPassword) {$/;"	f	function:$scope
+changePassword	app/services/Scheduler.service.js	/^          changePassword (username, oldPassword, newPassword) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+close	app/controllers/titlebar.controller.js	/^      $scope.close = function () {$/;"	f	function:$scope
+conn	app/services/Scheduler.service.js	/^            self.conn = {$/;"	c	class:self
+connected	app/services/Scheduler.service.js	/^              connected: false$/;"	p	class:self.conn
+constructor	app/services/Scheduler.service.js	/^          constructor (Socket, Week) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+constructor	app/services/Week.service.js	/^      constructor () {$/;"	m	class:AnonymousFunction615d47fe0100.Week
+convertHours	app/controllers/scheduler.controller.js	/^function convertHours ( hours ) {$/;"	f
+deleteUser	app/controllers/sidebar.controller.js	/^      $scope.deleteUser = function (username) {$/;"	f	function:$scope
+deleteUser	app/services/Scheduler.service.js	/^          deleteUser (username) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+disconnect-notice	css/week-wrapper.css	/^disconnect-notice {$/;"	s
+dogProfile	app/services/Scheduler.service.js	/^              dogProfile: {$/;"	c	class:self.cache
+editDog	app/services/Scheduler.service.js	/^          editDog(dogProfile) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+events	app/services/Scheduler.service.js	/^              events: [],$/;"	p	class:self.cache
+findEvents	app/controllers/sidebar.controller.js	/^      $scope.findEvents = function (search) {$/;"	f	function:$scope
+findEvents	app/services/Scheduler.service.js	/^          findEvents (eventText) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+formatDate	app/controllers/scheduler.controller.js	/^        $scope.formatDate = function (date) {$/;"	f	function:$scope
+fs	app/default.js	/^const fs = require('fs');$/;"	C
+getEventText	app/controllers/scheduler.controller.js	/^        $scope.getEventText = function (event) {$/;"	f	function:$scope
+getStartEnd	app/services/Week.service.js	/^    Week.getStartEnd = function () {$/;"	f	function:Week
+getText	app/controllers/sidebar.controller.js	/^      $scope.getText = function (event) {$/;"	f	function:$scope
+html	css/style.css	/^html {$/;"	s
+initWeek	app/services/Week.service.js	/^      initWeek (sDate) {$/;"	m	class:AnonymousFunction615d47fe0100.Week
+input	css/style.css	/^input {$/;"	s
+jumpToWeek	app/controllers/sidebar.controller.js	/^      $scope.jumpToWeek = function (date) {$/;"	f	function:$scope
+jumpToWeek	app/services/Scheduler.service.js	/^          jumpToWeek (date) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+load	app/controllers/scheduler.controller.js	/^        $scope.load = function () {$/;"	f	function:$scope
+load	app/services/Scheduler.service.js	/^          load () {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+loadSettings	app/default.js	/^function loadSettings () {$/;"	f
+login	app/services/Scheduler.service.js	/^          login (username, password, callback) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+maximize	app/controllers/titlebar.controller.js	/^      $scope.maximize = function () {$/;"	f	function:$scope
+minimize	app/controllers/titlebar.controller.js	/^      $scope.minimize = function () {$/;"	f	function:$scope
+newPassword	app/services/Scheduler.service.js	/^              newPassword: newPassword$/;"	p	class:AnonymousFunctionf761cef10100.SchedulerService.changePassword.user
+nextWeek	app/controllers/scheduler.controller.js	/^        $scope.nextWeek = function () {$/;"	f	function:$scope
+nextWeek	app/services/Scheduler.service.js	/^          nextWeek () {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+nextWeek	app/services/Week.service.js	/^      nextWeek () {$/;"	m	class:AnonymousFunction615d47fe0100.Week
+oldPassword	app/services/Scheduler.service.js	/^              oldPassword: oldPassword,$/;"	p	class:AnonymousFunctionf761cef10100.SchedulerService.changePassword.user
+open	app/services/Scheduler.service.js	/^                open: false$/;"	p	class:self.cache.dogProfile
+password	app/services/Scheduler.service.js	/^                password: ''$/;"	p	class:self.cache.user
+password	app/services/Scheduler.service.js	/^              password: password$/;"	p	class:AnonymousFunctionf761cef10100.SchedulerService.login.user
+password	app/services/Scheduler.service.js	/^              password: password,$/;"	p	class:AnonymousFunctionf761cef10100.SchedulerService.addUser.user
+path	app/default.js	/^const path = require('path');$/;"	C
+permissionLevel	app/services/Scheduler.service.js	/^              permissionLevel: permissionLevel$/;"	p	class:AnonymousFunctionf761cef10100.SchedulerService.addUser.user
+prevWeek	app/controllers/scheduler.controller.js	/^        $scope.prevWeek = function () {$/;"	f	function:$scope
+prevWeek	app/services/Scheduler.service.js	/^          prevWeek () {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+prevWeek	app/services/Week.service.js	/^      prevWeek () {$/;"	m	class:AnonymousFunction615d47fe0100.Week
+removeDog	app/controllers/scheduler.controller.js	/^        $scope.removeDog = function (id) {$/;"	f	function:$scope
+removeDog	app/services/Scheduler.service.js	/^          removeDog(dogID, callback) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+removeEvent	app/controllers/scheduler.controller.js	/^        $scope.removeEvent = function (id) {$/;"	f	function:$scope
+removeEvent	app/controllers/sidebar.controller.js	/^      $scope.removeEvent = function (id) {$/;"	f	function:$scope
+removeEvent	app/services/Scheduler.service.js	/^          removeEvent(evtID, callback) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+retrieveDog	app/controllers/sidebar.controller.js	/^      $scope.retrieveDog = function (dogID) {$/;"	f	function:$scope
+retrieveDog	app/services/Scheduler.service.js	/^          retrieveDog (dogID) {$/;"	m	class:AnonymousFunctionf761cef10100.SchedulerService
+saveProfile	app/controllers/scheduler.controller.js	/^        $scope.saveProfile = function () {$/;"	f	function:$scope
+saveSettings	app/controllers/sidebar.controller.js	/^      $scope.saveSettings = function () {$/;"	f	function:$scope
+saveSettings	app/default.js	/^function saveSettings(callback) {$/;"	f
+searchEvents	app/services/Scheduler.service.js	/^              searchEvents: [],$/;"	p	class:self.cache
+select	css/style.css	/^select {$/;"	s
+submit	app/controllers/login.controller.js	/^      $scope.submit = function () {$/;"	f	function:$scope
+toString	app/services/Week.service.js	/^      toString () {$/;"	m	class:AnonymousFunction615d47fe0100.Week
+toggleSidebar	app/controllers/scheduler.controller.js	/^        $scope.toggleSidebar = function () {$/;"	f	function:$scope
+user	app/services/Scheduler.service.js	/^              user: {$/;"	c	class:self.cache
+user	app/services/Scheduler.service.js	/^            let user = {$/;"	c	class:AnonymousFunctionf761cef10100.SchedulerService.addUser
+user	app/services/Scheduler.service.js	/^            let user = {$/;"	c	class:AnonymousFunctionf761cef10100.SchedulerService.changePassword
+user	app/services/Scheduler.service.js	/^            let user = {$/;"	c	class:AnonymousFunctionf761cef10100.SchedulerService.login
+username	app/services/Scheduler.service.js	/^                username: '',$/;"	p	class:self.cache.user
+username	app/services/Scheduler.service.js	/^              username: username,$/;"	p	class:AnonymousFunctionf761cef10100.SchedulerService.addUser.user
+username	app/services/Scheduler.service.js	/^              username: username,$/;"	p	class:AnonymousFunctionf761cef10100.SchedulerService.changePassword.user
+username	app/services/Scheduler.service.js	/^              username: username,$/;"	p	class:AnonymousFunctionf761cef10100.SchedulerService.login.user
+{{day.toDateString().substring(0, 10)}}	views/main.html	/^            <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}<\/h3>$/;"	j
+{{form.event.name + ' ' + form.event.cName}}	views/widgets/new-dog-form.html	/^    <h1>{{form.event.name + ' ' + form.event.cName}}<\/h1>$/;"	h
+{{week.toString()}}	views/main.html	/^        <h1>{{week.toString()}}<\/h1>$/;"	h

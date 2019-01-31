@@ -1,4 +1,4 @@
-/* eslint-disable */
+/*global angular DEFAULT*/
 
 angular
   .module(DEFAULT.MAIN_PKG)
@@ -15,7 +15,7 @@ angular
           if (result) $location.path('main');
           else alert('Login failed');
         });
-      }
+      };
 
     }
   ]);

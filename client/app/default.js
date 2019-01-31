@@ -1,14 +1,12 @@
-/* eslint-disable */
-
 const {remote} = require('electron');
 
 remote.globalShortcut.register('CommandOrControl+Shift+I', () => {
-  remote.BrowserWindow.getFocusedWindow().webContents.openDevTools()
-})
+  remote.BrowserWindow.getFocusedWindow().webContents.openDevTools();
+});
 
 window.addEventListener('beforeunload', () => {
-  remote.globalShortcut.unregisterAll()
-})
+  remote.globalShortcut.unregisterAll();
+});
 
 const fs = require('fs');
 const path = require('path');
@@ -16,7 +14,8 @@ const path = require('path');
 let Settings;
 
 const SETTINGS_PATH = path.join(__dirname, '../../settings.json');
-console.log(SETTINGS_PATH)
+// eslint-disable-next-line
+console.log(SETTINGS_PATH);
 
 loadSettings();
 
@@ -41,10 +40,10 @@ function loadSettings () {
     Settings = JSON.parse(fs.readFileSync(SETTINGS_PATH));
 }
 
+// eslint-disable-next-line
 function saveSettings(callback) {
   fs.writeFile(SETTINGS_PATH, JSON.stringify(Settings), function (err) {
     if (err) throw err;
-    console.log('Settings saved');
     if (callback) callback();
   });
 }

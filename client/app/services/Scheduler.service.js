@@ -1,6 +1,6 @@
-//eslint-disable-next-line
+/* global angular DEFAULT */
+
 angular
-//eslint-disable-next-line
  .module(DEFAULT.MAIN_PKG)
     .factory('$Scheduler', [
       'Socket',

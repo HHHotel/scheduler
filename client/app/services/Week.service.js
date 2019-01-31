@@ -1,11 +1,11 @@
-/* eslint-disable */
+/* global angular DEFAULT */
 
 angular
   .module(DEFAULT.MAIN_PKG)
   .factory('Week', function () {
     class Week {
 
-      constructor (date) {
+      constructor () {
         this.advanceToDate(arguments[0] ? arguments[0] : new Date());
       }
 
@@ -27,7 +27,7 @@ angular
 
       }
 
-      initWeek (sDate, eDate) {
+      initWeek (sDate) {
         this.days = [];
 
         for (let i = 0; i < 7; i++) {
@@ -85,4 +85,4 @@ angular
 
     return new Week();
 
-  })
+  });

@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* global angular DEFAULT */
 
 angular
   .module(DEFAULT.MAIN_PKG, [

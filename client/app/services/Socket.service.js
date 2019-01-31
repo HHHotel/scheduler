@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* global angular DEFAULT io */
 
 angular
   .module(DEFAULT.MAIN_PKG)
@@ -32,7 +32,7 @@ angular
             }
 
           });
-        })
+        });
       }
     };
-  })
+  });
