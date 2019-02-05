@@ -89,7 +89,6 @@ angular.module(DEFAULT.MAIN_PKG).
             return text;
           }
 
-
         };
 
       }

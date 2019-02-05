@@ -5,10 +5,10 @@ platform=$1
 arch=$2
 
 function usage() {
-  echo "This build script takes arguments platform and architecture and packages the program 
+  echo "This build script takes arguments platform and architecture and packages the program
 
     \$1 = Platform (win32 linux darwin\"mac\"
-    \$2 = Architecture (x64 x32)"
+    \$2 = Architecture (x64 ia32)"
 }
 
 if [[ -z $platform ]] || [[ -z $arch ]]; then
@@ -16,14 +16,15 @@ if [[ -z $platform ]] || [[ -z $arch ]]; then
   exit 1
 fi
 
+packageCommand="./node_modules/electron-packager/cli.js . HHH-Scheduler --overwrite --asar --platform=$platform --arch=$arch  --prune=true --out=$dest --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='HHH Scheduler'"
+
 if [[ $platform == "darwin" ]]; then
-  ./node_modules/electron-packager/cli.js . HHH-Scheduler --overwrite --asar=true --platform=$platform --arch=$arch --icon=./client/images/icon.icns --prune=true --out=$dest --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="HHH Scheduler"
-else 
-  ./node_modules/electron-packager/cli.js . HHH-Scheduler --overwrite --asar=true --platform=$platform -arch=$arch --icon=./client/images/icon.ico --prune=true --out=$dest --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="HHH Scheduler"
+  $packageCommand --icon=./client/images/icon.icns
+else
+  $packageCommand --icon=./client/images/icon.ico
 fi
 
 packageName=HHH-Scheduler-$1-$2
 
 zip -r $dest/$packageName.zip $dest/$packageName/
 rm -rf $dest/$packageName/
-
