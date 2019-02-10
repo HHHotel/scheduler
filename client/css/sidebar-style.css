@@ -17,16 +17,25 @@
   text-align: center;
 }
 
+.sidebar-button > img {
+  height: 100%;
+  width: auto;
+}
+
 .sidebar-button {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+
   float: left;
 
   height: 100%;
-  width: 13%;
+  width: 12%;
 
   padding: .5rem;
   margin-right: .2rem;
 
-  fill: var(--font-dark);
+  color: var(--font-dark);
 
   border-right: 1px solid black;
   border-left: 1px solid black;

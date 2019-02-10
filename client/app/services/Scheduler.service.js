@@ -26,8 +26,7 @@ angular
               },
 
               user: {
-                username: '',
-                password: ''
+                username: ''
               }
 
             };
@@ -53,6 +52,7 @@ angular
             };
 
             self.socket.emit('login', user, function(response) {
+              if (response.success) self.cache.username = username;
               callback(response.success);
             });
 
@@ -141,7 +141,9 @@ angular
               permissionLevel: permissionLevel
             };
 
-            self.socket.emit('add_user', user);
+            self.socket.emit('add_user', user, function (result) {
+              console.log(result);
+            });
 
           }
 
@@ -151,10 +153,10 @@ angular
             self.socket.emit('delete_user', username);
           }
 
-          changePassword (username, oldPassword, newPassword) {
+          changePassword (oldPassword, newPassword) {
             let self = this;
             let user = {
-              username: username,
+              username: self.cache.username,
               oldPassword: oldPassword,
               newPassword: newPassword
             };
