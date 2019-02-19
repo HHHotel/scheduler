@@ -62,6 +62,7 @@ angular
 
             self.socket.emit('load', self.week.days[0], function (response) {
                 self.cache.events = response;
+                console.log(response);
             });
           }
 
@@ -83,6 +84,9 @@ angular
           addEvent(evt) {
 
             let self = this;
+
+            evt.start = evt.start.valueOf();
+            if (evt.end) evt.end = evt.end.valueOf();
 
             self.socket.emit('add', evt);
 
