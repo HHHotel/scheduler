@@ -75,6 +75,7 @@ angular.module(DEFAULT.MAIN_PKG).
 
         $scope.getEventText = function (event) {
           let date = event.date ? new Date(event.date) : null;
+          console.log(event.date);
           let text = event.text;
 
           if (date) {
