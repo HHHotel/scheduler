@@ -39,7 +39,6 @@ angular
             self.socket.on('connected', () => self.conn.connected = true);
             self.socket.on('disconnect', () => self.conn.connected = false);
             self.socket.on('update', () => self.load());
-            self.socket.on('unauthorized_access', () => alert('Permissions for access not met'));
 
           }
 
