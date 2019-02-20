@@ -88,13 +88,16 @@ angular
                     record.date = event.endDate;
                     record.type = 'departing';
                   }
+                  if(event.type === 'daycare') {
+                    record.date = event.startDate;
+                    record.type = 'daycare';
+                  }
 
                   self.cache.events[i].push(record);
                 }
 
               }
 
-              console.log(self.cache.events);
             });
           }
 

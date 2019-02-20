@@ -26,5 +26,12 @@ fi
 
 packageName=HHH-Scheduler-$1-$2
 
-zip -r $dest/$packageName.zip $dest/$packageName/
+if [[ $platform != "win32" ]]; then
+  mv $dest/$packageName $dest/HHH-Scheduler-$1-x86_${2/x/}
+  packageName=HHH-Scheduler-$1-x86_${2/x/}
+fi
+
+cd $dest
+zip -rq $packageName.zip $packageName
+cd ..
 rm -rf $dest/$packageName/
