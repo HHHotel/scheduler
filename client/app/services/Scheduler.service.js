@@ -74,24 +74,26 @@ angular
                 let endDay = (event.endDate >= self.week.getDay(6) ) ? 6 : event.endDate.getDay();
 
                 for (let i = startDay; i <= endDay; i++) {
-                  let record = {};
-                  record.text = event.text !== 'undefined' ? event.text : event.dogName + ' ' + event.clientName;
-                  record.type = event.type;
-                  record.id = event.dogId ? event.dogId : event.id;
-                  record.date = null;
 
-                  if (self.week.getDay(i).toDateString() === event.startDate.toDateString()) {
+                  let record = {
+                    text: event.text !== 'undefined' ? event.text : event.dogName + ' ' + event.clientName,
+                    type: event.type,
+                    id: event.dogId ? event.dogId : event.id,
+                    date: event.startDate,
+                  };
+
+                  if (event.type === 'boarding' &&
+                    self.week.getDay(i).toDateString() === event.startDate.toDateString())
+                  {
                     record.date = event.startDate;
                     record.type = 'arriving';
-                  }
-                  if (self.week.getDay(i).toDateString() === event.endDate.toDateString()) {
+                  } else if (event.type === 'boarding' &&
+                    self.week.getDay(i).toDateString() === event.endDate.toDateString())
+                  {
                     record.date = event.endDate;
                     record.type = 'departing';
                   }
-                  if(event.type === 'daycare') {
-                    record.date = event.startDate;
-                    record.type = 'daycare';
-                  }
+
 
                   self.cache.events[i].push(record);
                 }
@@ -122,6 +124,7 @@ angular
 
             evt.start = evt.start.valueOf();
             if (evt.end) evt.end = evt.end.valueOf();
+            else evt.end = evt.start;
 
             self.socket.emit('add', evt);
 
