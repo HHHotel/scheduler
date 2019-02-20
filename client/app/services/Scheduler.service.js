@@ -18,7 +18,7 @@ angular
 
             self.week = Week;
             self.cache = {
-              events: [],
+              events: [[]],
               searchEvents: [],
 
               dogProfile: {
@@ -61,8 +61,40 @@ angular
             let self = this;
 
             self.socket.emit('load', self.week.days[0], function (response) {
-                self.cache.events = response;
-                console.log(response);
+              self.cache.events = [];
+
+              for (let i = 0; i < 7; i++) self.cache.events[i] = [];
+
+              // TODO : Clean up and refractor this loop somewhere else
+              for (let event of response) {
+                event.startDate = new Date(event.startDate);
+                event.endDate = new Date(event.endDate);
+
+                let startDay = (event.startDate <= self.week.getDay(0) ) ? 0 : event.startDate.getDay();
+                let endDay = (event.endDate >= self.week.getDay(6) ) ? 6 : event.endDate.getDay();
+
+                for (let i = startDay; i <= endDay; i++) {
+                  let record = {};
+                  record.text = event.text !== 'undefined' ? event.text : event.dogName + ' ' + event.clientName;
+                  record.type = event.type;
+                  record.id = event.dogId ? event.dogId : event.id;
+                  record.date = null;
+
+                  if (self.week.getDay(i).toDateString() === event.startDate.toDateString()) {
+                    record.date = event.startDate;
+                    record.type = 'arriving';
+                  }
+                  if (self.week.getDay(i).toDateString() === event.endDate.toDateString()) {
+                    record.date = event.endDate;
+                    record.type = 'departing';
+                  }
+
+                  self.cache.events[i].push(record);
+                }
+
+              }
+
+              console.log(self.cache.events);
             });
           }
 

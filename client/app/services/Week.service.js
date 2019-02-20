@@ -14,6 +14,10 @@ angular
         this.initWeek(startEnd[0], startEnd[1]);
       }
 
+      getDay(index) {
+        return this.days[index];
+      }
+
       nextWeek () {
 
         let dates = Week.getStartEnd(this.days[0].getTime() + 604800000);
@@ -39,6 +43,7 @@ angular
         }
 
       }
+
 
       toString () {
         const months = ['January', 'February',
@@ -73,7 +78,7 @@ angular
       const currentDate = new Date(arguments[0]);
 
       sDate = new Date(currentDate.toString());
-      sDate.setDate(currentDate.getDate() - currentDate.getDay() + 1);
+      sDate.setDate(currentDate.getDate() - currentDate.getDay());
 
       eDate = new Date(currentDate.toString());
       eDate.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
