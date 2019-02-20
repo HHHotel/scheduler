@@ -93,6 +93,10 @@ angular
                     record.date = event.endDate;
                     record.type = 'departing';
                   }
+                  else if (event.type === 'boarding')
+                  {
+                    record.date = null;
+                  }
 
 
                   self.cache.events[i].push(record);
