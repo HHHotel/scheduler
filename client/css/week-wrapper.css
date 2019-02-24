@@ -105,9 +105,14 @@ disconnect-notice {
   order: 9;
   color: green;
 }
-.fosters {
+.foster {
   color: darkblue;
   order: 2;
+}
+.visit {
+  color: purple;
+  order: 10;
+
 }
 
 .general {
