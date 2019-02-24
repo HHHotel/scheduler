@@ -21,10 +21,10 @@
     <input ng-change = "findEvents(form.dogName)" ng-model = "form.dogName" type = "text"/>
 
     <div class = "search">
-      <div ng-repeat = "event in cache.searchEvents | filter : {client_name: '!!'} | limitTo: 7"
+      <div ng-repeat = "event in cache.searchEvents | filter : {clientName: '!!'} | limitTo: 7"
       ng-class = "{'highlighted': form.id === event.id}"
       class = "clearfix">
-        {{event.dog_name + ' ' + event.client_name}}
+        {{event.name + ' ' + event.clientName}}
         <button ng-click = "form.id = event.id" class = "hand" type = 'button'>select</button>
         <br />
       </div>

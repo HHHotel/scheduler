@@ -12,12 +12,12 @@
     <div ng-repeat = "event in cache.searchEvents | limitTo: 20"
     class = "clearfix">
       {{ getText(event) }} <br />
-      <i> {{ formatDate(event.event_start) }} </i>
+      <i> {{ formatDate(event.startDate) }} </i>
 
 
       <!-- TODO add click event to do things like delete and edit event -->
-      <button ng-show = "event.dog_name" ng-click = "retrieveDog(event.id)" class = "hand" type = "button">...</button>
-      <button ng-show = "event.event_text" ng-click = "removeEvent(event.event_id)" class = "hand" type = "button">Delete</button>
+      <button ng-show = "event.name" ng-click = "retrieveDog(event.id)" class = "hand" type = "button">...</button>
+      <button ng-show = "event.text" ng-click = "removeEvent(event.id)" class = "hand" type = "button">Delete</button>
       <br />
     </div>
 

@@ -63,10 +63,10 @@ angular
       };
 
       $scope.getText = function (event) {
-        if (event.dog_name) {
-          return event.dog_name + ' ' + event.client_name;
+        if (event.name) {
+          return event.name + ' ' + event.clientName;
         } else {
-          return event.event_text;
+          return event.text;
         }
       };
 

@@ -28,9 +28,9 @@
 
       <div class = "dog-profile-bookings">
         <div ng-if = "!editMode" class = "dog-profile-dog-booking" ng-repeat = "booking in cache.dogProfile.bookings">
-          <span>{{formatDate(booking.start) + ' -'}}</span>
-          <span>{{formatDate(booking.end)}}</span>
-          <button ng-click = "removeEvent(booking.eventID)" class = "booking-delete-button">Delete</button> 
+          <span>{{formatDate(booking.startDate) + ' -'}}</span>
+          <span>{{formatDate(booking.endDate)}}</span>
+          <button ng-click = "removeEvent(booking.id)" class = "booking-delete-button">Delete</button> 
         </div>
         <div ng-if = "editMode" class = "dog-profile-dog-booking" ng-repeat = "booking in cache.dogProfile.bookings">
           <input type = "datetime-local" class = "profile-edit-input" ng-model = "booking.start" />

@@ -70,8 +70,8 @@ angular
                 event.startDate = new Date(event.startDate);
                 event.endDate = new Date(event.endDate);
 
-                let startDay = (event.startDate <= self.week.getDay(0) ) ? 0 : event.startDate.getDay();
-                let endDay = (event.endDate >= self.week.getDay(6) ) ? 6 : event.endDate.getDay();
+                let startDay = (event.startDate <= self.week.getDay(0)) ? 0 : event.startDate.getDay();
+                let endDay = (event.endDate >= self.week.getDay(6)) ? 6 : event.endDate.getDay();
 
                 for (let i = startDay; i <= endDay; i++) {
 
@@ -103,7 +103,6 @@ angular
                 }
 
               }
-
             });
           }
 
@@ -164,14 +163,13 @@ angular
           }
 
           retrieveDog (dogID) {
-
             let self = this;
 
             self.socket.emit('retrieve_dog', dogID, function (res) {
               self.cache.dogProfile = res;
               for (let booking of self.cache.dogProfile.bookings) {
-                booking.start = new Date(booking.start);
-                booking.end = new Date(booking.end);
+                booking.startDate = new Date(booking.startDate);
+                booking.endDate = new Date(booking.endDate);
               }
               self.cache.dogProfile.open = true;
             });
@@ -186,9 +184,7 @@ angular
               permissionLevel: permissionLevel
             };
 
-            self.socket.emit('add_user', user, function (result) {
-              console.log(result);
-            });
+            self.socket.emit('add_user', user);
 
           }
 
