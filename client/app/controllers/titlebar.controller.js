@@ -1,4 +1,4 @@
-/* global angular DEFAULT */
+/* global angular DEFAULT saveSettings*/
 let BrowserWindow = require('electron').remote.BrowserWindow;
 
 angular
@@ -18,6 +18,7 @@ angular
 
       $scope.close = function () {
         BrowserWindow.getFocusedWindow().close();
+        saveSettings();
       };
 
   }]);

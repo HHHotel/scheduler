@@ -1,4 +1,4 @@
-/* global angular DEFAULT */
+/* global angular DEFAULT saveSettings Settings */
 
 angular
  .module(DEFAULT.MAIN_PKG)
@@ -18,6 +18,7 @@ angular
 
             self.week = Week;
             self.socket = Socket;
+            self.conn = { connected: false };
             self.init();
 
             self.socket.on('connected', () => {
@@ -28,7 +29,7 @@ angular
               self.logout();
               self.conn.connected = false;
             });
-            self.socket.on('update', () => self.load());
+            self.socket.on('update', () => { self.load(); });
 
           }
 
@@ -43,22 +44,19 @@ angular
               dogProfile: {
                 open: false
               },
-
-              user: {
-                username: '',
-                token: null,
-              }
             };
-
-            self.conn = { connected: false };
 
           }
 
           checkToken() {
             let self = this;
 
-            if (self.cache.user.token) {
-              self.socket.emit('check_token', self.cache.user);
+            if (Settings.user.token) {
+              self.socket.emit('check_token', Settings.user, (response) => {
+                if (response.success) {
+                  $location.path('/main');
+                }
+              });
             }
 
           }
@@ -67,6 +65,8 @@ angular
             let self = this;
             self.init();
             $location.path('/');
+            Settings.user = {};
+            saveSettings();
           }
 
           login (username, password, callback) {
@@ -79,7 +79,8 @@ angular
 
             self.socket.emit('login', user, function(response) {
               if (response.success) {
-                self.cache.user.token = response.token;
+                Settings.user.username = username;
+                Settings.user.token = response.token;
               }
               callback(response.success);
             });
@@ -133,6 +134,7 @@ angular
 
               }
             });
+            saveSettings();
           }
 
           nextWeek () {
@@ -226,7 +228,7 @@ angular
           changePassword (oldPassword, newPassword) {
             let self = this;
             let user = {
-              username: self.cache.username,
+              username: Settings.user.username,
               oldPassword: oldPassword,
               newPassword: newPassword
             };
