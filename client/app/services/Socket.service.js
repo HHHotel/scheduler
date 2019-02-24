@@ -4,16 +4,28 @@ angular
   .module(DEFAULT.MAIN_PKG)
   .factory('Socket', function ($rootScope) {
 
-    var socket = io(DEFAULT.API.BASE_URL);
+    $rootScope.safeApply = function(fn) {
+      var phase = this.$root.$$phase;
+      if(phase == '$apply' || phase == '$digest') {
+        if(fn && (typeof(fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };
+
+
+    const socket = io(DEFAULT.API.BASE_URL);
 
     return {
 
       on: function (eventName, callback) {
 
         socket.on(eventName, function () {
-          var args = arguments;
+          const args = arguments;
 
-          $rootScope.$apply(function () {
+          $rootScope.safeApply(function () {
 
             callback.apply(socket, args);
 
@@ -23,9 +35,9 @@ angular
       emit: function (eventName, data, callback) {
 
         socket.emit(eventName, data, function () {
-          var args = arguments;
+          const args = arguments;
 
-          $rootScope.$apply(function () {
+          $rootScope.safeApply(function () {
 
             if (callback) {
               callback.apply(socket, args);
@@ -33,6 +45,12 @@ angular
 
           });
         });
+      },
+      disconnect: function () {
+        socket.disconnect();
+      },
+      connect: function () {
+        socket.open();
       }
     };
   });

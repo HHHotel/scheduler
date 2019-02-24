@@ -40,6 +40,16 @@ angular.module(DEFAULT.MAIN_PKG).
 
         };
 
+      $scope.lookup = function (event) {
+        switch (event.type) {
+          case 'arriving':
+          case 'departing':
+          case 'boarding':
+            $Scheduler.retrieveDog(event.id);
+            break;
+        }
+      };
+
         $scope.nextWeek = function () {
           $Scheduler.nextWeek();
         };

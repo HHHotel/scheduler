@@ -2,7 +2,7 @@
 
 angular
   .module(DEFAULT.MAIN_PKG, [
-    require('angular-route')
+    require('angular-route'),
   ])
 
   .config(function ($routeProvider) {

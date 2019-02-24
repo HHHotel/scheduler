@@ -3,15 +3,15 @@
 angular
  .module(DEFAULT.MAIN_PKG)
     .factory('$Scheduler', [
-      'Socket',
       'Week',
+      'Socket',
       '$location',
-      function (Socket, Week, $location) {
+      function (Week, Socket, $location) {
 
         // TODO : Create a data service for managing dog data use this for enforcing consistency/managing events
         class SchedulerService {
 
-          constructor (Socket, Week) {
+          constructor (Week, Socket) {
 
             $location.path('/');
             let self = this;
@@ -24,7 +24,10 @@ angular
               self.checkToken();
               self.conn.connected = true;
             });
-            self.socket.on('disconnect', () => self.conn.connected = false);
+            self.socket.on('disconnect', () => {
+              self.logout();
+              self.conn.connected = false;
+            });
             self.socket.on('update', () => self.load());
 
           }
@@ -55,14 +58,13 @@ angular
             let self = this;
 
             if (self.cache.user.token) {
-              self.socket.emit('check_token', self.cache.user.token);
+              self.socket.emit('check_token', self.cache.user);
             }
 
           }
 
           logout () {
             let self = this;
-            self.socket.emit('logout');
             self.init();
             $location.path('/');
           }
@@ -77,8 +79,7 @@ angular
 
             self.socket.emit('login', user, function(response) {
               if (response.success) {
-                self.cache.username = username;
-                self.conn.token = response.token;
+                self.cache.user.token = response.token;
               }
               callback(response.success);
             });
@@ -236,6 +237,6 @@ angular
 
         }
 
-        return new SchedulerService(Socket, Week);
+        return new SchedulerService(Week, Socket);
 
     }]);
