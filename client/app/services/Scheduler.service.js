@@ -13,7 +13,6 @@ angular
 
           constructor (Week, Socket) {
 
-            $location.path('/');
             let self = this;
 
             self.week = Week;
@@ -55,6 +54,8 @@ angular
               self.socket.emit('check_token', Settings.user, (response) => {
                 if (response.success) {
                   $location.path('/main');
+                } else {
+                  $location.path('/');
                 }
               });
             }
@@ -134,7 +135,6 @@ angular
 
               }
             });
-            saveSettings();
           }
 
           nextWeek () {

@@ -4,9 +4,11 @@ remote.globalShortcut.register('CommandOrControl+Shift+I', () => {
   remote.BrowserWindow.getFocusedWindow().webContents.openDevTools();
 });
 
-window.addEventListener('beforeunload', () => {
+window.onbeforeunload = () => {
   remote.globalShortcut.unregisterAll();
-});
+  saveSettings();
+  // TODO Maybe Add a cancel close
+};
 
 const fs = require('fs');
 const path = require('path');
