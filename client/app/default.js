@@ -10,14 +10,27 @@ window.addEventListener('beforeunload', () => {
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
-let Settings;
+let Settings, SETTINGS_PATH, SETTINGS_BASEDIR;
 
-const SETTINGS_PATH = path.join(__dirname, '../../settings.json');
+// Set the basedir of settingsm to users home directory (hidden on unix filesystems)
+if (os.platform() == 'win32') {
+  SETTINGS_BASEDIR = path.join(os.homedir(), 'HHH Scheduler');
+} else {
+  SETTINGS_BASEDIR = path.join(os.homedir(), '.hhhsched');
+}
+// Set the settings path
+SETTINGS_PATH = path.join(SETTINGS_BASEDIR, 'settings.json');
+
+
 // eslint-disable-next-line
 console.log(SETTINGS_PATH);
 
 loadSettings();
+
+// eslint-disable-next-line
+console.log(Settings);
 
 const DEFAULT = {
   MAIN_PKG: 'HHH.Scheduler.App',

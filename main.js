@@ -8,6 +8,8 @@ const BrowserWindow = electron.BrowserWindow;
 
 const path = require('path');
 const url = require('url');
+const os = require('os');
+const fs = require('fs');
 
 // Second window for intializing settings on the first launch
 let configWindow;
@@ -23,10 +25,25 @@ ipcMain.on('config-complete', () => {
   configWindow.close();
 });
 
+let SETTINGS_PATH, SETTINGS_BASEDIR;
+
+// Set the basedir of settingsm to users home directory (hidden on unix filesystems)
+if (os.platform() == 'win32') {
+  SETTINGS_BASEDIR = path.join(os.homedir(), 'HHH Scheduler');
+} else {
+  SETTINGS_BASEDIR = path.join(os.homedir(), '.hhhsched');
+}
+// Set the settings path
+SETTINGS_PATH = path.join(SETTINGS_BASEDIR, 'settings.json');
+
+// Make the settings directory if it doesn't already exist
+if (!fs.existsSync(SETTINGS_PATH)) {
+  fs.mkdir(SETTINGS_BASEDIR);
+}
+
 function startWindow () {
 
-  const fs = require('fs');
-  if (fs.existsSync(path.join(__dirname, '../settings.json'))) {
+  if (fs.existsSync(SETTINGS_PATH)) {
     createWindow();
   } else {
     initSettings();

@@ -8,15 +8,31 @@ angular
       '$location',
       function (Socket, Week, $location) {
 
-        $location.path('/');
-
+        // TODO : Create a data service for managing dog data use this for enforcing consistency/managing events
         class SchedulerService {
 
           constructor (Socket, Week) {
 
+            $location.path('/');
             let self = this;
 
             self.week = Week;
+            self.socket = Socket;
+            self.init();
+
+            self.socket.on('connected', () => {
+              self.checkToken();
+              self.conn.connected = true;
+            });
+            self.socket.on('disconnect', () => self.conn.connected = false);
+            self.socket.on('update', () => self.load());
+
+          }
+
+          init () {
+            let self = this;
+
+            // TODO: Refractor the loading of settings so its a service implemented by this class and socket service
             self.cache = {
               events: [[]],
               searchEvents: [],
@@ -26,20 +42,29 @@ angular
               },
 
               user: {
-                username: ''
+                username: '',
+                token: null,
               }
-
             };
 
-            self.socket = Socket;
-            self.conn = {
-              connected: false
-            };
+            self.conn = { connected: false };
 
-            self.socket.on('connected', () => self.conn.connected = true);
-            self.socket.on('disconnect', () => self.conn.connected = false);
-            self.socket.on('update', () => self.load());
+          }
 
+          checkToken() {
+            let self = this;
+
+            if (self.cache.user.token) {
+              self.socket.emit('check_token', self.cache.user.token);
+            }
+
+          }
+
+          logout () {
+            let self = this;
+            self.socket.emit('logout');
+            self.init();
+            $location.path('/');
           }
 
           login (username, password, callback) {
@@ -51,7 +76,10 @@ angular
             };
 
             self.socket.emit('login', user, function(response) {
-              if (response.success) self.cache.username = username;
+              if (response.success) {
+                self.cache.username = username;
+                self.conn.token = response.token;
+              }
               callback(response.success);
             });
 

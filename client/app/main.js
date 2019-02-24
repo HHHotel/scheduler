@@ -15,8 +15,7 @@ angular
      .when('/main', {
        templateUrl: 'views/main.html'
      });
-   })
-
-  .controller('bodyCtrl', function () {
-
   });
+
+
+

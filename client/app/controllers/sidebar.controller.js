@@ -13,6 +13,8 @@ angular
 
       $scope.form = {};
 
+      $scope.search = {};
+
       $scope.cache = $Scheduler.cache;
 
       $scope.index = 0;
@@ -37,6 +39,10 @@ angular
         $Scheduler.changePassword(oldPassword, newPassword);
       };
 
+      $scope.logout = function () {
+        $Scheduler.logout();
+      };
+
 
       $scope.addEvent = function () {
         $Scheduler.addEvent($scope.form);
@@ -47,7 +53,7 @@ angular
 
       $scope.removeEvent = function (id) {
         $Scheduler.removeEvent(id);
-        $Scheduler.findEvents($scope.search);
+        $Scheduler.findEvents($scope.search.input);
       };
 
       $scope.findEvents = function (search) {
