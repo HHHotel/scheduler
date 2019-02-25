@@ -8,4 +8,4 @@
     - refractor info for daycare days in dog bookings  
   
 - Pull latest github updates with an integrated service in .asar form  
-- Try to support backwards compat  
+  - Try to support backwards compat  
