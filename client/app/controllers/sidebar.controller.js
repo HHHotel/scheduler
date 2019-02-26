@@ -4,8 +4,9 @@ angular
   .module(DEFAULT.MAIN_PKG)
   .controller('sidebarCtrl', [
     '$scope',
+    '$rootScope',
     '$Scheduler',
-    function ($scope, $Scheduler) {
+    function ($scope, $rootScope, $Scheduler) {
 
       $scope.saveSettings = function () {
         saveSettings();
@@ -13,7 +14,7 @@ angular
 
       $scope.form = {};
 
-      $scope.search = {};
+      $rootScope.search = {};
 
       $scope.cache = $Scheduler.cache;
 
@@ -43,7 +44,6 @@ angular
         $Scheduler.logout();
       };
 
-
       $scope.addEvent = function () {
         $Scheduler.addEvent($scope.form);
         $Scheduler.findEvents();
@@ -58,6 +58,7 @@ angular
 
       $scope.findEvents = function (search) {
         $Scheduler.findEvents(search);
+        $Scheduler.cache.searchText = search;
       };
 
       $scope.jumpToWeek = function (date) {

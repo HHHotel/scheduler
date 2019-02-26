@@ -73,6 +73,7 @@ angular.module(DEFAULT.MAIN_PKG).
           $Scheduler.removeDog(id, () => {
             $Scheduler.cache.dogProfile = {};
             $Scheduler.cache.dogProfile.open = false;
+            $Scheduler.findEvents($Scheduler.searchText);
           });
         };
 

@@ -39,6 +39,7 @@ angular
             self.cache = {
               events: [[]],
               searchEvents: [],
+              searchText: '',
 
               dogProfile: {
                 open: false
@@ -204,6 +205,7 @@ angular
                 booking.endDate = new Date(booking.endDate);
               }
               self.cache.dogProfile.open = true;
+              self.cache.dogProfile.id = dogID;
             });
 
           }
