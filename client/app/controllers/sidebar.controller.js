@@ -44,11 +44,22 @@ angular
         $Scheduler.logout();
       };
 
+      $scope.addDog = function () {
+        if ($scope.form.name && $scope.form.cName) {
+          $Scheduler.addDog($scope.form);
+          $scope.form = {};
+        } else {
+          alert('Insufficent dog details');
+        }
+      };
+
       $scope.addEvent = function () {
-        $Scheduler.addEvent($scope.form);
-        $Scheduler.findEvents();
-        $scope.form = {};
-        $Scheduler.cache.resEvents = [];
+        if ($scope.form.text && $scope.form.start) {
+          $Scheduler.addEvent($scope.form);
+          $scope.form = {};
+        } else {
+          alert('Insufficent event details');
+        }
       };
 
       $scope.removeEvent = function (id) {

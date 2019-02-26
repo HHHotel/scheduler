@@ -153,18 +153,22 @@ angular
             this.load();
           }
 
-          addEvent(evt) {
-
+          addDog(dog) {
             let self = this;
 
-            if (evt.start) evt.start = evt.start.valueOf();
-
-            if (evt.end) evt.end = evt.end.valueOf();
-            else evt.end = evt.start;
-
-            self.socket.emit('add', evt);
-
+            self.socket.emit('add', dog);
           }
+
+          addEvent(event) {
+            let self = this;
+
+            if (event.start) event.start = event.start.valueOf();
+            if (event.end) event.end = event.end.valueOf();
+            else event.end = event.start;
+
+            self.socket.emit('add', event);
+          }
+
 
           findEvents (eventText) {
             let self = this;
