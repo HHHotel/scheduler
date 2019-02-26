@@ -156,7 +156,8 @@ angular
 
             let self = this;
 
-            evt.start = evt.start.valueOf();
+            if (evt.start) evt.start = evt.start.valueOf();
+
             if (evt.end) evt.end = evt.end.valueOf();
             else evt.end = evt.start;
 

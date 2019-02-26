@@ -1,4 +1,5 @@
 # Features  
+- Disconnected notice on login  
 - Repeat daycares  
 - Add directives for ...  
   - Profile Dates  
