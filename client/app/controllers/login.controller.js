@@ -11,7 +11,7 @@ angular
     $scope.cache = $Scheduler.cache;
 
     $scope.submit = function () {
-      if ($Scheduler.cache.conn.connected) {
+      if ($Scheduler.conn.connected) {
         $Scheduler.login($scope.cache.user.username, $scope.cache.user.password, function (result) {
           $scope.cache.user.password = '';
           if (result) $location.path('main');

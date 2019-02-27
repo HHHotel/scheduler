@@ -17,9 +17,9 @@ angular
 
             self.week = Week;
             self.socket = Socket;
-            self.conn = { connected: false };
             self.init();
 
+            self.conn = { connected: false };
             self.socket.on('connected', () => {
               self.checkToken();
               self.conn.connected = true;
@@ -34,17 +34,13 @@ angular
 
           init () {
             let self = this;
+            self.cache = {};
 
             // TODO: Refractor the loading of settings so its a service implemented by this class and socket service
-            self.cache = {
-              events: [[]],
-              searchEvents: [],
-              searchText: '',
-
-              dogProfile: {
-                open: false
-              },
-            };
+            self.cache.events = [[]];
+            self.cache.searchEvents = [];
+            self.cache.searchText = '';
+            self.cache.dogProfile = { open: false };
 
           }
 
