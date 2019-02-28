@@ -152,7 +152,7 @@ angular
           addDog(dog) {
             let self = this;
 
-            self.socket.emit('add', dog);
+            self.socket.emit('add_dog', dog);
           }
 
           addEvent(event) {
@@ -162,7 +162,7 @@ angular
             if (event.end) event.end = event.end.valueOf();
             else event.end = event.start;
 
-            self.socket.emit('add', event);
+            self.socket.emit('add_event', event);
           }
 
 

@@ -45,7 +45,7 @@ angular
       };
 
       $scope.addDog = function () {
-        if ($scope.form.name && $scope.form.cName) {
+        if ($scope.form.name && $scope.form.clientName) {
           $Scheduler.addDog($scope.form);
           $scope.form = {};
         } else {
@@ -54,7 +54,7 @@ angular
       };
 
       $scope.addEvent = function () {
-        if ($scope.form.text && $scope.form.start) {
+        if (($scope.form.text || $scope.form.id) && $scope.form.start) {
           $Scheduler.addEvent($scope.form);
           $scope.form = {};
         } else {

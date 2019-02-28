@@ -1,4 +1,6 @@
 # Features  
+- No Feedback on user management errors  
+- User specific display for features  
 - Repeat daycares  
 - Add directives for ...  
   - Profile Dates  
