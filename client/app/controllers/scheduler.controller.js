@@ -21,23 +21,29 @@ angular.module(DEFAULT.MAIN_PKG).
         };
 
         $scope.saveProfile = function () {
-          let dog = $scope.cache.dogProfile;
+          let newDog = {
+            name: $scope.cache.dogProfile.name,
+            clientName: $scope.cache.dogProfile.clientName,
+            id: $scope.cache.dogProfile.id,
+            bookings: [],
+          };
           let error = false;
 
-          for (let booking of dog.bookings) {
-            let start = new Date(booking.start);
-            let end = new Date(booking.end);
+          for (let i = 0; i < $scope.cache.dogProfile.bookings; i++) {
+            try {
+              let booking = $scope.cache.dogProfile.bookings[i];
+              newDog.bookings[i] = booking;
 
-            if (start.toString() === 'Invalid Date' || end.toString() === 'Invalid Date') {
-              error = true;
-              alert('Invalid Date');
+              newDog.bookings[i].startDate = newDog.bookings[i].startDate.valueOf();
+              newDog.bookings[i].endDate = newDog.bookings[i].endDate.valueOf();
+            } catch (e) {
+              alert('Invalid Date: ' + e.message);
             }
           }
 
-          if (dog.name && dog.clientName && !error) {
-            $Scheduler.editDog(dog);
+          if (newDog.name && newDog.clientName && !error) {
+            $Scheduler.editDog(newDog);
           }
-
         };
 
       $scope.lookup = function (event) {

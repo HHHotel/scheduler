@@ -23,7 +23,7 @@
         <input class = "profile-edit-input" ng-model = cache.dogProfile.clientName></input>
       </div>
 
-      <div class = "dog-profile-breed">{{cache.dogProfile.breed}}</div>
+      <!-- <div class = "dog-profile-breed">{{cache.dogProfile.breed}}</div> -->
 
 
       <div class = "dog-profile-bookings">
@@ -33,8 +33,8 @@
           <button ng-click = "removeEvent(booking.id)" class = "booking-delete-button">Delete</button> 
         </div>
         <div ng-if = "editMode" class = "dog-profile-dog-booking" ng-repeat = "booking in cache.dogProfile.bookings">
-          <input type = "datetime-local" class = "profile-edit-input" ng-model = "booking.start" />
-          <input type = "datetime-local" class = "profile-edit-input" ng-model = "booking.end" />
+          <input type = "datetime-local" class = "profile-edit-input" ng-model = "booking.startDate" />
+          <input type = "datetime-local" class = "profile-edit-input" ng-model = "booking.endDate" />
         </div>
       </div>
     </div>
