@@ -104,7 +104,7 @@ angular
                 for (let i = startDay; i <= endDay; i++) {
 
                   let record = {
-                    text: event.text !== 'undefined' ? event.text : event.dogName + ' ' + event.clientName,
+                    text: event.text !== 'undefined' ? event.text : event.dogName,
                     type: event.type,
                     id: event.dogId ? event.dogId : event.id,
                     date: event.startDate,
@@ -164,7 +164,6 @@ angular
 
             self.socket.emit('add_event', event);
           }
-
 
           findEvents (eventText) {
             let self = this;
