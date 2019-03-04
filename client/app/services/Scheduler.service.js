@@ -49,7 +49,7 @@ angular
           checkToken() {
             let self = this;
 
-            if (Settings.user.token) {
+            if (Settings.user && Settings.user.token) {
               self.socket.emit('check_token', Settings.user, (response) => {
                 if (response.success) {
                   $location.path('/main');

@@ -56,36 +56,38 @@
     <script src ="app/default.js"></script>
 
     <script>
-      Settings = {
-        TWENTY_FOUR_HOUR: true,
-        SIDEBAR_OPEN: false,
-        user: {},
-      }
+Settings = {
+  TWENTY_FOUR_HOUR: true,
+  SIDEBAR_OPEN: false,
+  BASE_URL: "",
+  user: {
+    token: "",
+    username: "",
+  },
+}
 
-      let configApp = angular.module('config', []);
+let configApp = angular.module('config', []);
+
+configApp.controller('configController', [
+  '$rootScope',
+  '$scope',
+  function ($rootScope, $scope) {
+    $rootScope.Settings = Settings;
+  
+    $scope.writeSettings = function () {
       
-      configApp.controller('configController', [
-        '$rootScope',
-        '$scope',
-        function ($rootScope, $scope) {
-          $rootScope.Settings = Settings;
-        
-          $scope.writeSettings = function () {
-            
-            saveSettings(function () {
+      saveSettings(function () {
+        const {ipcRenderer} = require('electron');
+        ipcRenderer.send('config-complete');
 
- 
-            const {ipcRenderer} = require('electron');
-            ipcRenderer.send('config-complete');
+        let BrowserWindow = require('electron').remote.BrowserWindow;
+        BrowserWindow.getCurrentWindow().close();
 
-            let BrowserWindow = require('electron').remote.BrowserWindow;
-            BrowserWindow.getCurrentWindow().close();
-
-            });
-        
-          }
-        }  
-      ]);
+      });
+  
+    }
+  }  
+]);
 
     </script>
 

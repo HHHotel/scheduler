@@ -57,6 +57,7 @@ function loadSettings () {
 
 // eslint-disable-next-line
 function saveSettings(callback) {
+  console.log(Settings);
   fs.writeFile(SETTINGS_PATH, JSON.stringify(Settings), function (err) {
     if (err) throw err;
     if (callback) callback();
