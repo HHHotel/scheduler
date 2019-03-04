@@ -22,7 +22,7 @@ const {ipcMain} = require('electron');
 
 ipcMain.on('config-complete', () => {
   createWindow();
-  configWindow.close();
+  //configWindow.close();
 });
 
 let SETTINGS_PATH, SETTINGS_BASEDIR;
