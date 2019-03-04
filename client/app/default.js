@@ -16,15 +16,11 @@ const os = require('os');
 
 let Settings, SETTINGS_PATH, SETTINGS_BASEDIR;
 
-// Set the basedir of settingsm to users home directory (hidden on unix filesystems)
-if (os.platform() == 'win32') {
-  SETTINGS_BASEDIR = path.join(os.homedir(), 'HHH Scheduler');
-} else {
-  SETTINGS_BASEDIR = path.join(os.homedir(), '.hhhsched');
-}
+// Set the basedir of settingsm to users home directory
+SETTINGS_BASEDIR = path.join(os.homedir(), '.hhhscheduler');
+
 // Set the settings path
 SETTINGS_PATH = path.join(SETTINGS_BASEDIR, 'settings.json');
-
 
 // eslint-disable-next-line
 console.log(SETTINGS_PATH);
@@ -57,7 +53,6 @@ function loadSettings () {
 
 // eslint-disable-next-line
 function saveSettings(callback) {
-  console.log(Settings);
   fs.writeFile(SETTINGS_PATH, JSON.stringify(Settings), function (err) {
     if (err) throw err;
     if (callback) callback();
