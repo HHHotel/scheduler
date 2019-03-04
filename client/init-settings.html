@@ -75,16 +75,8 @@ configApp.controller('configController', [
     $rootScope.Settings = Settings;
   
     $scope.writeSettings = function () {
-      
-      saveSettings(function () {
-        const {ipcRenderer} = require('electron');
-        ipcRenderer.send('config-complete');
-
-        let BrowserWindow = require('electron').remote.BrowserWindow;
-        BrowserWindow.getCurrentWindow().close();
-
-      });
-  
+      const {ipcRenderer} = require('electron');
+      ipcRenderer.send('config-complete');
     }
   }  
 ]);

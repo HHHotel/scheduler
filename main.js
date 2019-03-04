@@ -22,22 +22,19 @@ const {ipcMain} = require('electron');
 
 ipcMain.on('config-complete', () => {
   createWindow();
-  //configWindow.close();
+  configWindow.close();
 });
 
 let SETTINGS_PATH, SETTINGS_BASEDIR;
 
-// Set the basedir of settingsm to users home directory (hidden on unix filesystems)
-if (os.platform() == 'win32') {
-  SETTINGS_BASEDIR = path.join(os.homedir(), 'HHH Scheduler');
-} else {
-  SETTINGS_BASEDIR = path.join(os.homedir(), '.hhhsched');
-}
+// Set the basedir of settingsm to users home directory
+SETTINGS_BASEDIR = path.join(os.homedir(), '.hhhscheduler');
+
 // Set the settings path
 SETTINGS_PATH = path.join(SETTINGS_BASEDIR, 'settings.json');
 
 // Make the settings directory if it doesn't already exist
-if (!fs.existsSync(SETTINGS_PATH)) {
+if (!fs.existsSync(SETTINGS_BASEDIR)) {
   fs.mkdir(SETTINGS_BASEDIR);
 }
 
