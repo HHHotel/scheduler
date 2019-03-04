@@ -8,7 +8,8 @@ angular
       '$location',
       function (Week, Socket, $location) {
 
-        // TODO : Create a data service for managing dog data use this for enforcing consistency/managing events
+        // TODO : Create a data service for managing dog data
+        // & use this for enforcing consistency/managing events
         class SchedulerService {
 
           constructor (Week, Socket) {
@@ -36,7 +37,8 @@ angular
             let self = this;
             self.cache = {};
 
-            // TODO: Refractor the loading of settings so its a service implemented by this class and socket service
+            // TODO: Refractor the loading of settings so its a service implemented
+            // by this class and socket service
             self.cache.events = [[]];
             self.cache.searchEvents = [];
             self.cache.searchText = '';
@@ -98,8 +100,11 @@ angular
                 event.startDate = new Date(event.startDate);
                 event.endDate = new Date(event.endDate);
 
-                let startDay = (event.startDate <= self.week.getDay(0)) ? 0 : event.startDate.getDay();
-                let endDay = (event.endDate >= self.week.getDay(6)) ? 6 : event.endDate.getDay();
+                let startDay = (event.startDate <= self.week.getDay(0)) ?
+                  0 : event.startDate.getDay();
+
+                let endDay = (event.endDate >= self.week.getDay(6)) ?
+                  6 : event.endDate.getDay();
 
                 for (let i = startDay; i <= endDay; i++) {
 
