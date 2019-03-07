@@ -5,15 +5,15 @@ platform=$1
 arch=$2
 
 function usage() {
-  echo "This build script takes arguments platform and architecture and packages the program
+        echo "This build script takes arguments platform and architecture and packages the program
 
     \$1 = Platform (win32 linux darwin\"mac\"
     \$2 = Architecture (x64 ia32)"
 }
 
 if [[ -z $platform ]] || [[ -z $arch ]]; then
-  usage
-  exit 1
+        usage
+        exit 1
 fi
 
 packageCommand="./node_modules/electron-packager/cli.js . HHH-Scheduler --overwrite --asar --platform=$platform --arch=$arch  --prune=true --out=$dest --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='HHH Scheduler'"

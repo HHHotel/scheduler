@@ -1,13 +1,13 @@
 const {remote} = require('electron');
 
 remote.globalShortcut.register('CommandOrControl+Shift+I', () => {
-  remote.BrowserWindow.getFocusedWindow().webContents.openDevTools();
+        remote.BrowserWindow.getFocusedWindow().webContents.openDevTools();
 });
 
 window.onbeforeunload = () => {
-  remote.globalShortcut.unregisterAll();
-  saveSettings();
-  // TODO Maybe Add a cancel close
+        remote.globalShortcut.unregisterAll();
+        saveSettings();
+        // TODO Maybe Add a cancel close
 };
 
 const fs = require('fs');
@@ -31,27 +31,27 @@ loadSettings();
 console.log(Settings);
 
 const DEFAULT = {
-  MAIN_PKG: 'HHH.Scheduler.App',
+        MAIN_PKG: 'HHH.Scheduler.App',
 
-  API: {
-    BASE_URL: Settings ? Settings.BASE_URL : ''
-  },
+        API: {
+                BASE_URL: Settings ? Settings.BASE_URL : ''
+        },
 
-  PKG: function (suffix) {
-    if (suffix != null && suffix.length) {
-      return DEFAULT.MAIN_PKG + '.' + suffix;
-    } else {
-      return DEFAULT.MAIN_PKG;
-    }
-  }
+        PKG: function (suffix) {
+                if (suffix != null && suffix.length) {
+                        return DEFAULT.MAIN_PKG + '.' + suffix;
+                } else {
+                        return DEFAULT.MAIN_PKG;
+                }
+        }
 };
 
 function loadSettings () {
-  if (fs.existsSync(path.join(SETTINGS_PATH)))
-    Settings = JSON.parse(fs.readFileSync(SETTINGS_PATH));
+        if (fs.existsSync(path.join(SETTINGS_PATH)))
+                Settings = JSON.parse(fs.readFileSync(SETTINGS_PATH));
 }
 
 // eslint-disable-next-line
 function saveSettings() {
-  fs.writeFileSync(SETTINGS_PATH, JSON.stringify(Settings));
+        fs.writeFileSync(SETTINGS_PATH, JSON.stringify(Settings));
 }
