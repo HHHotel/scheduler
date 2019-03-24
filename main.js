@@ -35,7 +35,7 @@ SETTINGS_PATH = path.join(SETTINGS_BASEDIR, 'settings.json');
 
 // Make the settings directory if it doesn't already exist
 if (!fs.existsSync(SETTINGS_BASEDIR)) {
-        fs.mkdir(SETTINGS_BASEDIR);
+        fs.mkdirSync(SETTINGS_BASEDIR);
 }
 
 function startWindow () {

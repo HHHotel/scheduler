@@ -15,6 +15,7 @@ class SchedulerService {
                 let self = this;
 
                 self.week = Week;
+                if (Settings.iDate) self.week.advanceToDate(new Date(parseInt(Settings.iDate)));
                 self.socket = Socket;
                 self.loc = $location;
                 self.init();
@@ -50,7 +51,7 @@ class SchedulerService {
 
                 if (Settings.user && Settings.user.token) {
                         self.socket.emit('check_token', Settings.user, (response) => {
-                                if (response.success) {
+                                if (response) {
                                         self.loc.path('/main');
                                 } else {
                                         self.loc.path('/');
@@ -77,11 +78,13 @@ class SchedulerService {
                 };
 
                 self.socket.emit('login', user, function(response) {
-                        if (response.success) {
+                        if (response) {
                                 Settings.user.username = username;
                                 Settings.user.token = response.token;
+                                callback(true);
+                        } else {
+                                callback(false);
                         }
-                        callback(response.success);
                 });
 
         }
@@ -108,9 +111,9 @@ class SchedulerService {
                                 for (let i = startDay; i <= endDay; i++) {
 
                                         let record = {
-                                                text: event.text !== 'undefined' ? event.text : event.dogName,
+                                                text: event.text,
                                                 type: event.type,
-                                                id: event.dogId ? event.dogId : event.id,
+                                                id: event.dogId ? event.dogId : event.eventId,
                                                 date: event.startDate,
                                         };
 
@@ -129,7 +132,6 @@ class SchedulerService {
                                         {
                                                 record.date = null;
                                         }
-
 
                                         self.cache.events[i].push(record);
                                 }
@@ -162,9 +164,9 @@ class SchedulerService {
         addEvent(event) {
                 let self = this;
 
-                if (event.start) event.start = event.start.valueOf();
-                if (event.end) event.end = event.end.valueOf();
-                else event.end = event.start;
+                if (event.startDate) event.startDate = event.startDate.valueOf();
+                if (event.endDate) event.endDate = event.endDate.valueOf();
+                else event.endDate = event.startDate;
 
                 self.socket.emit('add_event', event);
         }

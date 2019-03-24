@@ -1,58 +1,58 @@
 <div class = "form-wrapper" ng-click = "$event.stopPropagation();">
 
-  <div class = "sidebar-sub-heading">
+    <div class = "sidebar-sub-heading">
 
-    <h3>New Booking</h3>
+        <h3>New Booking</h3>
 
-  </div>
+    </div>
 
-  <form class = "sidebar-panel"
-  ng-init = "form.type = 'boarding'">
+    <form class = "sidebar-panel"
+          ng-init = "form.type = 'boarding'">
 
-  <div class = "booking-type-wrapper">
-    <button ng-click = "form.type = 'boarding'" id = "booking-type-btn">Boarding</button>
-    <button ng-click = "form.type = 'daycare'" id = "booking-type-btn">Daycare</button>
-  </div>
+        <div class = "booking-type-wrapper">
+            <button ng-click = "form.type = 'boarding'" id = "booking-type-btn">Boarding</button>
+            <button ng-click = "form.type = 'daycare'" id = "booking-type-btn">Daycare</button>
+        </div>
 
-    <br />
-
-    Dog Name <br />
-
-    <input ng-change = "findEvents(form.dogName)" ng-model = "form.dogName" type = "text"/>
-
-    <div class = "search">
-      <div ng-repeat = "event in cache.searchEvents | filter : {clientName: '!!'} | limitTo: 7"
-      ng-class = "{'highlighted': form.id === event.id}"
-      class = "clearfix">
-        {{event.name + ' ' + event.clientName}}
-        <button ng-click = "form.id = event.id" class = "hand" type = 'button'>select</button>
         <br />
-      </div>
 
-    </div>
+        Dog Name <br />
 
-    <br />
+        <input ng-change = "findEvents(form.dogName)" ng-model = "form.dogName" type = "text"/>
 
-    <div ng-show = "form.type === 'boarding'">
+        <div class = "search">
+            <div ng-repeat = "event in cache.searchEvents | filter : {type: 'dog'} | limitTo: 7"
+                 ng-class = "{'highlighted': form.id === event.dogId}"
+                 class = "clearfix">
+                {{ event.text }}
+                <button ng-click = "form.id = event.dogId" class = "hand" type = 'button'>select</button>
+                <br />
+            </div>
 
-      Start
-      <input ng-model = "form.start" type = "datetime-local" />
+        </div>
 
-      End
-      <input ng-model = "form.end" type = "datetime-local" />
+        <br />
 
-    </div>
+        <div ng-show = "form.type === 'boarding'">
 
-    <div ng-show = "form.type === 'daycare'">
+            Start
+            <input ng-model = "form.startDate" type = "datetime-local" />
 
-      Date
-      <input ng-model = "form.start" type = "datetime-local" />
+            End
+            <input ng-model = "form.endDate" type = "datetime-local" />
 
-    </div>
+        </div>
+
+        <div ng-show = "form.type === 'daycare'">
+
+            Date
+            <input ng-model = "form.startDate" type = "datetime-local" />
+
+        </div>
 
 
-    <button ng-click = "addEvent()" type = "button">Submit</button>
+        <button ng-click = "addEvent()" type = "button">Submit</button>
 
-  </form>
+    </form>
 
 </div>
