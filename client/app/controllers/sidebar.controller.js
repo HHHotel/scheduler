@@ -58,7 +58,8 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
         };
 
         $scope.addEvent = function () {
-            if (($scope.form.text || $scope.form.id) && $scope.form.startDate) {
+            if (($scope.form.event_text || $scope.form.id) && $scope.form.event_start
+                && $scope.form.event_type) {
                 $Scheduler.addEvent($scope.form);
                 $scope.form = {};
             } else {

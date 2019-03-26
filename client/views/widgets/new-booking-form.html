@@ -7,11 +7,11 @@
     </div>
 
     <form class = "sidebar-panel"
-          ng-init = "form.type = 'boarding'">
+          ng-init = "form.event_type = 'boarding'">
 
         <div class = "booking-type-wrapper">
-            <button ng-click = "form.type = 'boarding'" id = "booking-type-btn">Boarding</button>
-            <button ng-click = "form.type = 'daycare'" id = "booking-type-btn">Daycare</button>
+            <button ng-click = "form.event_type = 'boarding'" id = "booking-type-btn">Boarding</button>
+            <button ng-click = "form.event_type = 'daycare'" id = "booking-type-btn">Daycare</button>
         </div>
 
         <br />
@@ -33,20 +33,20 @@
 
         <br />
 
-        <div ng-show = "form.type === 'boarding'">
+        <div ng-show = "form.event_type === 'boarding'">
 
             Start
-            <input ng-model = "form.startDate" type = "datetime-local" />
+            <input ng-model = "form.event_start" type = "datetime-local" />
 
             End
-            <input ng-model = "form.endDate" type = "datetime-local" />
+            <input ng-model = "form.event_end" type = "datetime-local" />
 
         </div>
 
-        <div ng-show = "form.type === 'daycare'">
+        <div ng-show = "form.event_type === 'daycare'">
 
             Date
-            <input ng-model = "form.startDate" type = "datetime-local" />
+            <input ng-model = "form.event_start" type = "datetime-local" />
 
         </div>
 

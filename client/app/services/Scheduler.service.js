@@ -164,9 +164,9 @@ class SchedulerService {
         addEvent(event) {
                 let self = this;
 
-                if (event.startDate) event.startDate = event.startDate.valueOf();
-                if (event.endDate) event.endDate = event.endDate.valueOf();
-                else event.endDate = event.startDate;
+                if (event.event_start) event.event_start = event.event_start.valueOf();
+                if (event.event_end) event.event_end = event.event_end.valueOf();
+                else event.event_end = event.event_start;
 
                 self.socket.emit('add_event', event);
         }
