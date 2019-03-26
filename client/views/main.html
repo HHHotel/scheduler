@@ -88,7 +88,7 @@
                 <div class = "week-wrapper"> <!-- Week Wrapper -->
 
                         <div class = "week">
-                                <div ng-repeat = "day in week.days" class = "day">
+                            <div ng-repeat = "day in week.days" class = "day day-{{$index}}">
                                         <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
                                         <div class = "dog-list">
                                                 <pre ng-click = "lookup(event)" ng-repeat = "event in cache.events[$index]" class = "{{event.type}}" id = "{{event.id}}">{{displayEvent(event)}}</pre>

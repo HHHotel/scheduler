@@ -56,6 +56,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
                 case 'arriving':
                 case 'departing':
                 case 'boarding':
+                case 'daycare':
                     $Scheduler.retrieveDog(event.id);
                     break;
             }

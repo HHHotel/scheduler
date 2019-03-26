@@ -10,16 +10,21 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
             saveSettings();
         };
 
+        $scope.printSchedule = function () {
+            const {ipcRenderer} = require('electron');
+            ipcRenderer.send('print-schedule');
+        };
+
+        /* KEEP TRACK OF INPUTS */
         $scope.form = {};
-
+        $scope.newUser = {};
         $rootScope.search = {};
-
+        /* MIRROR SCHEDULER CACHE */
         $scope.cache = $Scheduler.cache;
-
+        /* INDEX OF SIDEBAR TAB */
         $scope.index = 0;
 
-        $scope.newUser = {};
-
+        /* USER MANAGEMENT */
         $scope.addUser = function (username, password, permissionType) {
             let permissionLevel = 0;
             if (permissionType === 'Viewer') permissionLevel = 0;
@@ -42,6 +47,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
             $Scheduler.logout();
         };
 
+        /* DOG SCHEDULE MANAGEMENT */
         $scope.addDog = function () {
             if ($scope.form.name && $scope.form.clientName) {
                 $Scheduler.addDog($scope.form);
@@ -70,12 +76,13 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
             $Scheduler.cache.searchText = search;
         };
 
-        $scope.jumpToWeek = function (date) {
-            $Scheduler.jumpToWeek(date);
-        };
-
         $scope.retrieveDog = function (dogID) {
             $Scheduler.retrieveDog(dogID);
+        };
+
+        /* MOVE AROUND WEEKS */
+        $scope.jumpToWeek = function (date) {
+            $Scheduler.jumpToWeek(date);
         };
 
     }

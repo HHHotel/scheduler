@@ -4,6 +4,11 @@ remote.globalShortcut.register('CommandOrControl+Shift+I', () => {
         remote.BrowserWindow.getFocusedWindow().webContents.openDevTools();
 });
 
+remote.globalShortcut.register('CommandOrControl+P', () => {
+    const {ipcRenderer} = require('electron');
+    ipcRenderer.send('print-schedule');
+});
+
 window.onbeforeunload = () => {
         remote.globalShortcut.unregisterAll();
         saveSettings();

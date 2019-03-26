@@ -17,96 +17,102 @@
 }
 
 * {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 
-  box-sizing: border-box;
-  font-family: 'Poppins';
+    box-sizing: border-box;
+    font-family: 'Poppins';
 
-  -webkit-user-select: none;
-  user-select: none;
-  cursor: default;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
 }
 
 body,
 html {
-  background-color: var(--background-light);
-  overflow: hidden;
+    background-color: var(--background-light);
+    overflow: hidden;
 }
 
 input {
-  cursor: text;
-  user-select: all;
+    cursor: text;
+    user-select: all;
 
-  background: var(--input-background-color);
+    background: var(--input-background-color);
 
-  border: none;
-  border-bottom: 2px solid var(--background-dark);
-  border-radius: 2px;
+    border: none;
+    border-bottom: 2px solid var(--background-dark);
+    border-radius: 2px;
 
-  box-shadow: 1px 1px 3px var(--shadow);
+    box-shadow: 1px 1px 3px var(--shadow);
 
-  margin: .5rem 0 1rem;
-  padding: .5rem;
-  width: 100%;
+    margin: .5rem 0 1rem;
+    padding: .5rem;
+    width: 100%;
 }
 
 .radio {
-  width: 1rem;
+    width: 1rem;
 }
 
 select {
-  background: var(--input-background-color);
+    background: var(--input-background-color);
 
-  border: none;
-  border-bottom: 2px solid var(--background-dark);
-  border-radius: 2px;
+    border: none;
+    border-bottom: 2px solid var(--background-dark);
+    border-radius: 2px;
 
-  box-shadow: 1px 1px 3px var(--shadow);
+    box-shadow: 1px 1px 3px var(--shadow);
 
-  margin: .5rem 0 1rem;
-  padding: .5rem;
-  width: 100%;
+    margin: .5rem 0 1rem;
+    padding: .5rem;
+    width: 100%;
 }
 
 
 button {
-  padding: .5rem;
+    padding: .5rem;
 
-  background-color: var(--background-dark);
-  color: var(--font-light);
+    background-color: var(--background-dark);
+    color: var(--font-light);
 
-  border: none;
-  border-radius: .2rem .5rem;
+    border: none;
+    border-radius: .2rem .5rem;
 
-  box-shadow: 3px 2px 5px var(--shadow)
-  , -2px 2px 5px var(--shadow);
+    box-shadow: 3px 2px 5px var(--shadow)
+    , -2px 2px 5px var(--shadow);
 
-  transition-duration: .25s;
+    transition-duration: .25s;
 }
 
 button:focus {
-  outline: 0px;
+    outline: 0px;
 }
 
 button:active {
-  opacity: .7;
+    opacity: .7;
 }
 
 button:hover {
-  box-shadow: 3px 2px 20px var(--shadow)
-  , -2px 2px 20px var(--shadow);
+    box-shadow: 3px 2px 20px var(--shadow)
+    , -2px 2px 20px var(--shadow);
 }
 
+.page-break {
+    height: 1px;
+    background-color: black;
+    margin: 1rem;
+    box-shadow: 3px 2px 5px var(--shadow);
+}
 
 .hand,
 .hand * {
-  user-select: none;
-  cursor: pointer;
+    user-select: none;
+    cursor: pointer;
 }
 
 .clearfix {
-  overflow: auto;
+    overflow: auto;
 }
 
 .clearfix::after {
@@ -116,38 +122,103 @@ button:hover {
 }
 
 *::-webkit-scrollbar {
-  width: .5rem;
-  border-radius: 20px;
+    width: .5rem;
+    border-radius: 20px;
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--background-ex-light);
-  box-shadow: inset 0 0 3px var(--shadow);
+    background: var(--background-ex-light);
+    box-shadow: inset 0 0 3px var(--shadow);
 }
 
 *::-webkit-scrollbar-thumb {
-  border-radius: 20px;
-  background-color: var(--background-dark);
-  box-shadow: 3px 0px 5px var(--shadow);
+    border-radius: 20px;
+    background-color: var(--background-dark);
+    box-shadow: 3px 0px 5px var(--shadow);
 }
 
 .app-wrapper {
-  margin-top: 2rem;
+    margin-top: 2rem;
 }
 
 .app-wrapper > * {
-  float: left;
+    float: left;
 }
 
 .main-content {
-  width: 70%;
+    width: 70%;
 }
 
 .sidebar-closed {
-  width: 100%;
+    width: 100%;
 }
 
 .sidebar-wrapper {
-  width: 30%;
-  height: calc(100vh - 5rem);
+    width: 30%;
+    height: calc(100vh - 5rem);
+}
+
+@media print {
+
+    body, html {
+        background-color: #FFF;
+        overflow: visible;
+    }
+
+    #titleBar,
+    #titleBar > *,
+    .header > *,
+    .sidebar-wrapper,
+    .sidebar-wrapper > * {
+        display: none !important;
+    }
+
+    .header,
+    .header > h1 {
+        display: inline-block !important;
+        color: #000;
+        width: 100%;
+        text-align: center;
+        background: #FFF;
+    }
+
+    .app-wrapper {
+        margin: 0;
+    }
+
+    .week {
+        grid-template-columns: 16% 16% 16% 16% 16% 16% !important;
+    }
+
+    .week-wrapper,
+    .week,
+    .main-content {
+        width: 100% !important;
+        height: calc(99vh - 3rem) !important;
+        overflow: visible !important;
+    }
+
+    .day {
+        background-color: #FFF !important;
+        border: 1px solid black;
+        border-radius: .2rem;
+        height: 99% !important;
+        font-size: .7rem;
+        grid-row: 1 / span 2;
+    }
+
+
+    .day-5,
+    .day-6 {
+        height: 98% !important;
+    }
+
+    .day-5 {
+        grid-row: 1 / span 1;
+    }
+
+    .day-6 {
+        grid-row: 2 / span 1;
+    }
+
 }
