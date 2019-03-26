@@ -1,5 +1,4 @@
 # Features  
-- Printing the week  
 - Pull latest github updates with an integrated service in .asar form  
   - Try to support backwards compat  
 
@@ -11,3 +10,5 @@
 - Better dialogs  
 
 - Migrate to typescript/qt  
+
+- Printing sometimes rando logs out user  
