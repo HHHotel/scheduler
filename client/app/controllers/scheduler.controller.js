@@ -45,7 +45,8 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
         $scope.displayBooking = function (booking) {
             switch (booking.type) {
                 case 'boarding':
-                    return booking.startDate.toDateString() + ' - ' + booking.endDate.toDateString();
+                    return booking.startDate.toDateString() + ' ' + getAmPm(booking.startDate)
+                        + ' - ' + booking.endDate.toDateString() + ' ' + getAmPm(booking.endDate);
                 case 'daycare':
                     return booking.startDate.toDateString();
             }
@@ -103,10 +104,9 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
             if (date) {
 
                 let hours = Settings.TWENTY_FOUR_HOUR ? date.getHours() : convertHours(date.getHours());
-                let morningOrNight = !Settings.TWENTY_FOUR_HOUR ? (date.getHours() >= 12 ? ' PM' : ' AM') : '';
                 let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
 
-                return '(' + hours + ':' + minutes + morningOrNight + ') ' + text;
+                return '(' + hours + ':' + minutes + getTimeExtension(date) + ') ' + text;
 
             } else {
                 return text;
@@ -117,7 +117,14 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
     }
 ]);
 
+function getTimeExtension(date) {
+    return !Settings.TWENTY_FOUR_HOUR ? getAmPm(date) : '';
+}
 
-function convertHours ( hours ) {
+function getAmPm(date) {
+    return date.getHours() >= 12 ? ' PM' : ' AM';
+}
+
+function convertHours(hours) {
     return hours < 12 ? hours : hours - 12;
 }
