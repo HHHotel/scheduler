@@ -1,6 +1,6 @@
 {
   "name": "hhh-scheduler",
-  "version": "0.2.4",
+  "version": "0.2.6",
   "description": "Scheduling App",
   "main": "main.js",
   "scripts": {
