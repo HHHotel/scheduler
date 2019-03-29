@@ -6,15 +6,15 @@
   ng-click = "$event.stopPropagation();">
     Name <br />
 
-    <input ng-model = "form.name" type = "text" name = "name"/>
+    <input ng-model = "form.dog.name" type = "text" name = "name"/>
 
     <br />
     Client Name <br />
 
-    <input ng-model = "form.clientName" type = "text" name = "clientName"/>
+    <input ng-model = "form.dog.clientName" type = "text" name = "clientName"/>
 
     <br />
-    <button class = "hand" ng-click = "form.type = 'dog'; addDog()" type = "button">Submit</button>
+    <button class = "hand" ng-click = "form.dog.type = 'dog'; addDog(form.dog)" type = "button">Submit</button>
 
   </form>
 

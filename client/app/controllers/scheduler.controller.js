@@ -12,10 +12,8 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
         $scope.cache = $Scheduler.cache;
         $scope.editMode = false;
 
-        $scope.load = function () {
-            $Scheduler.load();
-        };
 
+        /* PROFILE FUNCTIONS */
         $scope.saveProfile = function () {
             let newDog = {
                 name: $scope.cache.dogProfile.name,
@@ -45,8 +43,8 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
         $scope.displayBooking = function (booking) {
             switch (booking.type) {
                 case 'boarding':
-                    return booking.startDate.toDateString() + ' ' + getAmPm(booking.startDate)
-                        + ' - ' + booking.endDate.toDateString() + ' ' + getAmPm(booking.endDate);
+                    return booking.startDate.toDateString() + getAmPm(booking.startDate)
+                        + ' - ' + booking.endDate.toDateString() + getAmPm(booking.endDate);
                 case 'daycare':
                     return booking.startDate.toDateString();
             }
@@ -63,18 +61,6 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
             }
         };
 
-        $scope.nextWeek = function () {
-            $Scheduler.nextWeek();
-        };
-
-        $scope.prevWeek = function () {
-            $Scheduler.prevWeek();
-        };
-
-        $scope.toggleSidebar = function () {
-            Settings.SIDEBAR_OPEN = !Settings.SIDEBAR_OPEN;
-        };
-
         $scope.removeEvent = function (id) {
             $Scheduler.removeEvent(id, () => {
                 $Scheduler.retrieveDog($Scheduler.cache.dogProfile.id);
@@ -86,8 +72,22 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
             $Scheduler.removeDog(id, () => {
                 $Scheduler.cache.dogProfile = {};
                 $Scheduler.cache.dogProfile.open = false;
-                $Scheduler.findEvents($Scheduler.searchText);
+                $Scheduler.findEvents($scope.cache.searchText);
             });
+        };
+
+        /* WEEK FUNCTIONS */
+        $scope.nextWeek = function () {
+            $Scheduler.nextWeek();
+        };
+
+        $scope.prevWeek = function () {
+            $Scheduler.prevWeek();
+        };
+
+        /* MISC */
+        $scope.toggleSidebar = function () {
+            Settings.SIDEBAR_OPEN = !Settings.SIDEBAR_OPEN;
         };
 
         $scope.formatDate = function (date) {
@@ -103,10 +103,10 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
 
             if (date) {
 
-                let hours = Settings.TWENTY_FOUR_HOUR ? date.getHours() : convertHours(date.getHours());
-                let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+                let hours = convertHours(date.getHours());
+                //let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
 
-                return '(' + hours + ':' + minutes + getTimeExtension(date) + ') ' + text;
+                return '(' + hours + getClosing(date) + getTimeExtension(date) + ') ' + text;
 
             } else {
                 return text;
@@ -114,17 +114,25 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
 
         };
 
+        $scope.load = function () { $Scheduler.load(); };
+
+        function getClosing(date) {
+            // TODO make these hours a setting
+            if (date.getHours() === 8 || date.getHours() === 16) return '-' + (date.getHours() >= 12 ? convertHours(18) : convertHours(10));
+            else return ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+        }
+
+        function getTimeExtension(date) {
+            return !Settings.TWENTY_FOUR_HOUR ? getAmPm(date) : '';
+        }
+
+        function getAmPm(date) {
+            return date.getHours() >= 12 ? ' PM' : ' AM';
+        }
+
+        function convertHours(hours) {
+            return !Settings.TWENTY_FOUR_HOUR ? hours <= 12 ? hours : hours - 12 : hours;
+        }
     }
 ]);
 
-function getTimeExtension(date) {
-    return !Settings.TWENTY_FOUR_HOUR ? getAmPm(date) : '';
-}
-
-function getAmPm(date) {
-    return date.getHours() >= 12 ? ' PM' : ' AM';
-}
-
-function convertHours(hours) {
-    return hours < 12 ? hours : hours - 12;
-}

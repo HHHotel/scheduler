@@ -7,25 +7,25 @@
     </div>
 
     <form class = "sidebar-panel"
-          ng-init = "form.event_type = 'boarding'">
+          ng-init = "form.booking.event_type = 'boarding'">
 
         <div class = "booking-type-wrapper">
-            <button ng-click = "form.event_type = 'boarding'" id = "booking-type-btn">Boarding</button>
-            <button ng-click = "form.event_type = 'daycare'" id = "booking-type-btn">Daycare</button>
+            <button ng-click = "form.booking.event_type = 'boarding'" id = "booking-type-btn">Boarding</button>
+            <button ng-click = "form.booking.event_type = 'daycare'" id = "booking-type-btn">Daycare</button>
         </div>
 
         <br />
 
         Dog Name <br />
 
-        <input ng-change = "findEvents(form.dogName)" ng-model = "form.dogName" type = "text"/>
+        <input ng-change = "findEvents(form.booking.dogName)" ng-model = "form.booking.dogName" type = "text"/>
 
         <div class = "search">
             <div ng-repeat = "event in cache.searchEvents | filter : {type: 'dog'} | limitTo: 7"
-                 ng-class = "{'highlighted': form.id === event.dogId}"
+                 ng-class = "{'highlighted': form.booking.id === event.dogId}"
                  class = "clearfix">
                 {{ event.text }}
-                <button ng-click = "form.id = event.dogId" class = "hand" type = 'button'>select</button>
+                <button ng-click = "form.booking.id = event.dogId" class = "hand" type = 'button'>select</button>
                 <br />
             </div>
 
@@ -33,25 +33,25 @@
 
         <br />
 
-        <div ng-show = "form.event_type === 'boarding'">
+        <div ng-show = "form.booking.event_type === 'boarding'">
 
             Start
-            <input ng-model = "form.event_start" type = "datetime-local" />
+            <input ng-model = "form.booking.event_start" type = "datetime-local" />
 
             End
-            <input ng-model = "form.event_end" type = "datetime-local" />
+            <input ng-model = "form.booking.event_end" type = "datetime-local" />
 
         </div>
 
-        <div ng-show = "form.event_type === 'daycare'">
+        <div ng-show = "form.booking.event_type === 'daycare'">
 
             Date
-            <input ng-model = "form.event_start" type = "datetime-local" />
+            <input ng-model = "form.booking.event_start" type = "datetime-local" />
 
         </div>
 
 
-        <button ng-click = "addEvent()" type = "button">Submit</button>
+        <button ng-click = "addEvent(form.booking)" type = "button">Submit</button>
 
     </form>
 

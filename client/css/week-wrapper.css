@@ -79,17 +79,22 @@ disconnect-notice {
   order: 3;
 }
 
+/*
 .arriving::after {
   content: ' - Arrives';
 }
+*/
 
 .departing {
   color: red;
   order: 4;
 }
+
+/*
 .departing::after {
   content: ' - Leaves';
 }
+*/
 
 .boarding {
   order: 1;

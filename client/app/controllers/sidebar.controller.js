@@ -16,7 +16,12 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
         };
 
         /* KEEP TRACK OF INPUTS */
-        $scope.form = {};
+        $scope.form = {
+            dog: {},
+            event: {},
+            booking: {},
+        };
+
         $scope.newUser = {};
         $rootScope.search = {};
         /* MIRROR SCHEDULER CACHE */
@@ -48,20 +53,21 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
         };
 
         /* DOG SCHEDULE MANAGEMENT */
-        $scope.addDog = function () {
-            if ($scope.form.name && $scope.form.clientName) {
-                $Scheduler.addDog($scope.form);
-                $scope.form = {};
+        $scope.addDog = function (dog) {
+            if (dog.name && dog.clientName) {
+                $Scheduler.addDog(dog);
+                $scope.form.dog = {};
             } else {
                 alert('Insufficent dog details');
             }
         };
 
-        $scope.addEvent = function () {
-            if (($scope.form.event_text || $scope.form.id) && $scope.form.event_start
-                && $scope.form.event_type) {
-                $Scheduler.addEvent($scope.form);
-                $scope.form = {};
+        $scope.addEvent = function (event) {
+            if ((event.event_text || event.id) && event.event_start
+                && event.event_type) {
+                $Scheduler.addEvent(event);
+                $scope.form.event = {};
+                $scope.form.booking = {};
             } else {
                 alert('Insufficent event details');
             }
