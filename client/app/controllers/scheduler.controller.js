@@ -21,7 +21,6 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
                 id: $scope.cache.dogProfile.id,
                 bookings: [],
             };
-            let error = false;
 
             for (let i = 0; i < $scope.cache.dogProfile.bookings; i++) {
                 try {
@@ -35,9 +34,13 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
                 }
             }
 
-            if (newDog.name && newDog.clientName && !error) {
+            if (newDog.name && newDog.clientName) {
                 $Scheduler.editDog(newDog);
+            } else {
+                alert('Error: Details not provided');
             }
+
+            $Scheduler.retrieveDog(newDog.id);
         };
 
         $scope.displayBooking = function (booking) {

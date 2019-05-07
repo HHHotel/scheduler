@@ -1,4 +1,6 @@
 # Features  
+- Version number on client  
+- Auto updater  
 - Pull latest github updates with an integrated service in .asar form  
     - Try to support backwards compat  
     - innodb setup for installation  
