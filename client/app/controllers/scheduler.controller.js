@@ -44,6 +44,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
         };
 
         $scope.displayBooking = function (booking) {
+            if (!(booking.startDate instanceof Date)) { return null; }
             switch (booking.type) {
                 case 'boarding':
                     return booking.startDate.toDateString() + getAmPm(booking.startDate)
