@@ -22,7 +22,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
                 bookings: [],
             };
 
-            for (let i = 0; i < $scope.cache.dogProfile.bookings; i++) {
+            for (let i = 0; i < $scope.cache.dogProfile.bookings.length; i++) {
                 try {
                     let booking = $scope.cache.dogProfile.bookings[i];
                     newDog.bookings[i] = booking;

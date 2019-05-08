@@ -205,13 +205,19 @@ class SchedulerService {
         let self = this;
 
         self.socket.emit('retrieve_dog', dogID, function (res) {
-            self.cache.dogProfile = res;
-            for (let booking of self.cache.dogProfile.bookings) {
-                booking.startDate = new Date(booking.startDate);
-                booking.endDate = new Date(booking.endDate);
-            }
-            self.cache.dogProfile.open = true;
-            self.cache.dogProfile.id = dogID;
+
+            (function (callback) {
+                for (let booking of res.bookings) {
+                    booking.startDate = new Date(booking.startDate);
+                    booking.endDate = new Date(booking.endDate);
+                }
+
+                callback();
+            }(() => {
+                self.cache.dogProfile = res;
+                self.cache.dogProfile.open = true;
+                self.cache.dogProfile.id = dogID;
+            }));
         });
 
     }
