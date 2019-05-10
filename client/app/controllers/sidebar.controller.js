@@ -62,10 +62,34 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
             }
         };
 
-        $scope.addEvent = function (event) {
+        $scope.addEvent = function (event, repeatOptions) {
             if ((event.event_text || event.id) && event.event_start
                 && event.event_type) {
-                $Scheduler.addEvent(event);
+                if (event.event_type === 'daycare' && repeatOptions) {
+                    let inc;
+                    switch (repeatOptions.frequency) {
+                        case 'daily':
+                            inc = 86400000;
+                            break;
+                        case 'weekly':
+                            inc = 604800000;
+                            break;
+                        case 'once':
+                            $Scheduler.addEvent(event);
+                            break;
+                        default:
+                            alert('Enter repeat frequency');
+                            break;
+                    }
+
+                    for (let i = event.event_start.valueOf(); i < repeatOptions.stopDate.valueOf(); i+=inc){
+                        event.event_start = new Date(i);
+                        event.event_end = new Date(i);
+                        $Scheduler.addEvent(event);
+                    }
+                } else {
+                    $Scheduler.addEvent(event);
+                }
                 $scope.form.event = {};
                 $scope.form.booking = {};
             } else {

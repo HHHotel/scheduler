@@ -122,7 +122,9 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
 
         function getClosing(date) {
             // TODO make these hours a setting
-            if (date.getHours() === 8 || date.getHours() === 16) return '-' + (date.getHours() >= 12 ? convertHours(18) : convertHours(10));
+            if (date.getHours() === Settings.OPENING_HOUR_AM || date.getHours() === Settings.OPENING_HOUR_PM)
+                return '-' + (date.getHours() >= 12 ? convertHours(Settings.CLOSING_HOUR_PM) : convertHours(Settings.CLOSING_HOUR_AM));
+
             else return ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
         }
 
