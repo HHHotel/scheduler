@@ -20,6 +20,7 @@
 .sidebar-button > img {
     height: 100%;
     width: auto;
+    margin: 0 auto;
 }
 
 .sidebar-button {
@@ -85,12 +86,13 @@ label {
     font-weight: bold;
 }
 
-.settings > button {
-    margin: 0;
-}
-
 .settings-number {
     margin-left: 1rem;
     width:3rem;
     text-align:right;
+}
+
+.settings > h3 {
+    margin-top: 1rem;
+    text-align: center;
 }

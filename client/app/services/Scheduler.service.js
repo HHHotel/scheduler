@@ -25,7 +25,8 @@ class SchedulerService {
             self.checkToken();
             self.conn.connected = true;
         });
-        self.socket.on('disconnect', () => {
+        self.socket.on('disconnect', (reason) => {
+            console.log(reason);
             self.logout();
             self.conn.connected = false;
         });

@@ -1,55 +1,56 @@
 <!DOCTYPE html>
 
 <html ng-app = "HHH.Scheduler.App">
-        <head>
-                <title>HHH Scheduler</title>
+    <head>
+        <title>HHH Scheduler</title>
 
-                <!-- Meta Data -->
-                <link rel="icon" href = "images/web-app-icon.png">
-                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        <!-- Meta Data -->
+        <link rel="icon" href = "images/web-app-icon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 
-                <!-- Stylesheets -->
-                <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-                <link rel = "stylesheet" href = "css/style.css" />
-                <link rel = "stylesheet" href = "css/titlebar.css" />
-                <link rel = "stylesheet" href = "css/week-wrapper.css" />
-                <link rel = "stylesheet" href = "css/sidebar-style.css" />
-                <link rel = "stylesheet" href = "css/form-style.css" />
-                <link rel = "stylesheet" href = "css/dog-profile-style.css" />
-                <link rel = "stylesheet" href = "css/login.css" />
+        <!-- Stylesheets -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel = "stylesheet" href = "css/print.css" media="print"/>
+        <link rel = "stylesheet" href = "css/style.css" />
+        <link rel = "stylesheet" href = "css/titlebar.css" />
+        <link rel = "stylesheet" href = "css/week-wrapper.css" />
+        <link rel = "stylesheet" href = "css/sidebar-style.css" />
+        <link rel = "stylesheet" href = "css/form-style.css" />
+        <link rel = "stylesheet" href = "css/dog-profile-style.css" />
+        <link rel = "stylesheet" href = "css/login.css" />
 
-        </head>
+    </head>
 
-        <body controller = "bodyCtrl">
+    <body controller = "bodyCtrl">
 
-                <!-- Title Bar with close buttons -->
-                <ng-include src = "'views/widgets/titlebar.html'"></ng-include>
+        <!-- Title Bar with close buttons -->
+        <ng-include src = "'views/widgets/titlebar.html'"></ng-include>
 
-                <div class = "ui" ng-view></div>
+        <div class = "ui" ng-view></div>
 
-                <!-- Defaults -->
-                <script src ="app/default.js"></script>
+        <!-- Defaults -->
+        <script src ="app/default.js"></script>
 
-                <!-- Imports        -->
-                <script src="../node_modules/socket.io-client/dist/socket.io.js"></script>
-                <script src="../node_modules/angular/angular.js"></script>
+        <!-- Imports        -->
+        <script src="../node_modules/socket.io-client/dist/socket.io.js"></script>
+        <script src="../node_modules/angular/angular.js"></script>
 
-                <!-- Main -->
-                <script src ="app/main.js"></script>
+        <!-- Main -->
+        <script src ="app/main.js"></script>
 
-                <!-- Services -->
-                <script src="app/services/Week.service.js"></script>
-                <script src="app/services/Socket.service.js"></script>
-                <script src="app/services/Scheduler.service.js"></script>
+        <!-- Services -->
+        <script src="app/services/Week.service.js"></script>
+        <script src="app/services/Socket.service.js"></script>
+        <script src="app/services/Scheduler.service.js"></script>
 
-                <!-- Controllers        -->
-                <script src="app/controllers/titlebar.controller.js"></script>
-                <script src="app/controllers/scheduler.controller.js"></script>
-                <script src="app/controllers/sidebar.controller.js"></script>
-                <script src="app/controllers/login.controller.js"></script>
+        <!-- Controllers        -->
+        <script src="app/controllers/titlebar.controller.js"></script>
+        <script src="app/controllers/scheduler.controller.js"></script>
+        <script src="app/controllers/sidebar.controller.js"></script>
+        <script src="app/controllers/login.controller.js"></script>
 
 
-        </body>
+    </body>
 
 
 </html>

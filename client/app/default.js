@@ -37,7 +37,7 @@ console.log(Settings);
 
 const DEFAULT = {
         MAIN_PKG: 'HHH.Scheduler.App',
-
+        VERSION: '0.2.6',
         API: {
                 BASE_URL: Settings ? Settings.BASE_URL : ''
         },

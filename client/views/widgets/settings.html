@@ -1,30 +1,31 @@
 <div class = "sidebar-sub-heading">
 
-  <h3>Settings</h3>
+    <h3>Settings</h3>
 
 </div>
 
 <div class = "sidebar-panel settings" ng-click = "$event.stopPropagation(); load();">
 
-  <label>Twenty Four Hour Time</label>
-  <input class = "radio hand" type = "checkbox" ng-click = "console.log(Settings.TWENTY_FOUR_HOUR);" ng-model = "Settings.TWENTY_FOUR_HOUR"></input><br />
-  <label>Server URL</label><br />
-  <input class = "" type = "text" ng-click = "" ng-model = "Settings.BASE_URL"></input><br />
+    <label>Twenty Four Hour Time</label>
+    <input class = "radio hand" type = "checkbox" ng-click = "console.log(Settings.TWENTY_FOUR_HOUR);" ng-model = "Settings.TWENTY_FOUR_HOUR"></input><br />
+    <label>Server URL</label><br />
+    <input class = "" type = "text" ng-click = "" ng-model = "Settings.BASE_URL"></input><br />
 
-  <label>Opening Hour AM</label>
-  <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.OPENING_HOUR_AM"></input><br />
-  <label>Closing Hour AM</label>
-  <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.CLOSING_HOUR_AM"></input><br />
+    <label>Opening Hour AM</label>
+    <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.OPENING_HOUR_AM"></input><br />
+    <label>Closing Hour AM</label>
+    <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.CLOSING_HOUR_AM"></input><br />
 
-  <label>Opening Hour PM</label>
-  <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.OPENING_HOUR_PM"></input><br />
-  <label>Closing Hour PM</label>
-  <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.CLOSING_HOUR_PM"></input><br />
+    <label>Opening Hour PM</label>
+    <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.OPENING_HOUR_PM"></input><br />
+    <label>Closing Hour PM</label>
+    <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.CLOSING_HOUR_PM"></input><br />
 
-  <button ng-click = "printSchedule();">Print Schedule</button>
-  <br></br>
-  <button ng-click = "saveSettings();">Save</button>
-  <br></br>
-  <button style="background-color: #aa2222" ng-click = "logout()">Logout</button>
+    <button ng-click = "printSchedule();">Print Schedule</button>
+    <br></br>
+    <button ng-click = "saveSettings();">Save</button>
+    <br></br>
+    <button style="background-color: #aa2222" ng-click = "logout()">Logout</button>
+    <h3>Version {{VERSION}}</h3>
 
 </div>

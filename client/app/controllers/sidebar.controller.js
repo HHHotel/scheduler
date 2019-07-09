@@ -90,8 +90,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
                 } else {
                     $Scheduler.addEvent(event);
                 }
-                $scope.form.event = {};
-                $scope.form.booking = {};
+                $scope.form = {};
             } else {
                 alert('Insufficent event details');
             }

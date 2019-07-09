@@ -20,7 +20,7 @@
   left: 0;
 
   width: 92%;
-  height: 92%;
+  height: 90%;
   margin: 4%;
 
 }
@@ -59,6 +59,8 @@
 .dog-profile-bookings {
   margin: 1rem auto;
   width: 70%;
+  height: 60vh;
+  overflow-y: scroll;
 }
 
 .dog-profile-dog-booking {

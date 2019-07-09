@@ -6,6 +6,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
     '$Scheduler',
     ($rootScope, $scope, $Scheduler) => {
         $rootScope.Settings = Settings;
+        $rootScope.VERSION = DEFAULT.VERSION;
 
         $scope.conn = $Scheduler.conn;
         $scope.week = $Scheduler.week;

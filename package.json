@@ -4,7 +4,7 @@
   "description": "Scheduling App",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron --force-device-scale-factor=2 .",
     "lint": "eslint .",
     "build": "rm -rf ./release_builds/*; ./build linux x64; ./build win32 x64; ./build darwin x64"
   },
@@ -18,8 +18,8 @@
     "socket.io": ">=2.0.4"
   },
   "devDependencies": {
-    "electron": ">=1.8.8",
-    "electron-packager": "^13.0.1",
+    "electron": "^4.1.4",
+    "electron-packager": "^14.0.1",
     "eslint": ">=5.14.1",
     "eslint-config-google": ">=0.9.1"
   }
