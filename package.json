@@ -4,7 +4,7 @@
   "description": "Scheduling App",
   "main": "main.js",
   "scripts": {
-    "start": "electron --force-device-scale-factor=2 .",
+    "start": "electron .",
     "lint": "eslint .",
     "build": "rm -rf ./release_builds/*; ./build linux x64; ./build win32 x64; ./build darwin x64"
   },
