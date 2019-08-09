@@ -12,20 +12,20 @@ class ApiService {
         self.http = http;
     }
 
-    login (username, password) {
+    login (username, password, callback) {
         let self = this;
         const user = {
             username: username,
             password: password,
         };
 
-        self.http.post(DEFAULT.API.BASE_URL + '/login',
-            user)
+        self.http.post(DEFAULT.API.BASE_URL + '/login', user)
             .then(
                 (response) => {
                     Settings.user = response.data;
+                    callback(response);
                 },
-                (response) => console.error('Error: ', response)
+                (response) => callback(response)
             );
 
     }
@@ -45,7 +45,7 @@ class ApiService {
         let self = this;
         let url = DEFAULT.API.BASE_URL + endpoint + '?'
             + buildQuery('username', Settings.user.username, 'token', Settings.user.token);
-        self.http.post(url, data).then(callback);
+        self.http.post(url, data).then(callback, callback);
     }
 
     put (endpoint, data, callback) {

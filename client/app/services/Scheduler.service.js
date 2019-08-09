@@ -8,12 +8,11 @@ angular.module(DEFAULT.MAIN_PKG).factory('$Scheduler', [
     '$location',
     function (Week, Api, EventData, $location) {
         return new SchedulerService(Week, Api, EventData, $location);
-    }]);
+    }
+]);
 
 class SchedulerService {
-
-    constructor (Week, Api, EventData, $location) {
-
+    constructor(Week, Api, EventData, $location) {
         // TODO: Refractor the loading of settings so its a service implemented
         // by this class
 
@@ -24,71 +23,89 @@ class SchedulerService {
         this.cache.eventData = EventData;
         this.loc = $location;
 
-        if (Settings.iDate) this.week.advanceToDate(new Date(parseInt(Settings.iDate)));
+        if (Settings.iDate)
+            this.week.advanceToDate(new Date(parseInt(Settings.iDate)));
 
         this.checkToken();
     }
 
-    init () {
-        this.cache.searchEvents = [];
-        this.cache.searchText = '';
-        this.cache.dogProfile = { open: false };
+    setupPolling() {
+        if (!this.loadInterval)
+            this.loadInterval = setInterval(() => this.load(), 1000);
+        if (!this.profileInterval) {
+            this.profileInterval = setInterval(() => {
+                if (this.cache.dogProfile.open) {
+                    this.retrieveDog(this.cache.dogProfile.id);
+                }
+            }, 500);
+        }
     }
 
-    login(username, password) {
-        this.api.login(username, password);
+    clearPolling () {
+        clearInterval(this.loadInterval);
+        clearInterval(this.profileInterval);
+        this.loadInterval = null;
+        this.profileInterval = null;
+    }
 
+    init() {
+        this.cache.searchEvents = [];
+        this.cache.searchText = '';
+        this.cache.dogProfile = {
+            open: false
+        };
+    }
+
+    login(username, password, callback) {
+        this.api.login(username, password, (result) => {
+            callback(result);
+            this.checkToken();
+        });
     }
 
     checkToken() {
         let self = this;
 
-
         if (Settings.user && Settings.user.token) {
-            self.api.post('/login', Settings.user, (response) => {
-                if (response && response.data !== 'Login Failed') {
+            self.api.post('/login', Settings.user, response => {
+                if (response.status === 200) {
                     self.loc.path('/main');
-
-                    this.loadInterval = setInterval(() => this.load(), 1000);
-                    this.profileInterval = setInterval(() => {
-                        if (this.cache.dogProfile.open) {
-                            this.retrieveDog(this.cache.dogProfile.id);
-                        }
-                    }, 500);
+                    self.setupPolling();
                 } else {
                     self.logout();
                 }
             });
+        } else {
+            this.logout();
         }
-
     }
 
-    logout () {
-        clearInterval(this.loadInterval);
-        clearInterval(this.profileInterval);
+    logout() {
+        this.clearPolling();
         this.init();
         this.loc.path('/');
         Settings.user = {};
         saveSettings();
     }
 
-    load () {
+    load() {
         let self = this;
-        self.api.get('/api/week', 'date=' + self.week.days[0],
-            (response) => self.cache.eventData.loadEventData(response.data));
+        self.api.get('/api/week', 'date=' + self.week.days[0], response =>
+            self.cache.eventData.loadEventData(response.data)
+        );
     }
 
-    nextWeek () {
+    nextWeek() {
         this.week.nextWeek();
         this.load();
     }
 
-    prevWeek () {
+    prevWeek() {
         this.week.prevWeek();
         this.load();
     }
 
-    jumpToWeek (date) {
+    jumpToWeek(date) {
         this.week.advanceToDate(date);
         this.load();
     }
@@ -104,22 +121,23 @@ class SchedulerService {
         let self = this;
         const newEvent = {
             event_start: event.event_start.valueOf(),
-            event_end: event.event_end ? event.event_end : event.event_start.valueOf(),
+            event_end: event.event_end ?
+                event.event_end.valueOf() :
+                event.event_start.valueOf(),
             event_text: event.event_text,
             event_type: event.event_type,
-            id: event.id,
+            id: event.id
         };
 
         self.api.post('/api/events', newEvent);
     }
 
-    findEvents (eventText) {
+    findEvents(eventText) {
         let self = this;
 
         self.api.get('/api/find', 'searchText=' + eventText, function (response) {
             self.cache.searchEvents = response.data;
         });
-
     }
 
     removeEvent(eventId, callback) {
@@ -135,11 +153,10 @@ class SchedulerService {
         this.api.put('/api/dogs', dogProfile);
     }
 
-    retrieveDog (dogId) {
+    retrieveDog(dogId) {
         let self = this;
 
         self.api.get('/api/dogs/' + dogId, '', function (res) {
-
             (function (callback) {
                 for (let booking of res.data.bookings) {
                     booking.startDate = new Date(booking.startDate);
@@ -147,16 +164,15 @@ class SchedulerService {
                 }
 
                 callback();
-            }(() => {
+            })(() => {
                 self.cache.dogProfile = res.data;
                 self.cache.dogProfile.open = true;
                 self.cache.dogProfile.id = dogId;
-            }));
+            });
         });
-
     }
 
-    addUser (username, password, permissionLevel) {
+    addUser(username, password, permissionLevel) {
         let self = this;
         let user = {
             username: username,
@@ -167,10 +183,9 @@ class SchedulerService {
         self.api.post('/api/users', user, () => {
             alert('Added new user: ' + user.username);
         });
-
     }
 
-    deleteUser (username) {
+    deleteUser(username) {
         let self = this;
 
         self.api.get('/api/users/' + username + '/delete', '', () => {
@@ -178,7 +193,7 @@ class SchedulerService {
         });
     }
 
-    changePassword (oldPassword, newPassword) {
+    changePassword(oldPassword, newPassword) {
         let self = this;
         let user = {
             username: Settings.user.username,
@@ -189,7 +204,5 @@ class SchedulerService {
         self.api.post('/api/user/password', user, () => {
             alert('Changed Password for ' + Settings.user.username);
         });
-
     }
-
 }
