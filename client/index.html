@@ -19,6 +19,9 @@
         <link rel = "stylesheet" href = "css/dog-profile-style.css" />
         <link rel = "stylesheet" href = "css/login.css" />
 
+        <!-- Defaults -->
+        <script src ="app/default.js"></script>
+
     </head>
 
     <body controller = "bodyCtrl">
@@ -27,9 +30,6 @@
         <ng-include src = "'views/widgets/titlebar.html'"></ng-include>
 
         <div class = "ui" ng-view></div>
-
-        <!-- Defaults -->
-        <script src ="app/default.js"></script>
 
         <!-- Imports        -->
         <script src="../node_modules/socket.io-client/dist/socket.io.js"></script>
@@ -40,6 +40,8 @@
 
         <!-- Services -->
         <script src="app/services/Week.service.js"></script>
+        <script src="app/services/Api.service.js"></script>
+        <script src="app/services/EventData.service.js"></script>
         <script src="app/services/Socket.service.js"></script>
         <script src="app/services/Scheduler.service.js"></script>
 

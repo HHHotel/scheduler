@@ -1,113 +1,110 @@
 <div ng-controller = "schedCtrl" class = "app-wrapper">
 
-        <div ng-show = "Settings.SIDEBAR_OPEN" class = "sidebar-wrapper" ng-controller = "sidebarCtrl">
+    <div ng-show = "Settings.SIDEBAR_OPEN" class = "sidebar-wrapper" ng-controller = "sidebarCtrl">
 
-                <div class = "sidebar-header">
+        <div class = "sidebar-header">
 
-                        <div ng-click = "index = 0" class = "sidebar-button hand">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     fill = "black"
-                                     width="24" height="24" viewBox="0 0 24 24">
-                                        <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
-                                </svg>
-                        </div>
+            <div ng-click = "index = 0" class = "sidebar-button hand">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     fill = "black"
+                     width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
+                </svg>
+            </div>
 
-                        <div ng-click = "index = 1" class = "sidebar-button hand">
-                                <img src = "images/event-calender-icon.png"/>
-                        </div>
+            <div ng-click = "index = 1" class = "sidebar-button hand">
+                <img src = "images/event-calender-icon.png"/>
+            </div>
 
-                        <div ng-click = "index = 2" class = "sidebar-button hand">
-                                <img src = "images/dog-calender-icon.png"/>
-                                <!-- <h2 style = "text-align: center;" class = "fas fa-paw"></h2> -->
-                        </div>
+            <div ng-click = "index = 2" class = "sidebar-button hand">
+                <img src = "images/dog-calender-icon.png"/>
+                <!-- <h2 style = "text-align: center;" class = "fas fa-paw"></h2> -->
+            </div>
 
-                        <div ng-click = "index = 3" class = "sidebar-button hand">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     width="12" height="12" viewBox="0 0 12 12">
-                                        <g stroke-width="2" stroke="black" fill="none">
-                                        <path d="M11.29 11.71l-4-4"/>
-                                        <circle cx="5" cy="5" r="4"/>
-                                        </g>
-                                </svg>
-                        </div>
+            <div ng-click = "index = 3" class = "sidebar-button hand">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="12" height="12" viewBox="0 0 12 12">
+                    <g stroke-width="2" stroke="black" fill="none">
+                    <path d="M11.29 11.71l-4-4"/>
+                    <circle cx="5" cy="5" r="4"/>
+                    </g>
+                </svg>
+            </div>
 
-                        <div ng-click = "index = 4" class = "sidebar-button hand">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     version="1.1" x="0px" y="0px" width="36px" height="36px"
-                                                                                viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve"
-                                                                                                    fill = "black">
-                                        <g id="Icons">
-                                        <g id="arched-arrow-ltr">
-                                        <path id="arrow_3_" style="fill-rule:evenodd;clip-rule:evenodd;" d="M19.925,14.937l-2.391-6.901l-1.48,2.329    c-0.964-0.845-2.699-1.85-5.513-1.823c-4.887,0.046-6.524,4.244-6.524,4.244s2.753-2.639,6.925-1.949    c1.729,0.286,3.007,1.206,3.675,1.791l-1.474,2.319L19.925,14.937z"/>
-                                        </g>
-                                        </g>
-                                        <g id="Guides" style="display:none;"></g>
-                                </svg>
-                        </div>
+            <div ng-click = "index = 4" class = "sidebar-button hand">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     version="1.1" x="0px" y="0px" width="36px" height="36px"
+                                                                viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve"
+                                                                                    fill = "black">
+                    <g id="Icons">
+                    <g id="arched-arrow-ltr">
+                    <path id="arrow_3_" style="fill-rule:evenodd;clip-rule:evenodd;" d="M19.925,14.937l-2.391-6.901l-1.48,2.329    c-0.964-0.845-2.699-1.85-5.513-1.823c-4.887,0.046-6.524,4.244-6.524,4.244s2.753-2.639,6.925-1.949    c1.729,0.286,3.007,1.206,3.675,1.791l-1.474,2.319L19.925,14.937z"/>
+                    </g>
+                    </g>
+                    <g id="Guides" style="display:none;"></g>
+                </svg>
+            </div>
 
-                        <div ng-click = "index = 5" class = "sidebar-button hand">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="896.025px" height="896.025px" viewBox="0 0 896.025 896.025" style="enable-background:new 0 0 896.025 896.025;" xml:space="preserve"> <g> <path id="settings_1_" d="M863.24,382.771l-88.759-14.807c-6.451-26.374-15.857-51.585-28.107-75.099l56.821-70.452   c12.085-14.889,11.536-36.312-1.205-50.682l-35.301-39.729c-12.796-14.355-34.016-17.391-50.202-7.165l-75.906,47.716   c-33.386-23.326-71.204-40.551-112-50.546l-14.85-89.235c-3.116-18.895-19.467-32.759-38.661-32.759h-53.198   c-19.155,0-35.561,13.864-38.608,32.759l-14.931,89.263c-33.729,8.258-65.353,21.588-94.213,39.144l-72.188-51.518   c-15.558-11.115-36.927-9.377-50.504,4.171l-37.583,37.61c-13.548,13.577-15.286,34.946-4.142,50.504l51.638,72.326   c-17.391,28.642-30.584,60.086-38.841,93.515l-89.743,14.985C13.891,385.888,0,402.24,0,421.435v53.156   c0,19.193,13.891,35.547,32.757,38.663l89.743,14.985c6.781,27.508,16.625,53.784,29.709,78.147L95.647,676.44   c-12.044,14.875-11.538,36.312,1.203,50.669l35.274,39.73c12.797,14.382,34.028,17.363,50.216,7.163l77-48.37   c32.581,22.285,69.44,38.664,108.993,48.37l14.931,89.25c3.048,18.896,19.453,32.76,38.608,32.76h53.198   c19.194,0,35.545-13.863,38.661-32.759l14.875-89.25c33.308-8.147,64.531-21.245,93.134-38.5l75.196,53.705   c15.53,11.155,36.915,9.405,50.478-4.186l37.598-37.597c13.532-13.536,15.365-34.893,4.127-50.479l-53.536-75.059   c17.441-28.738,30.704-60.238,38.909-93.816l88.758-14.82c18.921-3.116,32.756-19.469,32.756-38.663v-53.156   C895.998,402.24,882.163,385.888,863.24,382.771z M449.42,616.013c-92.764,0-168-75.25-168-168c0-92.764,75.236-168,168-168   c92.748,0,167.998,75.236,167.998,168C617.418,540.763,542.168,616.013,449.42,616.013z"/> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </svg>
-                        </div>
+            <div ng-click = "index = 5" class = "sidebar-button hand">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="896.025px" height="896.025px" viewBox="0 0 896.025 896.025" style="enable-background:new 0 0 896.025 896.025;" xml:space="preserve"> <g> <path id="settings_1_" d="M863.24,382.771l-88.759-14.807c-6.451-26.374-15.857-51.585-28.107-75.099l56.821-70.452   c12.085-14.889,11.536-36.312-1.205-50.682l-35.301-39.729c-12.796-14.355-34.016-17.391-50.202-7.165l-75.906,47.716   c-33.386-23.326-71.204-40.551-112-50.546l-14.85-89.235c-3.116-18.895-19.467-32.759-38.661-32.759h-53.198   c-19.155,0-35.561,13.864-38.608,32.759l-14.931,89.263c-33.729,8.258-65.353,21.588-94.213,39.144l-72.188-51.518   c-15.558-11.115-36.927-9.377-50.504,4.171l-37.583,37.61c-13.548,13.577-15.286,34.946-4.142,50.504l51.638,72.326   c-17.391,28.642-30.584,60.086-38.841,93.515l-89.743,14.985C13.891,385.888,0,402.24,0,421.435v53.156   c0,19.193,13.891,35.547,32.757,38.663l89.743,14.985c6.781,27.508,16.625,53.784,29.709,78.147L95.647,676.44   c-12.044,14.875-11.538,36.312,1.203,50.669l35.274,39.73c12.797,14.382,34.028,17.363,50.216,7.163l77-48.37   c32.581,22.285,69.44,38.664,108.993,48.37l14.931,89.25c3.048,18.896,19.453,32.76,38.608,32.76h53.198   c19.194,0,35.545-13.863,38.661-32.759l14.875-89.25c33.308-8.147,64.531-21.245,93.134-38.5l75.196,53.705   c15.53,11.155,36.915,9.405,50.478-4.186l37.598-37.597c13.532-13.536,15.365-34.893,4.127-50.479l-53.536-75.059   c17.441-28.738,30.704-60.238,38.909-93.816l88.758-14.82c18.921-3.116,32.756-19.469,32.756-38.663v-53.156   C895.998,402.24,882.163,385.888,863.24,382.771z M449.42,616.013c-92.764,0-168-75.25-168-168c0-92.764,75.236-168,168-168   c92.748,0,167.998,75.236,167.998,168C617.418,540.763,542.168,616.013,449.42,616.013z"/> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </svg>
+            </div>
 
-                        <div ng-click = "index = 6" class = "sidebar-button hand">
-                                <image src = "images/account-icon.png" />
-                        </div>
-                </div>
+            <div ng-click = "index = 6" class = "sidebar-button hand">
+                <image src = "images/account-icon.png" />
+            </div>
+        </div>
 
-                <ng-include ng-show = "index === 0" src = "'views/widgets/new-dog-form.html'"></ng-include>
-                <ng-include ng-show = "index === 1" src = "'views/widgets/new-event-form.html'"></ng-include>
-                <ng-include ng-show = "index === 2" src = "'views/widgets/new-booking-form.html'"></ng-include>
-                <ng-include ng-show = "index === 3" src = "'views/widgets/event-search.html'"></ng-include>
-                <ng-include ng-show = "index === 4" src = "'views/widgets/week-jump.html'"></ng-include>
-                <ng-include ng-show = "index === 5" src = "'views/widgets/settings.html'"></ng-include>
-                <ng-include ng-show = "index === 6" src = "'views/widgets/user-management.html'"></ng-include>
+        <ng-include ng-show = "index === 0" src = "'views/widgets/new-dog-form.html'"></ng-include>
+        <ng-include ng-show = "index === 1" src = "'views/widgets/new-event-form.html'"></ng-include>
+        <ng-include ng-show = "index === 2" src = "'views/widgets/new-booking-form.html'"></ng-include>
+        <ng-include ng-show = "index === 3" src = "'views/widgets/event-search.html'"></ng-include>
+        <ng-include ng-show = "index === 4" src = "'views/widgets/week-jump.html'"></ng-include>
+        <ng-include ng-show = "index === 5" src = "'views/widgets/settings.html'"></ng-include>
+        <ng-include ng-show = "index === 6" src = "'views/widgets/user-management.html'"></ng-include>
+
+    </div>
+
+    <div ng-class = "{'sidebar-closed': !Settings.SIDEBAR_OPEN}" class = "main-content">
+
+        <div class = "header"> <!-- App Header -->
+            <div ng-click = "toggleSidebar()" class = "menu-btn">
+                <span class = "hand">Sidebar</span>
+            </div>
+
+            <h1>{{week.toString()}}</h1>
+
+            <div class = "week-scroller">
+                <span ng-click = "prevWeek()" class = "prev-week hand">Prev</span>
+                <span ng-click = "nextWeek()" class = "next-week hand">Next</span>
+            </div>
 
         </div>
 
-        <div ng-class = "{'sidebar-closed': !Settings.SIDEBAR_OPEN}" class = "main-content">
+        <div class = "week-wrapper"> <!-- Week Wrapper -->
 
-                <div class = "header"> <!-- App Header -->
-                        <div ng-click = "toggleSidebar()" class = "menu-btn">
-                                <span class = "hand">Sidebar</span>
-                        </div>
-
-                        <h1>{{week.toString()}}</h1>
-
-                        <disconnect-notice ng-show = '!conn.connected'>
-                                <div>Disconnected! - changes will NOT be saved</div>
-                        </disconnect-notice>
-
-                        <div class = "week-scroller">
-                                <span ng-click = "prevWeek()" class = "prev-week hand">Prev</span>
-                                <span ng-click = "nextWeek()" class = "next-week hand">Next</span>
-                        </div>
-
+            <div class = "week">
+                <div ng-repeat = "day in week.days" class = "day day-{{$index}}">
+                    <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
+                    <div class = "dog-list">
+                        <pre ng-click = "lookup(event)" ng-repeat = "event
+                        in cache.eventData.events[$index]" class = "{{event.type}}" id = "{{event.id}}">{{displayEvent(event)}}</pre>
+                    </div>
                 </div>
 
-                <div class = "week-wrapper"> <!-- Week Wrapper -->
-
-                        <div class = "week">
-                            <div ng-repeat = "day in week.days" class = "day day-{{$index}}">
-                                        <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
-                                        <div class = "dog-list">
-                                                <pre ng-click = "lookup(event)" ng-repeat = "event in cache.events[$index]" class = "{{event.type}}" id = "{{event.id}}">{{displayEvent(event)}}</pre>
-                                        </div>
-                                </div>
-
-                        </div>
-
-                </div>
-
-                <!-- Plus svg -->
-
-                <!-- <svg xmlns="http://www.w3.org/2000/svg"
-                        style = "transform: translate(0px, 1px)" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
-                        </svg> -->
+            </div>
 
         </div>
 
-        <ng-include ng-show = "cache.dogProfile.open" src = "'views/profile.html'"></ng-include>
+        <!-- Plus svg -->
+
+        <!-- <svg xmlns="http://www.w3.org/2000/svg"
+            style = "transform: translate(0px, 1px)" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
+            </svg> -->
+
+    </div>
+
+    <ng-include ng-show = "cache.dogProfile.open" src = "'views/profile.html'"></ng-include>
 
 </div>
