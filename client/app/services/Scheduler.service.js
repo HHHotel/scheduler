@@ -177,7 +177,7 @@ class SchedulerService {
         let user = {
             username: username,
             password: password,
-            permissionLevel: permissionLevel
+            permissions: permissionLevel
         };
 
         self.api.post('/api/users', user, () => {
@@ -201,7 +201,7 @@ class SchedulerService {
             newPassword: newPassword
         };
 
-        self.api.post('/api/user/password', user, () => {
+        self.api.put('/api/user/password', user, () => {
             alert('Changed Password for ' + Settings.user.username);
         });
     }

@@ -50,7 +50,7 @@ class ApiService {
 
     put (endpoint, data, callback) {
         let self = this;
-        self.http.post(DEFAULT.API.BASE_URL + endpoint + '?'
+        self.http.put(DEFAULT.API.BASE_URL + endpoint + '?'
             + buildQuery('username', Settings.user.username, 'token', Settings.user.token),
             data).then(callback);
     }
