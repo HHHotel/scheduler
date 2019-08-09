@@ -14,46 +14,49 @@ class SchedulerService {
 
     constructor (Week, Api, EventData, $location) {
 
-        this.api = Api;
-        this.week = Week;
-        this.init();
-        this.cache.eventData = EventData;
-        if (Settings.iDate) this.week.advanceToDate(new Date(parseInt(Settings.iDate)));
-        this.loc = $location;
-
-        setInterval(() => this.load(), 1000);
-        setInterval(() => {
-            if (this.cache.dogProfile.open) {
-                this.retrieveDog(this.cache.dogProfile.id);
-            }
-        }, 500);
-    }
-
-    init () {
-        this.cache = {};
-
         // TODO: Refractor the loading of settings so its a service implemented
         // by this class
-        this.cache.searchEvents = [];
-        this.cache.searchText = '';
-        this.cache.dogProfile = { open: false };
+
+        this.cache = {};
+        this.init();
+        this.api = Api;
+        this.week = Week;
+        this.cache.eventData = EventData;
+        this.loc = $location;
+
+        if (Settings.iDate) this.week.advanceToDate(new Date(parseInt(Settings.iDate)));
 
         this.checkToken();
     }
 
+    init () {
+        this.cache.searchEvents = [];
+        this.cache.searchText = '';
+        this.cache.dogProfile = { open: false };
+    }
+
     login(username, password) {
         this.api.login(username, password);
+
     }
 
     checkToken() {
         let self = this;
 
+
         if (Settings.user && Settings.user.token) {
             self.api.post('/login', Settings.user, (response) => {
                 if (response && response.data !== 'Login Failed') {
                     self.loc.path('/main');
+
+                    this.loadInterval = setInterval(() => this.load(), 1000);
+                    this.profileInterval = setInterval(() => {
+                        if (this.cache.dogProfile.open) {
+                            this.retrieveDog(this.cache.dogProfile.id);
+                        }
+                    }, 500);
                 } else {
-                    self.loc.path('/');
+                    self.logout();
                 }
             });
         }
@@ -61,6 +64,8 @@ class SchedulerService {
     }
 
     logout () {
+        clearInterval(this.loadInterval);
+        clearInterval(this.profileInterval);
         this.init();
         this.loc.path('/');
         Settings.user = {};
@@ -97,12 +102,15 @@ class SchedulerService {
 
     addEvent(event) {
         let self = this;
+        const newEvent = {
+            event_start: event.event_start.valueOf(),
+            event_end: event.event_end ? event.event_end : event.event_start.valueOf(),
+            event_text: event.event_text,
+            event_type: event.event_type,
+            id: event.id,
+        };
 
-        if (event.event_start) event.event_start = event.event_start.valueOf();
-        if (event.event_end) event.event_end = event.event_end.valueOf();
-        else event.event_end = event.event_start;
-
-        self.api.post('/api/events', event);
+        self.api.post('/api/events', newEvent);
     }
 
     findEvents (eventText) {
@@ -115,11 +123,11 @@ class SchedulerService {
     }
 
     removeEvent(eventId, callback) {
-        this.api.get('/api/events/' + eventId + '/delete', callback);
+        this.api.get('/api/events/' + eventId + '/delete', '', callback);
     }
 
     removeDog(dogId, callback) {
-        this.api.get('/api/events/' + dogId + '/delete', callback);
+        this.api.get('/api/events/' + dogId + '/delete', '', callback);
     }
 
     editDog(dogProfile) {
@@ -148,7 +156,6 @@ class SchedulerService {
 
     }
 
-    // TODO : Add user changing requests
     addUser (username, password, permissionLevel) {
         let self = this;
         let user = {
@@ -157,14 +164,18 @@ class SchedulerService {
             permissionLevel: permissionLevel
         };
 
-        self.socket.emit('add_user', user);
+        self.api.post('/api/users', user, () => {
+            alert('Added new user: ' + user.username);
+        });
 
     }
 
     deleteUser (username) {
         let self = this;
 
-        self.socket.emit('delete_user', username);
+        self.api.get('/api/users/' + username + '/delete', '', () => {
+            alert('Deleted ' + username);
+        });
     }
 
     changePassword (oldPassword, newPassword) {
@@ -175,7 +186,9 @@ class SchedulerService {
             newPassword: newPassword
         };
 
-        self.socket.emit('change_password', user);
+        self.api.post('/api/user/password', user, () => {
+            alert('Changed Password for ' + Settings.user.username);
+        });
 
     }
 

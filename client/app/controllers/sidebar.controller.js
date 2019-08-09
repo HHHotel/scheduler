@@ -83,8 +83,8 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
                     }
 
                     for (let i = event.event_start.valueOf(); i < repeatOptions.stopDate.valueOf(); i+=inc){
-                        event.event_start = new Date(i);
-                        event.event_end = new Date(i);
+                        event.event_start = i;
+                        event.event_end = i;
                         $Scheduler.addEvent(event);
                     }
                 } else {

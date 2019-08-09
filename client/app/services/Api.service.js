@@ -33,19 +33,19 @@ class ApiService {
     /* TODO: implement error function for this service */
     get (endpoint, query, callback) {
         let self = this;
-        self.http.get(DEFAULT.API.BASE_URL + endpoint + '?'
-            + query
-            + buildQuery('username', Settings.user.username, 'token', Settings.user.token)
+        let url = DEFAULT.API.BASE_URL + endpoint + '?' + query
+            + buildQuery('username', Settings.user.username, 'token', Settings.user.token);
+        self.http.get(url
         ).then(callback, (res) => {
-            console.err(res);
+            console.error(res);
         });
     }
 
     post (endpoint, data, callback) {
         let self = this;
-        self.http.post(DEFAULT.API.BASE_URL + endpoint + '?'
-            + buildQuery('username', Settings.user.username, 'token', Settings.user.token),
-            data).then(callback);
+        let url = DEFAULT.API.BASE_URL + endpoint + '?'
+            + buildQuery('username', Settings.user.username, 'token', Settings.user.token);
+        self.http.post(url, data).then(callback);
     }
 
     put (endpoint, data, callback) {
