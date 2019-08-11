@@ -1,5 +1,6 @@
 /* global angular DEFAULT Settings */
 /* eslint-disable no-console */
+'use strict';
 
 angular.module(DEFAULT.MAIN_PKG)
     .factory('Api', [ '$http',

@@ -32,18 +32,18 @@ class SchedulerService {
     setupPolling() {
         if (!this.loadInterval)
             this.loadInterval = setInterval(() => this.load(), 1000);
-        if (!this.profileInterval) {
+        /* if (!this.profileInterval) {
             this.profileInterval = setInterval(() => {
                 if (this.cache.dogProfile.open) {
                     this.retrieveDog(this.cache.dogProfile.id);
                 }
             }, 500);
-        }
+        } */
     }
 
     clearPolling () {
         clearInterval(this.loadInterval);
-        clearInterval(this.profileInterval);
+        //clearInterval(this.profileInterval);
         this.loadInterval = null;
         this.profileInterval = null;
     }
