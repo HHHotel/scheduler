@@ -58,8 +58,8 @@ class ApiService {
 }
 
 function buildQuery() {
-    let query = '&' + arguments[0] + '=' + arguments[1];
-    for (var i = 2; i < arguments.length; i += 2) {
+    let query = '';
+    for (var i = 0; i < arguments.length; i += 2) {
         query += '&' + arguments[i] + '=' + arguments[i + 1];
     }
     return query;

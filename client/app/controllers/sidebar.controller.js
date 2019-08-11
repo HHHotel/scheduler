@@ -5,13 +5,14 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
     '$rootScope',
     '$Scheduler',
     function ($scope, $rootScope, $Scheduler) {
-
         $scope.saveSettings = function () {
             saveSettings();
         };
 
         $scope.printSchedule = function () {
-            const {ipcRenderer} = require('electron');
+            const {
+                ipcRenderer
+            } = require('electron');
             ipcRenderer.send('print-schedule');
         };
 
@@ -19,7 +20,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
         $scope.form = {
             dog: {},
             event: {},
-            booking: {},
+            booking: {}
         };
 
         $scope.newUser = {};
@@ -31,13 +32,14 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
 
         /* USER MANAGEMENT */
         $scope.addUser = function (username, password, permissionType) {
-            let permissionLevel = 0;
-            if (permissionType === 'Viewer') permissionLevel = 0;
-            else if (permissionType === 'Inputer') permissionLevel = 5;
-            else if (permissionType === 'Admin') permissionLevel = 10;
+            let permissionLevel = DEFAULT.CONSTANTS.USER_CONSTANT[permissionType];
 
-            $Scheduler.addUser(username, password, permissionLevel);
-            $scope.newUser = {};
+            if (permissionLevel) {
+                $Scheduler.addUser(username, password, permissionLevel);
+                $scope.newUser = {};
+            } else {
+                alert('Add a permission level');
+            }
         };
 
         $scope.deleteUser = function (username) {
@@ -45,7 +47,11 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
         };
 
         $scope.changePassword = function (oldPassword, newPassword) {
-            $Scheduler.changePassword(oldPassword, newPassword);
+            if (oldPassword && newPassword) {
+                $Scheduler.changePassword(oldPassword, newPassword);
+            } else {
+                alert('Error: Missing fields');
+            }
         };
 
         $scope.logout = function () {
@@ -63,8 +69,11 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
         };
 
         $scope.addEvent = function (event, repeatOptions) {
-            if ((event.event_text || event.id) && event.event_start
-                && event.event_type) {
+            if (
+                (event.event_text || event.id) &&
+                event.event_start &&
+                event.event_type
+            ) {
                 if (event.event_type === 'daycare' && repeatOptions) {
                     let inc;
                     switch (repeatOptions.frequency) {
@@ -82,7 +91,9 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
                             break;
                     }
 
-                    for (let i = event.event_start.valueOf(); i < repeatOptions.stopDate.valueOf(); i+=inc){
+                    for (
+                        let i = event.event_start.valueOf(); i < repeatOptions.stopDate.valueOf(); i += inc
+                    ) {
                         event.event_start = i;
                         event.event_end = i;
                         $Scheduler.addEvent(event);
@@ -103,7 +114,6 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
 
         $scope.findEvents = function (search) {
             $Scheduler.findEvents(search);
-            $Scheduler.cache.searchText = search;
         };
 
         $scope.retrieveDog = function (dogID) {
@@ -114,6 +124,5 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
         $scope.jumpToWeek = function (date) {
             $Scheduler.jumpToWeek(date);
         };
-
     }
 ]);

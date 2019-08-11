@@ -38,6 +38,16 @@ console.log(Settings);
 const DEFAULT = {
         MAIN_PKG: 'HHH.Scheduler.App',
         VERSION: '0.3.0',
+        CONSTANTS: {
+                BOARDING: 'boarding',
+                ARRIVING: 'arriving',
+                DEPARTING: 'departing',
+                USER_CONSTANT: {
+                        'Viewer': 0,
+                        'Inputer': 5,
+                        'Admin': 10,
+                }
+        },
         API: {
                 BASE_URL: Settings ? Settings.BASE_URL : ''
         },

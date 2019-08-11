@@ -135,6 +135,7 @@ class SchedulerService {
     findEvents(eventText) {
         let self = this;
 
+        self.cache.searchText = eventText;
         self.api.get('/api/find', 'searchText=' + eventText, function (response) {
             self.cache.searchEvents = response.data;
         });

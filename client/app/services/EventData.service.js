@@ -40,18 +40,18 @@ class EventData {
                     date: event.startDate,
                 };
 
-                if (event.type === 'boarding' &&
+                if (event.type === DEFAULT.CONSTANTS.BOARDING &&
                     self.week.getDay(i).toDateString() === event.startDate.toDateString())
                 {
                     record.date = event.startDate;
-                    record.type = 'arriving';
-                } else if (event.type === 'boarding' &&
+                    record.type = DEFAULT.CONSTANTS.ARRIVING;
+                } else if (event.type === DEFAULT.CONSTANTS.BOARDING &&
                     self.week.getDay(i).toDateString() === event.endDate.toDateString())
                 {
                     record.date = event.endDate;
-                    record.type = 'departing';
+                    record.type = DEFAULT.CONSTANTS.DEPARTING;
                 }
-                else if (event.type === 'boarding')
+                else if (event.type === DEFAULT.CONSTANTS.BOARDING)
                 {
                     record.date = null;
                 }
