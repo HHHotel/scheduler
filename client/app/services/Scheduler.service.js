@@ -1,11 +1,11 @@
 /* global angular DEFAULT saveSettings Settings */
-'use strict';
+"use strict";
 
-angular.module(DEFAULT.MAIN_PKG).factory('$Scheduler', [
-    'Week',
-    'Api',
-    'EventData',
-    '$location',
+angular.module(DEFAULT.MAIN_PKG).factory("$Scheduler", [
+    "Week",
+    "Api",
+    "EventData",
+    "$location",
     function (Week, Api, EventData, $location) {
         return new SchedulerService(Week, Api, EventData, $location);
     }
@@ -50,7 +50,7 @@ class SchedulerService {
 
     init() {
         this.cache.searchEvents = [];
-        this.cache.searchText = '';
+        this.cache.searchText = "";
         this.cache.dogProfile = {
             open: false
         };
@@ -67,9 +67,9 @@ class SchedulerService {
         let self = this;
 
         if (Settings.user && Settings.user.token) {
-            self.api.post('/login', Settings.user, response => {
+            self.api.post("/login", Settings.user, response => {
                 if (response.status === 200) {
-                    self.loc.path('/main');
+                    self.loc.path("/main");
                     self.setupPolling();
                 } else {
                     self.logout();
@@ -83,14 +83,14 @@ class SchedulerService {
     logout() {
         this.clearPolling();
         this.init();
-        this.loc.path('/');
+        this.loc.path("/");
         Settings.user = {};
         saveSettings();
     }
 
     load() {
         let self = this;
-        self.api.get('/api/week', 'date=' + self.week.days[0], response =>
+        self.api.get("/api/week", "date=" + self.week.days[0], response =>
             self.cache.eventData.loadEventData(response.data)
         );
     }
@@ -114,7 +114,7 @@ class SchedulerService {
         let self = this;
 
         // TODO: make a popup notification with the server response
-        self.api.post('/api/dogs', dog);
+        self.api.post("/api/dogs", dog);
     }
 
     addEvent(event) {
@@ -129,35 +129,35 @@ class SchedulerService {
             id: event.id
         };
 
-        self.api.post('/api/events', newEvent);
+        self.api.post("/api/events", newEvent);
     }
 
     findEvents(eventText) {
         let self = this;
 
         self.cache.searchText = eventText;
-        self.api.get('/api/find', 'searchText=' + eventText, function (response) {
+        self.api.get("/api/find", "searchText=" + eventText, function (response) {
             self.cache.searchEvents = response.data;
         });
     }
 
     removeEvent(eventId, callback) {
-        this.api.get('/api/events/' + eventId + '/delete', '', callback);
+        this.api.get("/api/events/" + eventId + "/delete", "", callback);
     }
 
     removeDog(dogId, callback) {
-        this.api.get('/api/events/' + dogId + '/delete', '', callback);
+        this.api.get("/api/events/" + dogId + "/delete", "", callback);
     }
 
     editDog(dogProfile) {
         // TODO: make a popup notification with the server response
-        this.api.put('/api/dogs', dogProfile);
+        this.api.put("/api/dogs", dogProfile);
     }
 
     retrieveDog(dogId) {
         let self = this;
 
-        self.api.get('/api/dogs/' + dogId, '', function (res) {
+        self.api.get("/api/dogs/" + dogId, "", function (res) {
             (function (callback) {
                 for (let booking of res.data.bookings) {
                     booking.startDate = new Date(booking.startDate);
@@ -181,16 +181,16 @@ class SchedulerService {
             permissions: permissionLevel
         };
 
-        self.api.post('/api/users', user, () => {
-            alert('Added new user: ' + user.username);
+        self.api.post("/api/users", user, () => {
+            alert("Added new user: " + user.username);
         });
     }
 
     deleteUser(username) {
         let self = this;
 
-        self.api.get('/api/users/' + username + '/delete', '', () => {
-            alert('Deleted ' + username);
+        self.api.get("/api/users/" + username + "/delete", "", () => {
+            alert("Deleted " + username);
         });
     }
 
@@ -202,8 +202,8 @@ class SchedulerService {
             newPassword: newPassword
         };
 
-        self.api.put('/api/user/password', user, () => {
-            alert('Changed Password for ' + Settings.user.username);
+        self.api.put("/api/user/password", user, () => {
+            alert("Changed Password for " + Settings.user.username);
         });
     }
 }

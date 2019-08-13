@@ -1,10 +1,10 @@
 /* global angular DEFAULT saveSettings*/
-let BrowserWindow = require('electron').remote.BrowserWindow;
+let BrowserWindow = require("electron").remote.BrowserWindow;
 
 angular
   .module(DEFAULT.MAIN_PKG)
-  .controller('titleBar', [
-    '$scope',
+  .controller("titleBar", [
+    "$scope",
     function ($scope) {
       $scope.minimize = function () {
         BrowserWindow.getFocusedWindow().minimize();

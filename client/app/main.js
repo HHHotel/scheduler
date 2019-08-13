@@ -2,18 +2,18 @@
 
 angular
         .module(DEFAULT.MAIN_PKG, [
-                require('angular-route'),
+                require("angular-route"),
         ])
 
         .config(function ($routeProvider) {
 
                 // To-DO add login.html
                 $routeProvider
-                        .when('/', {
-                                templateUrl: 'views/login.html'
+                        .when("/", {
+                                templateUrl: "views/login.html"
                         })
-                        .when('/main', {
-                                templateUrl: 'views/main.html'
+                        .when("/main", {
+                                templateUrl: "views/main.html"
                         });
         });
 

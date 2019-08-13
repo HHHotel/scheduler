@@ -2,7 +2,7 @@
 
 angular
   .module(DEFAULT.MAIN_PKG)
-  .factory('Week', function () {
+  .factory("Week", function () {
     class Week {
 
       constructor () {
@@ -46,23 +46,23 @@ angular
 
 
       toString () {
-        const months = ['January', 'February',
-          'March', 'April', 'May', 'June',
-          'July', 'August', 'September', 'October',
-          'November', 'December'];
+        const months = ["January", "February",
+          "March", "April", "May", "June",
+          "July", "August", "September", "October",
+          "November", "December"];
 
         let year = this.days[0].getFullYear();
 
         if (this.days[0].getMonth() === this.days[this.days.length - 1].getMonth()) {
 
           let month = months[this.days[this.days.length - 1].getMonth()];
-          return month + ' ' + year;
+          return month + " " + year;
 
         } else {
 
           let mStart = months[this.days[0].getMonth()].slice(0, 3);
           let mEnd = months[this.days[6].getMonth()].slice(0, 3);
-          return mStart + ' - ' + mEnd + ' ' + year;
+          return mStart + " - " + mEnd + " " + year;
 
         }
 

@@ -1,7 +1,7 @@
 /* global angular DEFAULT */
 
-angular.module(DEFAULT.MAIN_PKG).factory('EventData', [
-    'Week',
+angular.module(DEFAULT.MAIN_PKG).factory("EventData", [
+    "Week",
     function (Week) { return new EventData(Week); }]);
 
 class EventData {

@@ -1,9 +1,9 @@
 /*global angular Settings DEFAULT*/
 
-angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
-    '$rootScope',
-    '$scope',
-    '$Scheduler',
+angular.module(DEFAULT.MAIN_PKG).controller("schedCtrl", [
+    "$rootScope",
+    "$scope",
+    "$Scheduler",
     ($rootScope, $scope, $Scheduler) => {
         $rootScope.Settings = Settings;
         $rootScope.VERSION = DEFAULT.VERSION;
@@ -31,14 +31,14 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
                     newDog.bookings[i].startDate = newDog.bookings[i].startDate.valueOf();
                     newDog.bookings[i].endDate = newDog.bookings[i].endDate.valueOf();
                 } catch (e) {
-                    alert('Invalid Date: ' + e.message);
+                    alert("Invalid Date: " + e.message);
                 }
             }
 
             if (newDog.name && newDog.clientName) {
                 $Scheduler.editDog(newDog);
             } else {
-                alert('Error: Details not provided');
+                alert("Error: Details not provided");
             }
 
             $Scheduler.retrieveDog(newDog.id);
@@ -47,20 +47,20 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
         $scope.displayBooking = function (booking) {
             if (!(booking.startDate instanceof Date)) { return null; }
             switch (booking.type) {
-                case 'boarding':
+                case "boarding":
                     return booking.startDate.toDateString() + getAmPm(booking.startDate)
-                        + ' - ' + booking.endDate.toDateString() + getAmPm(booking.endDate);
-                case 'daycare':
+                        + " - " + booking.endDate.toDateString() + getAmPm(booking.endDate);
+                case "daycare":
                     return booking.startDate.toDateString();
             }
         };
 
         $scope.lookup = function (event) {
             switch (event.type) {
-                case 'arriving':
-                case 'departing':
-                case 'boarding':
-                case 'daycare':
+                case "arriving":
+                case "departing":
+                case "boarding":
+                case "daycare":
                     $Scheduler.retrieveDog(event.id);
                     break;
             }
@@ -108,9 +108,9 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
             if (date) {
 
                 let hours = convertHours(date.getHours());
-                //let minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+                //let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
 
-                return '(' + hours + getClosing(date) + getTimeExtension(date) + ') ' + text;
+                return "(" + hours + getClosing(date) + getTimeExtension(date) + ") " + text;
 
             } else {
                 return text;
@@ -122,17 +122,17 @@ angular.module(DEFAULT.MAIN_PKG).controller('schedCtrl', [
 
         function getClosing(date) {
             if (date.getHours() === Settings.OPENING_HOUR_AM || date.getHours() === Settings.OPENING_HOUR_PM)
-                return '-' + (date.getHours() >= 12 ? convertHours(Settings.CLOSING_HOUR_PM) : convertHours(Settings.CLOSING_HOUR_AM));
+                return "-" + (date.getHours() >= 12 ? convertHours(Settings.CLOSING_HOUR_PM) : convertHours(Settings.CLOSING_HOUR_AM));
 
-            else return ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+            else return ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
         }
 
         function getTimeExtension(date) {
-            return !Settings.TWENTY_FOUR_HOUR ? getAmPm(date) : '';
+            return !Settings.TWENTY_FOUR_HOUR ? getAmPm(date) : "";
         }
 
         function getAmPm(date) {
-            return date.getHours() >= 12 ? ' PM' : ' AM';
+            return date.getHours() >= 12 ? " PM" : " AM";
         }
 
         function convertHours(hours) {

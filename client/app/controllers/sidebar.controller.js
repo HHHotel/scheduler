@@ -1,9 +1,9 @@
 /* global angular DEFAULT saveSettings */
 
-angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
-    '$scope',
-    '$rootScope',
-    '$Scheduler',
+angular.module(DEFAULT.MAIN_PKG).controller("sidebarCtrl", [
+    "$scope",
+    "$rootScope",
+    "$Scheduler",
     function ($scope, $rootScope, $Scheduler) {
         $scope.saveSettings = function () {
             saveSettings();
@@ -12,8 +12,8 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
         $scope.printSchedule = function () {
             const {
                 ipcRenderer
-            } = require('electron');
-            ipcRenderer.send('print-schedule');
+            } = require("electron");
+            ipcRenderer.send("print-schedule");
         };
 
         /* KEEP TRACK OF INPUTS */
@@ -38,7 +38,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
                 $Scheduler.addUser(username, password, permissionLevel);
                 $scope.newUser = {};
             } else {
-                alert('Add a permission level');
+                alert("Add a permission level");
             }
         };
 
@@ -50,7 +50,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
             if (oldPassword && newPassword) {
                 $Scheduler.changePassword(oldPassword, newPassword);
             } else {
-                alert('Error: Missing fields');
+                alert("Error: Missing fields");
             }
         };
 
@@ -64,7 +64,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
                 $Scheduler.addDog(dog);
                 $scope.form.dog = {};
             } else {
-                alert('Insufficent dog details');
+                alert("Insufficent dog details");
             }
         };
 
@@ -74,20 +74,20 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
                 event.event_start &&
                 event.event_type
             ) {
-                if (event.event_type === 'daycare' && repeatOptions) {
+                if (event.event_type === "daycare" && repeatOptions) {
                     let inc;
                     switch (repeatOptions.frequency) {
-                        case 'daily':
+                        case "daily":
                             inc = 86400000;
                             break;
-                        case 'weekly':
+                        case "weekly":
                             inc = 604800000;
                             break;
-                        case 'once':
+                        case "once":
                             $Scheduler.addEvent(event);
                             break;
                         default:
-                            alert('Enter repeat frequency');
+                            alert("Enter repeat frequency");
                             break;
                     }
 
@@ -103,7 +103,7 @@ angular.module(DEFAULT.MAIN_PKG).controller('sidebarCtrl', [
                 }
                 $scope.form = {};
             } else {
-                alert('Insufficent event details');
+                alert("Insufficent event details");
             }
         };
 

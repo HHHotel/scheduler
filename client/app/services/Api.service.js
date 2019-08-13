@@ -1,9 +1,9 @@
 /* global angular DEFAULT Settings */
 /* eslint-disable no-console */
-'use strict';
+"use strict";
 
 angular.module(DEFAULT.MAIN_PKG)
-    .factory('Api', [ '$http',
+    .factory("Api", [ "$http",
     function (http) { return new ApiService(http); }]);
 
 class ApiService {
@@ -20,7 +20,7 @@ class ApiService {
             password: password,
         };
 
-        self.http.post(DEFAULT.API.BASE_URL + '/login', user)
+        self.http.post(DEFAULT.API.BASE_URL + "/login", user)
             .then(
                 (response) => {
                     Settings.user = response.data;
@@ -34,8 +34,8 @@ class ApiService {
     /* TODO: implement error function for this service */
     get (endpoint, query, callback) {
         let self = this;
-        let url = DEFAULT.API.BASE_URL + endpoint + '?' + query
-            + buildQuery('username', Settings.user.username, 'token', Settings.user.token);
+        let url = DEFAULT.API.BASE_URL + endpoint + "?" + query
+            + buildQuery("username", Settings.user.username, "token", Settings.user.token);
         self.http.get(url
         ).then(callback, (res) => {
             console.error(res);
@@ -44,24 +44,24 @@ class ApiService {
 
     post (endpoint, data, callback) {
         let self = this;
-        let url = DEFAULT.API.BASE_URL + endpoint + '?'
-            + buildQuery('username', Settings.user.username, 'token', Settings.user.token);
+        let url = DEFAULT.API.BASE_URL + endpoint + "?"
+            + buildQuery("username", Settings.user.username, "token", Settings.user.token);
         self.http.post(url, data).then(callback, callback);
     }
 
     put (endpoint, data, callback) {
         let self = this;
-        self.http.put(DEFAULT.API.BASE_URL + endpoint + '?'
-            + buildQuery('username', Settings.user.username, 'token', Settings.user.token),
+        self.http.put(DEFAULT.API.BASE_URL + endpoint + "?"
+            + buildQuery("username", Settings.user.username, "token", Settings.user.token),
             data).then(callback);
     }
 
 }
 
 function buildQuery() {
-    let query = '';
+    let query = "";
     for (var i = 0; i < arguments.length; i += 2) {
-        query += '&' + arguments[i] + '=' + arguments[i + 1];
+        query += "&" + arguments[i] + "=" + arguments[i + 1];
     }
     return query;
 }

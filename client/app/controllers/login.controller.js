@@ -2,19 +2,19 @@
 
 angular
   .module(DEFAULT.MAIN_PKG)
-  .controller('loginCtrl', [
-  '$scope',
-  '$location',
-  '$Scheduler',
+  .controller("loginCtrl", [
+  "$scope",
+  "$location",
+  "$Scheduler",
   function ($scope, $location, $Scheduler) {
 
     $scope.cache = $Scheduler.cache;
 
     $scope.submit = function () {
       $Scheduler.login($scope.cache.user.username, $scope.cache.user.password, function (result) {
-          $scope.cache.user.password = '';
-          if (result.status === 200) $location.path('/main');
-          else alert('Login failed: Please Try Again');
+          $scope.cache.user.password = "";
+          if (result.status === 200) $location.path("/main");
+          else alert("Login failed: Please Try Again");
         });
     };
 
