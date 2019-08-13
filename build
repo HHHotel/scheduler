@@ -16,7 +16,7 @@ if [[ -z $platform ]] || [[ -z $arch ]]; then
         exit 1
 fi
 
-packageCommand="./node_modules/electron-packager/bin/electron-packager.js . HHH-Scheduler --overwrite --asar --platform=$platform --arch=$arch  --prune=true --out=$dest --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='HHH Scheduler'"
+packageCommand="./node_modules/.bin/electron-packager . HHH-Scheduler --overwrite --asar --platform=$platform --arch=$arch  --prune=true --out=$dest --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='HHH Scheduler'"
 
 if [[ $platform == "darwin" ]]; then
   $packageCommand --icon=./client/images/icon.icns
