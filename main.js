@@ -27,7 +27,7 @@ function createWindow() {
     webPreferences: {
       experimentalFeatures: true
     },
-    icon: "client/images/icon.png",
+    icon: "dist/res/images/icon.png",
     backgroundColor: "#386351"
   });
 
@@ -37,7 +37,7 @@ function createWindow() {
   // and load the index.html of the app.
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, "client/index.html"),
+      pathname: path.join(__dirname, "dist/res/index.html"),
       protocol: "file:",
       slashes: true
     })
@@ -120,13 +120,13 @@ function initSettings() {
     webPreferences: {
       experimentalFeatures: true
     },
-    icon: "client/images/icon.png",
+    icon: "dist/res/images/icon.png",
     backgroundColor: "#386351"
   });
 
   configWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, "client/init-settings.html"),
+      pathname: path.join(__dirname, "dist/res/init-settings.html"),
       protocol: "file:",
       slashes: true
     })

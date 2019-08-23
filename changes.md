@@ -17,4 +17,8 @@
 
 - fix ordering  
 
+- Loading status for login
+
 ## ERRORS  
+
+- Deleting dogs doesnt work
