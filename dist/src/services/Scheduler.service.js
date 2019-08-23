@@ -1,4 +1,3 @@
-/* global angular DEFAULT saveSettings Settings */
 "use strict";
 angular.module(DEFAULT.MAIN_PKG).factory("$Scheduler", [
     "Week",
@@ -9,10 +8,8 @@ angular.module(DEFAULT.MAIN_PKG).factory("$Scheduler", [
         return new SchedulerService(Week, Api, EventData, $location);
     }
 ]);
-var SchedulerService = /** @class */ (function () {
+var SchedulerService = (function () {
     function SchedulerService(Week, Api, EventData, $location) {
-        // TODO: Refractor the loading of settings so its a service implemented
-        // by this class
         this.cache = {};
         this.init();
         this.api = Api;
@@ -27,17 +24,9 @@ var SchedulerService = /** @class */ (function () {
         var _this = this;
         if (!this.loadInterval)
             this.loadInterval = setInterval(function () { return _this.load(); }, 1000);
-        /* if (!this.profileInterval) {
-            this.profileInterval = setInterval(() => {
-                if (this.cache.dogProfile.open) {
-                    this.retrieveDog(this.cache.dogProfile.id);
-                }
-            }, 500);
-        } */
     };
     SchedulerService.prototype.clearPolling = function () {
         clearInterval(this.loadInterval);
-        //clearInterval(this.profileInterval);
         this.loadInterval = null;
         this.profileInterval = null;
     };
@@ -99,7 +88,6 @@ var SchedulerService = /** @class */ (function () {
     };
     SchedulerService.prototype.addDog = function (dog) {
         var self = this;
-        // TODO: make a popup notification with the server response
         self.api.post("/api/dogs", dog);
     };
     SchedulerService.prototype.addEvent = function (event) {
@@ -129,7 +117,6 @@ var SchedulerService = /** @class */ (function () {
         this.api.get("/api/events/" + dogId + "/delete", "", callback);
     };
     SchedulerService.prototype.editDog = function (dogProfile) {
-        // TODO: make a popup notification with the server response
         this.api.put("/api/dogs", dogProfile);
     };
     SchedulerService.prototype.retrieveDog = function (dogId) {

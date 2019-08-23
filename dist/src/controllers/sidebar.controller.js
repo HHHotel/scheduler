@@ -1,5 +1,4 @@
 "use strict";
-/* global angular DEFAULT saveSettings */
 angular.module(DEFAULT.MAIN_PKG).controller("sidebarCtrl", [
     "$scope",
     "$rootScope",
@@ -12,7 +11,6 @@ angular.module(DEFAULT.MAIN_PKG).controller("sidebarCtrl", [
             var ipcRenderer = require("electron").ipcRenderer;
             ipcRenderer.send("print-schedule");
         };
-        /* KEEP TRACK OF INPUTS */
         $scope.form = {
             dog: {},
             event: {},
@@ -20,11 +18,8 @@ angular.module(DEFAULT.MAIN_PKG).controller("sidebarCtrl", [
         };
         $scope.newUser = {};
         $rootScope.search = {};
-        /* MIRROR SCHEDULER CACHE */
         $scope.cache = $Scheduler.cache;
-        /* INDEX OF SIDEBAR TAB */
         $scope.index = 0;
-        /* USER MANAGEMENT */
         $scope.addUser = function (username, password, permissionType) {
             var permissionLevel = DEFAULT.CONSTANTS.USER_CONSTANT[permissionType];
             if (permissionLevel) {
@@ -49,7 +44,6 @@ angular.module(DEFAULT.MAIN_PKG).controller("sidebarCtrl", [
         $scope.logout = function () {
             $Scheduler.logout();
         };
-        /* DOG SCHEDULE MANAGEMENT */
         $scope.addDog = function (dog) {
             if (dog.name && dog.clientName) {
                 $Scheduler.addDog(dog);
@@ -104,7 +98,6 @@ angular.module(DEFAULT.MAIN_PKG).controller("sidebarCtrl", [
         $scope.retrieveDog = function (dogID) {
             $Scheduler.retrieveDog(dogID);
         };
-        /* MOVE AROUND WEEKS */
         $scope.jumpToWeek = function (date) {
             $Scheduler.jumpToWeek(date);
         };

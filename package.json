@@ -4,8 +4,9 @@
   "description": "Scheduling App",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "lint": "eslint .",
+    "compile": "tsc",
+    "start": "tsc && electron .",
+    "lint": "tslint -p .",
     "build": "rm -rf ./release_builds/*; ./build linux x64; ./build win32 x64; ./build darwin x64"
   },
   "author": "Matt Rochford",

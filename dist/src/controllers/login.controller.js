@@ -1,5 +1,4 @@
 "use strict";
-/*global angular DEFAULT*/
 angular
     .module(DEFAULT.MAIN_PKG)
     .controller("loginCtrl", [

@@ -1,10 +1,8 @@
-/* global angular DEFAULT Settings */
-/* eslint-disable no-console */
 "use strict";
 angular.module(DEFAULT.MAIN_PKG)
     .factory("Api", ["$http",
     function (http) { return new ApiService(http); }]);
-var ApiService = /** @class */ (function () {
+var ApiService = (function () {
     function ApiService(http) {
         var self = this;
         self.http = http;
@@ -21,7 +19,6 @@ var ApiService = /** @class */ (function () {
             callback(response);
         }, function (response) { return callback(response); });
     };
-    /* TODO: implement error function for this service */
     ApiService.prototype.get = function (endpoint, query, callback) {
         var self = this;
         var url = DEFAULT.API.BASE_URL + endpoint + "?" + query

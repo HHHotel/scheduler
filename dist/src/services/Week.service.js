@@ -1,9 +1,8 @@
 "use strict";
-/* global angular DEFAULT */
 angular
     .module(DEFAULT.MAIN_PKG)
     .factory("Week", function () {
-    var Week = /** @class */ (function () {
+    var Week = (function () {
         function Week() {
             this.advanceToDate(arguments[0] ? arguments[0] : new Date());
         }

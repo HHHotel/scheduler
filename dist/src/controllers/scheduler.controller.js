@@ -1,5 +1,4 @@
 "use strict";
-/*global angular Settings DEFAULT*/
 angular.module(DEFAULT.MAIN_PKG).controller("schedCtrl", [
     "$rootScope",
     "$scope",
@@ -11,7 +10,6 @@ angular.module(DEFAULT.MAIN_PKG).controller("schedCtrl", [
         $scope.week = $Scheduler.week;
         $scope.cache = $Scheduler.cache;
         $scope.editMode = false;
-        /* PROFILE FUNCTIONS */
         $scope.saveProfile = function () {
             var newDog = {
                 name: $scope.cache.dogProfile.name,
@@ -72,14 +70,12 @@ angular.module(DEFAULT.MAIN_PKG).controller("schedCtrl", [
                 $Scheduler.findEvents($scope.cache.searchText);
             });
         };
-        /* WEEK FUNCTIONS */
         $scope.nextWeek = function () {
             $Scheduler.nextWeek();
         };
         $scope.prevWeek = function () {
             $Scheduler.prevWeek();
         };
-        /* MISC */
         $scope.toggleSidebar = function () {
             Settings.SIDEBAR_OPEN = !Settings.SIDEBAR_OPEN;
         };
@@ -94,7 +90,6 @@ angular.module(DEFAULT.MAIN_PKG).controller("schedCtrl", [
             var text = event.text;
             if (date) {
                 var hours = convertHours(date.getHours());
-                //let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
                 return "(" + hours + getClosing(date) + getTimeExtension(date) + ") " + text;
             }
             else {

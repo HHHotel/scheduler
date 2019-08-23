@@ -1,5 +1,4 @@
 "use strict";
-/* global angular DEFAULT saveSettings*/
 var BrowserWindow = require("electron").remote.BrowserWindow;
 angular
     .module(DEFAULT.MAIN_PKG)

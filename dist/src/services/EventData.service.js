@@ -1,10 +1,9 @@
 "use strict";
-/* global angular DEFAULT */
 angular.module(DEFAULT.MAIN_PKG).factory("EventData", [
     "Week",
     function (Week) { return new EventData(Week); }
 ]);
-var EventData = /** @class */ (function () {
+var EventData = (function () {
     function EventData(Week) {
         var self = this;
         self.week = Week;
