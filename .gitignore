@@ -3,4 +3,4 @@ release_builds/
 *.zip
 *.log
 .vscode/
-dist/src/
+dist/bundle.js
