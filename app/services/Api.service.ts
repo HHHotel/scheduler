@@ -50,6 +50,12 @@ export class ApiService {
             data).then(callback);
     }
 
+    public delete(endpoint: string, callback: (response: IHttpResponse<unknown>) => void) {
+        this.http.delete(Settings.BASE_URL + endpoint + "?"
+            + buildQuery("username", Settings.user.username, "token", Settings.user.token))
+            .then(callback);
+    }
+
 }
 
 function buildQuery(...args: string[]) {

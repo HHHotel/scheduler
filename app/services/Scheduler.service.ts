@@ -149,11 +149,11 @@ export class SchedulerService {
     }
 
     public removeEvent(eventId: string, callback: (response: IHttpResponse<unknown>) => void) {
-        this.api.get("/api/events/" + eventId + "/delete", "", callback);
+        this.api.delete("/api/events/" + eventId, callback);
     }
 
     public removeDog(dogId: string, callback: (response: IHttpResponse<unknown>) => void) {
-        this.api.get("/api/events/" + dogId + "/delete", "", callback);
+        this.api.delete("/api/dogs/" + dogId, callback);
     }
 
     public editDog(dogProfile: HHH.SchedulerApiDog) {
@@ -187,7 +187,7 @@ export class SchedulerService {
     }
 
     public deleteUser(username: string) {
-        this.api.get("/api/users/" + username + "/delete", "", () => {
+        this.api.delete("/api/users/" + username, () => {
             alert("Deleted " + username);
         });
     }
