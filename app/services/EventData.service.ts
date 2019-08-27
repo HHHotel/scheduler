@@ -1,10 +1,41 @@
-import { module } from "angular";
 import { DEFAULT } from "../default";
 import { HHH } from "../types/HHHTypes";
 import { SchedulerWeek } from "./Week.service";
 
-
 export class EventData {
+
+    public static toApiEvent(event: HHH.SchedulerEvent): HHH.SchedulerApiEvent {
+        if (event.date) {
+            return {
+                date: event.date.valueOf(),
+                id: event.id,
+                text: event.text,
+                type: event.type,
+            };
+        } else {
+            throw new TypeError();
+        }
+    }
+
+    public static toApiBooking(booking: HHH.SchedulerBooking): HHH.SchedulerApiBooking {
+        return {
+            dogId: booking.dogId,
+            endDate: booking.endDate.valueOf(),
+            id: booking.id,
+            startDate: booking.startDate.valueOf(),
+            text: booking.text,
+            type: booking.type,
+        };
+    }
+
+    public static toApiDog(dog: HHH.SchedulerDog): HHH.SchedulerApiDog {
+        return {
+            bookings: dog.bookings.map((ev) => EventData.toApiBooking(ev)),
+            clientName: dog.clientName,
+            id: dog.id,
+            name: dog.name,
+        };
+    }
 
     private week: SchedulerWeek;
 
@@ -47,7 +78,7 @@ export class EventData {
                     record.date = event.endDate;
                     record.type = DEFAULT.CONSTANTS.DEPARTING;
                 } else if (event.type === DEFAULT.CONSTANTS.BOARDING) {
-                    record.date = null;
+                    record.date = undefined;
                 }
 
                 events[i].push(record);
@@ -55,4 +86,5 @@ export class EventData {
         }
         return events;
     }
+
 }

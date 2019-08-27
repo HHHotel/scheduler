@@ -13,7 +13,7 @@ export function SchedulerController($rootScope: any, $scope: any, $Scheduler: Sc
 
     $scope.saveProfile = () => {
         // make a type file with hhhdog etc
-        const newDog: HHH.SchedulerDog = {
+        const newDog: HHH.SchedulerApiDog = {
             bookings: [],
             clientName: $scope.cache.dogProfile.clientName,
             id: $scope.cache.dogProfile.id,
@@ -25,8 +25,8 @@ export function SchedulerController($rootScope: any, $scope: any, $Scheduler: Sc
                 const booking = $scope.cache.dogProfile.bookings[i];
                 newDog.bookings[i] = booking;
 
-                newDog.bookings[i].startDate = new Date(newDog.bookings[i].startDate.valueOf());
-                newDog.bookings[i].endDate = new Date(newDog.bookings[i].endDate.valueOf());
+                newDog.bookings[i].startDate = newDog.bookings[i].startDate.valueOf();
+                newDog.bookings[i].endDate = newDog.bookings[i].endDate.valueOf();
             } catch (e) {
                 alert("Invalid Date: " + e.message);
             }
@@ -159,7 +159,7 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
     };
 
     /* DOG SCHEDULE MANAGEMENT */
-    $scope.addDog = (dog: HHH.SchedulerDog) => {
+    $scope.addDog = (dog: HHH.SchedulerApiDog) => {
         if (dog.name && dog.clientName) {
             $Scheduler.addDog(dog);
             $scope.form.dog = {};

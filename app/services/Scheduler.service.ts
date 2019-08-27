@@ -1,5 +1,5 @@
-import { IHttpResponse, ILocationService, module} from "angular";
-import { DEFAULT, saveSettings, Settings } from "../default";
+import { IHttpResponse, ILocationService } from "angular";
+import { saveSettings, Settings } from "../default";
 import { HHH } from "../types/HHHTypes";
 import { ApiService } from "./Api.service";
 import { EventData } from "./EventData.service";
@@ -122,9 +122,9 @@ export class SchedulerService {
         this.load();
     }
 
-    public addDog(dog: HHH.SchedulerDog) {
+    public addDog(dog: HHH.SchedulerApiDog) {
         // TODO: make a popup notification with the server response
-        this.api.post("/api/dogs", dog, alert);
+        this.api.post("/api/dogs", dog, (res) => alert("Success"));
     }
 
     public addEvent(event: any) {
@@ -138,7 +138,7 @@ export class SchedulerService {
             id: event.id,
         };
 
-        this.api.post("/api/events", newEvent, alert);
+        this.api.post("/api/events", newEvent, (res) => alert("Success"));
     }
 
     public findEvents(eventText: string) {
@@ -156,9 +156,9 @@ export class SchedulerService {
         this.api.get("/api/events/" + dogId + "/delete", "", callback);
     }
 
-    public editDog(dogProfile: HHH.SchedulerDog) {
+    public editDog(dogProfile: HHH.SchedulerApiDog) {
         // TODO: make a popup notification with the server response
-        this.api.put("/api/dogs", dogProfile, alert);
+        this.api.put("/api/dogs", dogProfile, (res) => alert("Success"));
     }
 
     public retrieveDog(dogId: string) {
