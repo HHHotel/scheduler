@@ -1,39 +1,69 @@
 import { DEFAULT } from "../default";
-import { HHH } from "../types/HHHTypes";
+import * as HHH from "../types/HHHTypes";
 import { SchedulerWeek } from "./Week.service";
 
 export class EventData {
 
-    public static toApiEvent(event: HHH.SchedulerEvent): HHH.SchedulerApiEvent {
+    public static toApiEvent(event: HHH.ISchedulerEvent): HHH.ISchedulerApiEvent {
         if (event.date) {
             return {
-                date: event.date.valueOf(),
+                endDate: event.date.valueOf(),
+                startDate: event.date.valueOf(),
                 id: event.id,
                 text: event.text,
                 type: event.type,
+                desc: "",
             };
         } else {
             throw new TypeError();
         }
     }
 
-    public static toApiBooking(booking: HHH.SchedulerBooking): HHH.SchedulerApiBooking {
+    public static toApiBooking(booking: HHH.ISchedulerBooking): HHH.ISchedulerApiBooking {
+        if (booking.type === "daycare") {
+            booking.endDate = booking.startDate;
+        }
         return {
             dogId: booking.dogId,
+            startDate: booking.startDate.valueOf(),
             endDate: booking.endDate.valueOf(),
             id: booking.id,
-            startDate: booking.startDate.valueOf(),
             text: booking.text,
             type: booking.type,
+            dogName: booking.dogName,
+            clientName: booking.clientName,
+            desc: "",
         };
     }
 
-    public static toApiDog(dog: HHH.SchedulerDog): HHH.SchedulerApiDog {
+    public static toApiDog(dog: HHH.ISchedulerDog): HHH.ISchedulerApiDog {
         return {
             bookings: dog.bookings.map((ev) => EventData.toApiBooking(ev)),
             clientName: dog.clientName,
             id: dog.id,
             name: dog.name,
+        };
+    }
+
+    public static fromApiBooking(event: HHH.ISchedulerApiBooking): HHH.ISchedulerBooking {
+        return {
+            startDate: new Date(event.startDate),
+            endDate: new Date(event.endDate),
+            id: event.id,
+            dogId: event.dogId,
+            dogName: event.dogName,
+            clientName: event.clientName,
+            type: event.type,
+            text: event.text,
+        };
+    }
+
+    public static fromApiEvent(event: HHH.ISchedulerApiEvent): HHH.ISchedulerEvent {
+        return {
+            date: new Date(event.startDate),
+            id: event.id,
+            text: event.text,
+            type: event.type,
         };
     }
 
@@ -43,16 +73,16 @@ export class EventData {
         this.week = week;
     }
 
-    public loadEventData(serverEventResponse: HHH.ResponseSchedulerEvent[]): HHH.SchedulerEvent[][] {
-        const events: HHH.SchedulerEvent[][] = [];
+    public loadEventData(serverEventResponse: HHH.ISchedulerApiBooking[]):
+    HHH.ISchedulerEvent[][] {
+        const events: HHH.ISchedulerEvent[][] = [];
 
         for (let i = 0; i < 7; i++) {
             events[i] = [];
         }
 
-        for (const event of serverEventResponse) {
-            event.startDate = new Date(event.startDate);
-            event.endDate = new Date(event.endDate);
+        for (const responseEvent of serverEventResponse) {
+            const event = EventData.fromApiBooking(responseEvent);
 
             const startDay = (event.startDate <= this.week.getDay(0)) ?
                 0 : event.startDate.getDay();
@@ -62,9 +92,9 @@ export class EventData {
 
             for (let i = startDay; i <= endDay; i++) {
 
-                const record: HHH.SchedulerEvent = {
+                const record: HHH.ISchedulerEvent = {
                     date: event.startDate,
-                    id: event.dogId ? event.dogId : event.eventId,
+                    id: event.dogId ? event.dogId : event.id,
                     text: event.text,
                     type: event.type,
                 };

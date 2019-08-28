@@ -1,16 +1,16 @@
 import { IHttpResponse, ILocationService } from "angular";
 import { saveSettings, Settings } from "../default";
-import { HHH } from "../types/HHHTypes";
+import * as HHH from "../types/HHHTypes";
 import { ApiService } from "./Api.service";
 import { EventData } from "./EventData.service";
 import { SchedulerWeek } from "./Week.service";
 
 export class SchedulerService {
     public cache: {
-        events?: HHH.SchedulerEvent[][];
+        events?: HHH.ISchedulerEvent[][];
         searchEvents?: [];
         searchText?: string;
-        dogProfile: HHH.SchedulerDog | null;
+        dogProfile: HHH.ISchedulerDog | null;
     };
     public week: SchedulerWeek;
     private api: ApiService;
@@ -103,7 +103,7 @@ export class SchedulerService {
 
     public load() {
         this.api.get("/api/week", "date=" + this.week.getDay(0), (response) => {
-            this.cache.events = this.eventData.loadEventData(response.data as HHH.ResponseSchedulerEvent[]);
+            this.cache.events = this.eventData.loadEventData(response.data as HHH.ISchedulerApiBooking[]);
         });
     }
 
@@ -122,7 +122,7 @@ export class SchedulerService {
         this.load();
     }
 
-    public addDog(dog: HHH.SchedulerApiDog) {
+    public addDog(dog: HHH.ISchedulerApiDog) {
         // TODO: make a popup notification with the server response
         this.api.post("/api/dogs", dog, () => alert("Success"));
     }
@@ -156,14 +156,15 @@ export class SchedulerService {
         this.api.delete("/api/dogs/" + dogId, callback);
     }
 
-    public editDog(dogProfile: HHH.SchedulerApiDog) {
+    public editDog(dogProfile: HHH.ISchedulerApiDog,
+                   callback: (response: IHttpResponse<unknown>) => void) {
         // TODO: make a popup notification with the server response
-        this.api.put("/api/dogs", dogProfile, () => alert("Success"));
+        this.api.put("/api/dogs", dogProfile, callback);
     }
 
     public retrieveDog(dogId: string) {
         this.api.get("/api/dogs/" + dogId, "", (res) => {
-                const responseData = res.data as HHH.SchedulerDog;
+                const responseData = res.data as HHH.ISchedulerDog;
                 for (const booking of responseData.bookings) {
                     booking.startDate = new Date(booking.startDate);
                     booking.endDate = new Date(booking.endDate);

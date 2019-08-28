@@ -1,61 +1,49 @@
-export module HHH {
+export interface ISchedulerApiDog {
+    name: string;
+    clientName: string;
+    id: string;
+    bookings: ISchedulerApiBooking[];
+}
 
-    interface SchedulerApiDog {
-        name: string;
-        clientName: string;
-        id: string;
-        bookings: SchedulerApiBooking[];
-    }
+export interface ISchedulerApiBooking extends ISchedulerApiEvent {
+    dogName: string;
+    clientName: string;
+    dogId: string;
+}
 
-    interface SchedulerApiBooking extends SchedulerApiEvent {
-        startDate: number;
-        endDate: number;
-        dogId: string;
-    }
+export interface ISchedulerApiEvent {
+    startDate: number;
+    endDate: number;
+    desc: string;
+    type: string;
+    text: string;
+    id: string;
+}
 
-    interface SchedulerApiEvent {
-        date?: number;
-        type: string;
-        text: string;
-        id: string;
-    }
+export interface ISchedulerEvent {
+    date?: Date;
+    type: string;
+    text: string;
+    id: string;
+}
 
-    interface SchedulerEvent {
-        date?: Date;
-        type: string;
-        text: string;
-        id: string;
-    }
+export interface ISchedulerBooking extends ISchedulerEvent {
+    startDate: Date;
+    endDate: Date;
+    dogName: string;
+    clientName: string;
+    dogId: string;
+}
 
-    interface SchedulerBooking extends SchedulerEvent {
-        startDate: Date;
-        endDate: Date;
-        dogName: string;
-        clientName: string;
-        dogId: string;
-    }
+export interface ISchedulerUser {
+    username: string;
+    token: string;
+    permissions: number;
+}
 
-    interface SchedulerUser {
-        username: string;
-        token: string;
-        permissions: number;
-    }
-
-    interface SchedulerDog {
-        name: string;
-        clientName: string;
-        id: string;
-        bookings: SchedulerBooking[];
-    }
-
-    interface ResponseSchedulerEvent {
-        text: string;
-        type: string;
-        desc: string;
-        dogId: string;
-        eventId: string;
-        startDate: Date;
-        endDate: Date;
-    }
-
+export interface ISchedulerDog {
+    name: string;
+    clientName: string;
+    id: string;
+    bookings: ISchedulerBooking[];
 }

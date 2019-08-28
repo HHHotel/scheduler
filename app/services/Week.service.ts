@@ -1,7 +1,3 @@
-import { module } from "angular";
-import { DEFAULT } from "../default";
-
-
 export class SchedulerWeek {
 
     public static getStartEnd(currentDate: Date) {

@@ -1,6 +1,6 @@
-import { IHttpResponse, IHttpService, module } from "angular";
-import { DEFAULT, Settings } from "../default";
-import { HHH } from "../types/HHHTypes";
+import { IHttpResponse, IHttpService } from "angular";
+import { Settings } from "../default";
+import * as HHH from "../types/HHHTypes";
 
 export class ApiService {
 
@@ -20,7 +20,7 @@ export class ApiService {
         this.http.post(Settings.BASE_URL + "/login", user)
             .then(
                 (response) => {
-                    Settings.user = response.data as HHH.SchedulerUser;
+                    Settings.user = response.data as HHH.ISchedulerUser;
                     callback(response);
                 },
                 (response) => callback(response),

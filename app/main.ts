@@ -6,6 +6,7 @@ import { IHttpService, ILocationService, module } from "angular";
 import { SchedulerWeek } from "./services/Week.service";
 import { SchedulerService } from "./services/Scheduler.service";
 import { DayEventComponent } from "./components/dayEvent.component";
+import { SchedulerDogProfileComponent } from "./components/schedulerDogProfile.component";
 
 // tslint:disable-next-line: no-var-requires
 module(DEFAULT.MAIN_PKG, [require("angular-route")])
@@ -35,16 +36,14 @@ module(DEFAULT.MAIN_PKG).factory("$Scheduler", [
         new SchedulerService(week, api, eventData, $location),
 ]);
 
-module(DEFAULT.MAIN_PKG)
-    .controller("loginCtrl", [
+module(DEFAULT.MAIN_PKG).controller("loginCtrl", [
         "$scope",
         "$location",
         "$Scheduler",
         ctrls.LoginController,
     ]);
 
-module(DEFAULT.MAIN_PKG)
-    .controller("schedCtrl", [
+module(DEFAULT.MAIN_PKG).controller("schedCtrl", [
         "$scope",
         "$rootScope",
         "$Scheduler",
@@ -59,6 +58,7 @@ module(DEFAULT.MAIN_PKG).controller("sidebarCtrl", [
 ]);
 
 module(DEFAULT.MAIN_PKG).component("dayEvent", new DayEventComponent());
+module(DEFAULT.MAIN_PKG).component("schedulerDogProfile", new SchedulerDogProfileComponent());
 
 import { BrowserWindow } from "electron";
 
