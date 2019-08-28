@@ -124,7 +124,7 @@ export class SchedulerService {
 
     public addDog(dog: HHH.SchedulerApiDog) {
         // TODO: make a popup notification with the server response
-        this.api.post("/api/dogs", dog, (res) => alert("Success"));
+        this.api.post("/api/dogs", dog, () => alert("Success"));
     }
 
     public addEvent(event: any) {
@@ -138,7 +138,7 @@ export class SchedulerService {
             id: event.id,
         };
 
-        this.api.post("/api/events", newEvent, (res) => alert("Success"));
+        this.api.post("/api/events", newEvent, () => alert("Success"));
     }
 
     public findEvents(eventText: string) {
@@ -158,7 +158,7 @@ export class SchedulerService {
 
     public editDog(dogProfile: HHH.SchedulerApiDog) {
         // TODO: make a popup notification with the server response
-        this.api.put("/api/dogs", dogProfile, (res) => alert("Success"));
+        this.api.put("/api/dogs", dogProfile, () => alert("Success"));
     }
 
     public retrieveDog(dogId: string) {

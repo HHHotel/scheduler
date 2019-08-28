@@ -12,7 +12,6 @@ export function SchedulerController($rootScope: any, $scope: any, $Scheduler: Sc
     $scope.editMode = false;
 
     $scope.saveProfile = () => {
-        // make a type file with hhhdog etc
         const newDog: HHH.SchedulerApiDog = {
             bookings: [],
             clientName: $scope.cache.dogProfile.clientName,
