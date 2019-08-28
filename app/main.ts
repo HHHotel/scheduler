@@ -1,6 +1,6 @@
 import * as ctrls from "./controllers/SchedulerControllers";
 import { ApiService } from "./services/Api.service";
-import { DEFAULT, saveSettings, Settings } from "./default";
+import { DEFAULT, saveSettings } from "./default";
 import { EventData } from "./services/EventData.service";
 import { IHttpService, ILocationService, module } from "angular";
 import { SchedulerWeek } from "./services/Week.service";
@@ -8,7 +8,8 @@ import { SchedulerService } from "./services/Scheduler.service";
 import { DayEventComponent } from "./components/dayEvent.component";
 
 // tslint:disable-next-line: no-var-requires
-module(DEFAULT.MAIN_PKG, [require("angular-route")]).config(($routeProvider: ng.route.IRouteProvider) => {
+module(DEFAULT.MAIN_PKG, [require("angular-route")])
+    .config(($routeProvider: ng.route.IRouteProvider) => {
     $routeProvider
         .when("/", {
             templateUrl: "views/login.html",
@@ -22,7 +23,8 @@ module(DEFAULT.MAIN_PKG).factory("Api", ["$http", (http: IHttpService) => new Ap
 
 module(DEFAULT.MAIN_PKG).factory("Week", () => new SchedulerWeek(new Date()));
 
-module(DEFAULT.MAIN_PKG).factory("EventData", [ "Week", (week: SchedulerWeek) => new EventData(week)]);
+module(DEFAULT.MAIN_PKG).factory("EventData",
+    [ "Week", (week: SchedulerWeek) => new EventData(week)]);
 
 module(DEFAULT.MAIN_PKG).factory("$Scheduler", [
     "Week",

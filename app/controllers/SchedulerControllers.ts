@@ -77,7 +77,7 @@ export function SchedulerController($rootScope: any, $scope: any, $Scheduler: Sc
     };
 
     $scope.removeDog = (id: string) => {
-        $Scheduler.removeDog(id, (response) => {
+        $Scheduler.removeDog(id, () => {
             $Scheduler.cache.dogProfile = null;
             $Scheduler.findEvents($scope.cache.searchText);
         });
