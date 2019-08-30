@@ -11,14 +11,10 @@
 - General input validation  
 - Better dialogs / popups  
 
-- Migrate to typescript/qt  
-
 - Timestamp for printout  
 
 - fix ordering  
 
-- Loading status for login
+- Loading status for login  
 
 ## ERRORS  
-
-- Deleting dogs doesnt work
