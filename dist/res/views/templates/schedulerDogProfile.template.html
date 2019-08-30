@@ -4,7 +4,7 @@
 
 <div class = "dog-info">
 
-    <button class = "profile-button" ng-click = "removeDog($ctrl.dogProfile.id)">Delete Dog</button>
+    <button class = "profile-button" ng-click = "$ctrl.removeDog($ctrl.dogProfile.id)">Delete Dog</button>
 
     <button ng-show = "!$ctrl.editMode" 
         class = "profile-button" ng-click = "$ctrl.editMode = true">Edit Mode</button>

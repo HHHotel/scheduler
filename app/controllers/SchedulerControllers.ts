@@ -26,7 +26,7 @@ export function SchedulerController($rootScope: any, $scope: any, $Scheduler: Sc
 
     $scope.formatDate = (date: Date) => {
         if (date) {
-            date = new Date();
+            date = new Date(date);
             return date.toDateString();
         }
     };
@@ -95,48 +95,48 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
         }
     };
 
-    // ADD TYPINGS
-    $scope.addEvent = (event: any, repeatOptions: any) => {
-        if ((event.event_text || event.id) &&
-            event.event_start &&
-            event.event_type
-        ) {
-            if (event.event_type === "daycare" && repeatOptions) {
-                let inc;
-                switch (repeatOptions.frequency) {
-                    case "daily":
-                        inc = 86400000;
-                        break;
-                    case "weekly":
-                        inc = 604800000;
-                        break;
-                    case "once":
-                        $Scheduler.addEvent(event);
-                        break;
-                    default:
-                        alert("Enter repeat frequency");
-                        break;
-                }
+    // TODO: ADD TYPINGS & refractor
+    $scope.addEvent = (event: HHH.ISQLEvent, repeatOptions: any) => {
+        if (!event || !(event.event_text || event.id) || !event.event_start || !event.event_type) {
+            alert("Insufficent event details");
+            return;
+        }
 
-                for (
-                    let i = event.event_start.valueOf(); i < repeatOptions.stopDate.valueOf(); i += inc
-                ) {
-                    event.event_start = i;
-                    event.event_end = i;
-                    $Scheduler.addEvent(event);
-                }
-            } else {
+        function getRepeatIncrement(repeatOpt: string) {
+            switch (repeatOpt) {
+                case "daily":
+                    return 86400000;
+                case "weekly":
+                    return 604800000;
+                case "once":
+                    return 0;
+                default:
+                    return -1;
+            }
+        }
+
+        if (event.event_type === "daycare" && repeatOptions) {
+
+            const inc = getRepeatIncrement(repeatOptions.frequency);
+            if (inc < 0) {
+                alert("Enter repeat frequency");
+                return;
+            }
+
+            let i = event.event_start.valueOf();
+            for (; i < repeatOptions.stopDate.valueOf(); i += inc) {
+                event.event_start = i;
+                event.event_end = i;
                 $Scheduler.addEvent(event);
             }
-            $scope.form = {};
         } else {
-            alert("Insufficent event details");
+            $Scheduler.addEvent(event);
         }
+        $scope.form = {};
     };
 
     $scope.removeEvent = (id: string) => {
-        $Scheduler.removeEvent(id, (response) => console.log(response));
-        $Scheduler.findEvents($scope.search.input);
+        $Scheduler.removeEvent(id, () => $Scheduler.findEvents($scope.search.input));
     };
 
     $scope.findEvents = (search: string) => {

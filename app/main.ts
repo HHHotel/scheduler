@@ -20,7 +20,8 @@ module(DEFAULT.MAIN_PKG, [require("angular-route")])
         });
 });
 
-module(DEFAULT.MAIN_PKG).factory("Api", ["$http", (http: IHttpService) => new ApiService(http)]);
+module(DEFAULT.MAIN_PKG).factory("Api", ["$http", "$location",
+    (http: IHttpService, loc: ILocationService) => new ApiService(http, loc)]);
 
 module(DEFAULT.MAIN_PKG).factory("Week", () => new SchedulerWeek(new Date()));
 

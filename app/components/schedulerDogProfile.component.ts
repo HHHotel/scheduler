@@ -79,6 +79,12 @@ class SchedulerDogProfileController implements ISchedulerDogProfileController {
         this.$Scheduler.removeEvent(id, () => this.updateDogProfile());
     }
 
+    public removeDog(id: string) {
+        this.$Scheduler.removeDog(id, () => {
+            this.$Scheduler.cache.dogProfile = null;
+        });
+    }
+
     private updateDogProfile() {
         if (this.dogProfile) {
             this.$Scheduler.retrieveDog(this.dogProfile.id);

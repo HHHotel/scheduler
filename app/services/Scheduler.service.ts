@@ -127,18 +127,16 @@ export class SchedulerService {
         this.api.post("/api/dogs", dog, () => alert("Success"));
     }
 
-    public addEvent(event: any) {
+    public addEvent(event: HHH.ISQLEvent) {
         const newEvent = {
-            event_end: event.event_end ?
-                event.event_end.valueOf() :
-                event.event_start.valueOf(),
+            event_end: event.event_end ? event.event_end.valueOf() : event.event_start.valueOf(),
             event_start: event.event_start.valueOf(),
             event_text: event.event_text,
             event_type: event.event_type,
             id: event.id,
         };
 
-        this.api.post("/api/events", newEvent, () => alert("Success"));
+        this.api.post("/api/events", newEvent);
     }
 
     public findEvents(eventText: string) {
@@ -148,7 +146,7 @@ export class SchedulerService {
         });
     }
 
-    public removeEvent(eventId: string, callback: (response: IHttpResponse<unknown>) => void) {
+    public removeEvent(eventId: string, callback?: (response: IHttpResponse<unknown>) => void) {
         this.api.delete("/api/events/" + eventId, callback);
     }
 

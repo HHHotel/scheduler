@@ -47,3 +47,17 @@ export interface ISchedulerDog {
     id: string;
     bookings: ISchedulerBooking[];
 }
+
+export interface ISQLDog {
+    id: string;
+    dog_name: string;
+    client_name: string;
+}
+
+export interface ISQLEvent extends ISQLDog {
+    event_id: string;
+    event_type: string;
+    event_text: string;
+    event_start: string;
+    event_end: string;
+}
