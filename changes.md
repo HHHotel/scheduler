@@ -15,6 +15,4 @@
 
 - fix ordering  
 
-- Loading status for login  
-
 ## ERRORS  
