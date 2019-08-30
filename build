@@ -1,4 +1,4 @@
-#! /usr/bin/sh
+#!/usr/bin/env sh
 
 dest="release_builds"
 platform=$1
@@ -19,9 +19,9 @@ fi
 packageCommand="./node_modules/.bin/electron-packager . HHH-Scheduler --overwrite --asar --platform=$platform --arch=$arch  --prune=true --out=$dest --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='HHH Scheduler'"
 
 if [[ $platform == "darwin" ]]; then
-  $packageCommand --icon=./client/images/icon.icns
+  $packageCommand --icon=./dist/res/images/icon.icns
 else
-  $packageCommand --icon=./client/images/icon.ico
+  $packageCommand --icon=./dist/res/images/icon.ico
 fi
 
 packageName=HHH-Scheduler-$1-$2

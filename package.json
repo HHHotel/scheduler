@@ -1,11 +1,12 @@
 {
   "name": "hhh-scheduler",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Scheduling App",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "lint": "eslint .",
+    "compile": "webpack",
+    "start": "webpack && electron .",
+    "lint": "tslint -p .",
     "build": "rm -rf ./release_builds/*; ./build linux x64; ./build win32 x64; ./build darwin x64"
   },
   "author": "Matt Rochford",
@@ -17,9 +18,14 @@
     "fs": "0.0.1-security"
   },
   "devDependencies": {
+    "@types/angular": "^1.6.56",
+    "@types/angular-route": "^1.7.0",
     "electron": "^4.1.4",
     "electron-packager": "^14.0.1",
-    "eslint": ">=5.14.1",
-    "eslint-config-google": ">=0.9.1"
+    "ts-loader": "^6.0.4",
+    "tslint": "^5.19.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
   }
 }

@@ -87,8 +87,8 @@
                 <div ng-repeat = "day in week.days" class = "day day-{{$index}}">
                     <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
                     <div class = "dog-list">
-                        <pre ng-click = "lookup(event)" ng-repeat = "event
-                        in cache.eventData.events[$index]" class = "{{event.type}}" id = "{{event.id}}">{{displayEvent(event)}}</pre>
+                        <day-event ng-repeat = "event in cache.events[$index]" schedule-event="event"
+                                   class="{{event.type}}"></day-event>
                     </div>
                 </div>
 
@@ -105,6 +105,6 @@
 
     </div>
 
-    <ng-include ng-show = "cache.dogProfile.open" src = "'views/profile.html'"></ng-include>
+    <ng-include ng-show = "cache.dogProfile" src = "'views/profile.html'"></ng-include>
 
 </div>

@@ -29,8 +29,8 @@ disconnect-notice {
     padding: .3rem;
     width: 100%;
     position: fixed;
-    left    : 0;
-    bottom  : 0;
+    left: 0;
+    bottom: 0;
 }
 
 .week-wrapper {
@@ -80,48 +80,39 @@ disconnect-notice {
     order: 3;
 }
 
-/*
-.arriving::after {
-content: ' - Arrives';
+.departing {
+    color: red;
+    order: 4;
 }
- */
 
-    .departing {
-        color: red;
-        order: 4;
-    }
 
-    /*
-    .departing::after {
-    content: ' - Leaves';
-    }
-     */
+.boarding {
+    order: 1;
+    color: maroon;
+}
 
-    .boarding {
-        order: 1;
-        color: maroon;
-    }
+.daycare {
+    order: 5;
+    color: hotpink;
+}
 
-    .daycare {
-        order: 5;
-        color: hotpink;
-    }
+.grooming {
+    order: 9;
+    color: green;
+}
 
-    .grooming {
-        order: 9;
-        color: green;
-    }
-    .foster {
-        color: darkblue;
-        order: 2;
-    }
-    .visit {
-        color: purple;
-        order: 10;
+.foster {
+    color: darkblue;
+    order: 2;
+}
 
-    }
+.visit {
+    color: purple;
+    order: 10;
 
-    .general {
-        order: 10;
-        color: darkslategrey;
-    }
+}
+
+.general {
+    order: 10;
+    color: darkslategrey;
+}
