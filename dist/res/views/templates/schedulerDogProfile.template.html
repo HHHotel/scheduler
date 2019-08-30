@@ -27,7 +27,8 @@
     <div class = "page-break"></div>
     <h2 style = "text-align:center">Bookings</h2>
     <div class = "dog-profile-bookings">
-        <div ng-if = "!$ctrl.editMode" class = "dog-profile-dog-booking" ng-repeat = "booking in $ctrl.dogProfile.bookings">
+        <div ng-if = "!$ctrl.editMode" class = "dog-profile-dog-booking" ng-repeat = "booking in
+            $ctrl.dogProfile.bookings | orderBy:'-startDate'">
             <span>{{$ctrl.displayBooking(booking)}}</span>
             <button ng-click = "$ctrl.removeEvent(booking.id)" class = "booking-delete-button">Delete</button> 
         </div>
