@@ -9,7 +9,9 @@
                 <input type = "password" ng-enter = "submit()" ng-model = "cache.user.password" class = "login-input"></input>
                 <br />
 
-                <button type = "submit" class = "login-button">login</button>
+                <button ng-show="!loginLoading"type = "submit" class = "login-button">login</button>
+                <div ng-show="loginLoading" class="cirle-loader"></div>
+
         </form>
 
 </div>

@@ -158,4 +158,19 @@ button:hover {
     height: calc(100vh - 5rem);
 }
 
+.cirle-loader {
+  border: 1rem solid var(--background-light);
+  border-top: 1rem solid var(--background-dark);
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  margin: 1rem auto;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 
+
 

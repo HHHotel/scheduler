@@ -155,10 +155,13 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
 
 export function LoginController($scope: any, $location: ILocationService, $Scheduler: SchedulerService) {
     $scope.cache = $Scheduler.cache;
+    $scope.loginLoading = false;
 
     $scope.submit = () => {
+        $scope.loginLoading = true;
         $Scheduler.login($scope.cache.user.username, $scope.cache.user.password, (result: any) => {
             $scope.cache.user.password = "";
+            $scope.loginLoading = false;
             if (result.status === 200) {
                 $location.path("/main");
             } else {
