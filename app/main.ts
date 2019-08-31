@@ -61,21 +61,21 @@ module(DEFAULT.MAIN_PKG).controller("sidebarCtrl", [
 module(DEFAULT.MAIN_PKG).component("dayEvent", new DayEventComponent());
 module(DEFAULT.MAIN_PKG).component("schedulerDogProfile", new SchedulerDogProfileComponent());
 
-import { BrowserWindow } from "electron";
-
 module(DEFAULT.MAIN_PKG)
     .controller("titleBar", [
         "$scope",
         ($scope) => {
+            const { remote } = require("electron");
+            const win = remote.getCurrentWindow();
+
             $scope.minimize = () => {
-                const win = BrowserWindow.getFocusedWindow();
+                console.log(win);
                 if (win) {
                     win.minimize();
                 }
             };
 
             $scope.maximize = () => {
-                const win = BrowserWindow.getFocusedWindow();
                 if (win && win.isMaximized()) {
                     win.unmaximize();
                 } else if (win) {
@@ -84,11 +84,10 @@ module(DEFAULT.MAIN_PKG)
             };
 
             $scope.close = () => {
-                const win = BrowserWindow.getFocusedWindow();
                 if (win) {
                     win.close();
                 }
                 saveSettings();
             };
 
-}]);
+        }]);

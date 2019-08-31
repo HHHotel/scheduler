@@ -13,5 +13,8 @@
 
 ### MacOS  
 1. Download the darwin-x86_64 package from the [releases page](https://GitHub.com/hhhotel/scheduler/releases/latest)  
-2. Unzip the file you just downloaded  
+2. Open finder and go to your downloads folder  
 3. Inside the new folder copy HHH-Scheduler.app into your /Applications folder  
+4. Find HHH-Scheduler in the /Applications directory  
+5. Ctrl-Click on HHH-Scheduler and click open, this creates an exception allowing the unsigned app  
+   to be run without further changes  
