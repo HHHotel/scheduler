@@ -5,10 +5,8 @@
 #define MyAppVersion "0.3.0"
 #define MyAppPublisher "Matt Rochford"
 #define MyAppURL "https://www.github.com/hhhotel/scheduler"
-; #define BaseDirLocation "C:\users\matt\Desktop\Projects\HHHScheduler\scheduler"
-; #define MyAppLocation "C:\users\matt\Desktop\Projects\HHHScheduler\scheduler\release_builds\HHH-Scheduler-win32-x64"
-#define BaseDirLocation "."
-#define MyAppLocation "release_builds\HHH-Scheduler-win32-x64"
+#define BaseDirLocation "C:\users\matt\Projects\HHHScheduler\scheduler"
+#define MyAppLocation "C:\users\matt\Projects\HHHScheduler\scheduler\release_builds\HHH-Scheduler-win32-x64"
 #define MyAppExeName "HHH-Scheduler.exe"
 
 [Setup]
@@ -22,14 +20,14 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={userpf}\{#MyAppName}
+DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile={#BaseDirLocation}\docs\LICENSE.md
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 PrivilegesRequired=lowest
 OutputDir=.\release_builds
 OutputBaseFilename=HHH-Scheduler-win32-x64-setup
-SetupIconFile={#BaseDirLocation}\client\images\icon.ico
+SetupIconFile={#BaseDirLocation}\app\res\images\icon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -40,15 +38,14 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
-
 [Files]
 Source: {#BaseDirLocation}\config\*; DestDir: "{userappdata}\HHH Scheduler"; Flags: onlyifdoesntexist uninsneveruninstall ignoreversion recursesubdirs createallsubdirs      
 Source: {#MyAppLocation}\*; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{userprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{userdesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
