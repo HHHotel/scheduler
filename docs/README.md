@@ -4,11 +4,11 @@
 
 ### Windows 10  
 1. Download win32-x64-setup.exe from the [releases page](https://GitHub.com/hhhotel/scheduler/releases/latest)  
-![release screenshot](docs/resources/releases_scrshot.jpg)  
+![release screenshot](resources/releases_scrshot.jpg)  
 2. Run the setup program  
 3. Click more info and run anyway  
-![smartscreen screenshot](docs/resources/protecting_scrshot.jpg)  
-![more info screenshot](docs/resources/ignorethatbs_scrshot.jpg)  
+![smartscreen screenshot](resources/protecting_scrshot.jpg)  
+![more info screenshot](resources/ignorethatbs_scrshot.jpg)  
 4. Follow the instructions to install the program  
 
 ### MacOS  
