@@ -49,9 +49,9 @@ export class ApiService {
 
     public put(endpoint: string, data: object,
                callback?: (response: IHttpResponse<unknown>) => void) {
-        this.http.put(Settings.BASE_URL + endpoint + "?"
-            + buildQuery("username", Settings.user.username, "token", Settings.user.token),
-            data).then(callback, (res) => this.handleError(res));
+        const url = Settings.BASE_URL + endpoint + "?"
+            + buildQuery("username", Settings.user.username, "token", Settings.user.token);
+        this.http.put(url, data, this.httpConfig).then(callback, (res) => this.handleError(res));
     }
 
     public delete(endpoint: string, callback?: (response: IHttpResponse<unknown>) => void) {
