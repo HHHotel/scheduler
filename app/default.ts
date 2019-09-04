@@ -87,7 +87,7 @@ export const DEFAULT: IDefaults = {
             return DEFAULT.MAIN_PKG;
         }
     }, */
-    VERSION: "0.3.1",
+    VERSION: "0.3.2",
 };
 
 export function loadSettings() {
