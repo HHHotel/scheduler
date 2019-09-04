@@ -43,12 +43,16 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
         ipcRenderer.send("print-schedule");
     };
 
+    function clearForm() {
+        $scope.form = {
+            booking: {},
+            dog: {},
+            event: {},
+        };
+    }
+
     /* KEEP TRACK OF INPUTS */
-    $scope.form = {
-        booking: {},
-        dog: {},
-        event: {},
-    };
+    clearForm();
 
     $scope.newUser = {};
     $rootScope.search = {};
@@ -92,7 +96,7 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
     $scope.addDog = (dog: HHH.ISchedulerApiDog) => {
         if (dog.name && dog.clientName) {
             $Scheduler.addDog(dog);
-            $scope.form.dog = {};
+            clearForm();
         } else {
             alert("Insufficent dog details");
         }
@@ -125,8 +129,8 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
             }
 
             for (let i = event.event_start.valueOf();
-                     i < repeatOptions.stopDate.valueOf();
-                     i += inc) {
+                i < repeatOptions.stopDate.valueOf();
+                i += inc) {
                 event.event_start = i;
                 event.event_end = i;
                 $Scheduler.addEvent(event);
@@ -134,7 +138,7 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
         } else {
             $Scheduler.addEvent(event);
         }
-        $scope.form = {};
+        clearForm();
     };
 
     $scope.removeEvent = (id: string) => {
