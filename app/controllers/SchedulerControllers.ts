@@ -57,6 +57,9 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
     /* INDEX OF SIDEBAR TAB */
     $scope.index = 0;
 
+    /* SHOW REPEAT OPTIONS */
+    $scope.showRepeat = false;
+
     /* USER MANAGEMENT */
     $scope.addUser = (username: string, password: string, permissionType: any) => {
         const permissionLevel: number | null = DEFAULT.CONSTANTS.USER_CONSTANT[permissionType];
@@ -108,14 +111,12 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
                     return 86400000;
                 case "weekly":
                     return 604800000;
-                case "once":
-                    return 0;
                 default:
                     return -1;
             }
         }
 
-        if (event.event_type === "daycare" && repeatOptions) {
+        if (event.event_type === "daycare" && repeatOptions && repeatOptions.stopDate) {
 
             const inc = getRepeatIncrement(repeatOptions.frequency);
             if (inc < 0) {
@@ -123,8 +124,9 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
                 return;
             }
 
-            let i = event.event_start.valueOf();
-            for (; i < repeatOptions.stopDate.valueOf(); i += inc) {
+            for (let i = event.event_start.valueOf();
+                     i < repeatOptions.stopDate.valueOf();
+                     i += inc) {
                 event.event_start = i;
                 event.event_end = i;
                 $Scheduler.addEvent(event);

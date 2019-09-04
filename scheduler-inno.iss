@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "HHH Scheduler"
-#define MyAppVersion "0.3.1"
+#define MyAppVersion "0.3.2"
 #define MyAppPublisher "Matt Rochford"
 #define MyAppURL "https://www.github.com/hhhotel/scheduler"
 #define BaseDirLocation "C:\users\matt\Projects\HHHScheduler\scheduler"

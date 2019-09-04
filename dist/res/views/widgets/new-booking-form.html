@@ -48,15 +48,18 @@
             Date
             <input ng-model = "form.booking.event_start" type = "datetime-local" />
 
-            Repeat
-            <select ng-model = "form.repeatOptions.frequency" value="once" >
-                <option>once</option>
-                <option>daily</option>
-                <option>weekly</option>
-            </select>
+            <button style = "margin-bottom: 1rem" ng-click = "showRepeat = !showRepeat">Toggle Repeat</button>
 
-            Until
-            <input ng-model = "form.repeatOptions.stopDate" type = "date" />
+            <div ng-show = "showRepeat">
+                Repeat
+                <select ng-model = "form.repeatOptions.frequency" >
+                    <option>daily</option>
+                    <option>weekly</option>
+                </select>
+
+                Until
+                <input ng-model = "form.repeatOptions.stopDate" type = "date" />
+            </div>
 
         </div>
 
