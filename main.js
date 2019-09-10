@@ -55,7 +55,7 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", startWindow);
+app.on("ready", createWindow);
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function() {
@@ -78,61 +78,9 @@ app.on("activate", function() {
 // code. You can also put them in separate files and require them here.
 const { ipcMain } = require("electron");
 
-ipcMain.on("config-complete", () => {
-  createWindow();
-  configWindow.close();
-});
-
 ipcMain.on("print-schedule", () => {
   mainWindow.webContents.print({
     printBackground: false
   });
 });
 
-let SETTINGS_PATH, SETTINGS_BASEDIR;
-
-// Set the basedir of settingsm to users home directory
-if (os.platform() === "win32")
-  SETTINGS_BASEDIR = path.join(process.env.APPDATA, "HHH Scheduler");
-else SETTINGS_BASEDIR = path.join(os.homedir(), ".hhhscheduler");
-
-// Set the settings path
-SETTINGS_PATH = path.join(SETTINGS_BASEDIR, "settings.json");
-
-// Make the settings directory if it doesn"t already exist
-if (!fs.existsSync(SETTINGS_BASEDIR)) {
-  fs.mkdirSync(SETTINGS_BASEDIR);
-}
-
-function startWindow() {
-  if (fs.existsSync(SETTINGS_PATH)) {
-    createWindow();
-  } else {
-    initSettings();
-  }
-}
-
-function initSettings() {
-  configWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    frame: false,
-    webPreferences: {
-      experimentalFeatures: true
-    },
-    icon: "dist/res/images/icon.png",
-    backgroundColor: "#386351"
-  });
-
-  configWindow.loadURL(
-    url.format({
-      pathname: path.join(__dirname, "dist/res/init-settings.html"),
-      protocol: "file:",
-      slashes: true
-    })
-  );
-
-  configWindow.on("closed", function() {
-    configWindow = null;
-  });
-}

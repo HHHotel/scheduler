@@ -1,31 +1,51 @@
 {
-  "name": "hhh-scheduler",
-  "version": "0.3.2",
-  "description": "Scheduling App",
-  "main": "main.js",
-  "scripts": {
-    "compile": "webpack",
-    "start": "webpack && electron .",
-    "lint": "tslint -p .",
-    "build": "rm -rf ./release_builds/*; ./build linux x64; ./build win32 x64; ./build darwin x64; asar pack ./dist ./release_builds/app.asar"
-  },
-  "author": "Matt Rochford",
-  "repository": "https://github.com/hhhotel/scheduler",
-  "license": "MIT",
-  "dependencies": {
-    "angular": "^1.6.9",
-    "angular-route": "^1.6.9",
-    "fs": "0.0.1-security"
-  },
-  "devDependencies": {
-    "@types/angular": "^1.6.56",
-    "@types/angular-route": "^1.7.0",
-    "electron": "^4.1.4",
-    "electron-packager": "^14.0.1",
-    "ts-loader": "^6.0.4",
-    "tslint": "^5.19.0",
-    "typescript": "^3.5.3",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7"
-  }
+    "name": "hhh-scheduler",
+    "version": "0.3.2",
+    "description": "Scheduling App",
+    "main": "main.js",
+    "scripts": {
+        "compile": "webpack",
+        "start": "webpack && electron .",
+        "lint": "tslint -p .",
+        "pack-linux": "electron-builder --linux AppImage",
+        "pack-mac": "electron-builder --mac pkg",
+        "pack-win": "electron-builder --win nsis-web"
+    },
+    "build": {
+        "productName": "Hounds",
+        "copyright": "Copyright © 2019 Matt Rochford",
+        "directories": {
+            "output": "release_builds"
+        },
+        "linux": {
+            "icon": "dist/res/images/icon.ico"
+        },
+        "win": {
+            "icon": "dist/res/images/icon.ico"
+        },
+        "mac": {
+            "target": "pkg",
+            "icon": "dist/res/images/icons.icns"
+        }
+    },
+    "author": "Matt Rochford",
+    "repository": "https://github.com/hhhotel/scheduler",
+    "license": "MIT",
+    "dependencies": {
+        "angular": "^1.6.9",
+        "angular-route": "^1.6.9",
+        "fs": "0.0.1-security"
+    },
+    "devDependencies": {
+        "@types/angular": "^1.6.56",
+        "@types/angular-route": "^1.7.0",
+        "electron": "^4.1.4",
+        "electron-builder": "^21.2.0",
+        "electron-packager": "^14.0.1",
+        "ts-loader": "^6.0.4",
+        "tslint": "^5.19.0",
+        "typescript": "^3.5.3",
+        "webpack": "^4.39.2",
+        "webpack-cli": "^3.3.7"
+    }
 }
