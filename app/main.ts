@@ -69,7 +69,6 @@ module(DEFAULT.MAIN_PKG)
             const win = remote.getCurrentWindow();
 
             $scope.minimize = () => {
-                console.log(win);
                 if (win) {
                     win.minimize();
                 }
