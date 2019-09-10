@@ -41,21 +41,14 @@ export class SchedulerService {
     }
 
     public setupPolling() {
+        this.load();
         if (!this.loadInterval) {
             this.loadInterval = window.setInterval(() => this.load(), 1000);
         }
-        /* if (!this.profileInterval) {
-            this.profileInterval = setInterval(() => {
-                if (this.cache.dogProfile.open) {
-                    this.retrieveDog(this.cache.dogProfile.id);
-                }
-            }, 500);
-        } */
     }
 
     public clearPolling() {
         clearInterval(this.loadInterval);
-        // clearInterval(this.profileInterval);
         this.loadInterval = undefined;
     }
 

@@ -85,10 +85,10 @@ export class EventData {
             const event = EventData.fromApiBooking(responseEvent);
 
             const startDay = (event.startDate <= this.week.getDay(0)) ?
-                0 : event.startDate.getDay();
+                0 : SchedulerWeek.getDay(event.startDate);
 
             const endDay = (event.endDate >= this.week.getDay(6)) ?
-                6 : event.endDate.getDay();
+                6 : SchedulerWeek.getDay(event.endDate);
 
             for (let i = startDay; i <= endDay; i++) {
 

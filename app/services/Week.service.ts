@@ -6,13 +6,21 @@ export class SchedulerWeek {
         let eDate;
 
         sDate = new Date(currentDate.toString());
-        sDate.setDate(currentDate.getDate() - currentDate.getDay());
+        sDate.setDate(currentDate.getDate() - SchedulerWeek.getDay(currentDate));
 
         eDate = new Date(currentDate.toString());
-        eDate.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
+        eDate.setDate(currentDate.getDate() + (6 - SchedulerWeek.getDay(currentDate)));
 
         return [sDate, eDate];
 
+    }
+
+    public static getDay(date: Date) {
+        if (date.getDay() === 0) {
+            return 6;
+        } else {
+            return (date.getDay() - 1);
+        }
     }
 
     private days: Date[] = [];
