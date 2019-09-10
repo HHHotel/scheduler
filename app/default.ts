@@ -41,11 +41,11 @@ export let Settings: IHHHSettings;
 let SETTINGS_PATH: string;
 let SETTINGS_BASEDIR: string;
 
-// Set the basedir of settingsm to users home directory
+// Set the basedir of settings to users home directory
 if (os.platform() === "win32") {
-    SETTINGS_BASEDIR = path.join(process.env.APPDATA as string, "HHH Scheduler");
+    SETTINGS_BASEDIR = path.join(process.env.APPDATA as string, "Hounds");
 } else {
-    SETTINGS_BASEDIR = path.join(os.homedir(), ".hhhscheduler");
+    SETTINGS_BASEDIR = path.join(os.homedir(), ".hounds");
 }
 
 // Set the settings path
@@ -79,14 +79,7 @@ export const DEFAULT: IDefaults = {
             ["Viewer"]: 0,
         },
     },
-    MAIN_PKG: "HHH.Scheduler.App",
-    /*PKG: (suffix: string) => {
-        if (suffix != null && suffix.length) {
-            return DEFAULT.MAIN_PKG + "." + suffix;
-        } else {
-            return DEFAULT.MAIN_PKG;
-        }
-    }, */
+    MAIN_PKG: "Hounds.App",
     VERSION: "0.3.2",
 };
 

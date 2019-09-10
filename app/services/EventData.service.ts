@@ -73,8 +73,7 @@ export class EventData {
         this.week = week;
     }
 
-    public loadEventData(serverEventResponse: HHH.ISchedulerApiBooking[]):
-    HHH.ISchedulerEvent[][] {
+    public loadEventData(serverEventResponse: HHH.ISchedulerApiBooking[]): HHH.ISchedulerEvent[][] {
         const events: HHH.ISchedulerEvent[][] = [];
 
         for (let i = 0; i < 7; i++) {
