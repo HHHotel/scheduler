@@ -1,15 +1,15 @@
 {
-    "name": "hhh-scheduler",
+    "name": "Hounds",
     "version": "0.3.2",
-    "description": "Scheduling App",
+    "description": "Dog Scheduling App",
     "main": "main.js",
     "scripts": {
         "compile": "webpack",
         "start": "webpack && electron .",
         "lint": "tslint -p .",
-        "pack-linux": "electron-builder --linux AppImage",
-        "pack-mac": "electron-builder --mac pkg",
-        "pack-win": "electron-builder --win nsis-web"
+        "pack-linux": "electron-builder --linux",
+        "pack-mac": "electron-builder --mac",
+        "pack-win": "electron-builder --win"
     },
     "build": {
         "productName": "Hounds",
@@ -17,15 +17,31 @@
         "directories": {
             "output": "release_builds"
         },
+        "publish": [
+            "github"
+        ],
+        "files": [
+            "main.js",
+            "config/*",
+            "dist/**/**/*"
+        ],
         "linux": {
-            "icon": "dist/res/images/icon.ico"
+            "target": "AppImage",
+            "category": "Utilities",
+            "icon": "dist/res/images/icon.png"
         },
         "win": {
+            "target": "nsis-web",
             "icon": "dist/res/images/icon.ico"
         },
+        "nsis": {
+            "deleteAppDataOnUninstall": true,
+            "oneClick": false
+        },
         "mac": {
-            "target": "pkg",
-            "icon": "dist/res/images/icons.icns"
+            "category": "public.app-category.business",
+            "target": "zip",
+            "icon": "dist/res/images/icon.icns"
         }
     },
     "author": "Matt Rochford",
@@ -34,6 +50,7 @@
     "dependencies": {
         "angular": "^1.6.9",
         "angular-route": "^1.6.9",
+        "electron-updater": "^4.1.2",
         "fs": "0.0.1-security"
     },
     "devDependencies": {
