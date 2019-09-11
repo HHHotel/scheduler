@@ -55,6 +55,8 @@ console.log(SETTINGS_PATH);
 
 loadSettings();
 
+import packjson from "../package.json";
+
 interface IDefaults {
     CONSTANTS: {
         ARRIVING: string;
@@ -79,8 +81,8 @@ export const DEFAULT: IDefaults = {
             ["Viewer"]: 0,
         },
     },
-    MAIN_PKG: "Hounds.App",
-    VERSION: "0.3.2",
+    MAIN_PKG: packjson.name + ".App",
+    VERSION: packjson.version,
 };
 
 export function loadSettings() {
