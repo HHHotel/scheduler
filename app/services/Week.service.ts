@@ -5,10 +5,10 @@ export class SchedulerWeek {
         let sDate;
         let eDate;
 
-        sDate = new Date(currentDate.toString());
+        sDate = new Date(currentDate.toDateString());
         sDate.setDate(currentDate.getDate() - SchedulerWeek.getDay(currentDate));
 
-        eDate = new Date(currentDate.toString());
+        eDate = new Date(currentDate.toDateString());
         eDate.setDate(currentDate.getDate() + (6 - SchedulerWeek.getDay(currentDate)));
 
         return [sDate, eDate];

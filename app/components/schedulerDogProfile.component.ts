@@ -1,4 +1,4 @@
-// import { Settings } from "../default";
+import { DEFAULT } from "../default";
 import * as HHH from "../types/HHHTypes";
 import { SchedulerService } from "../services/Scheduler.service";
 import { EventData } from "../services/EventData.service";
@@ -36,9 +36,9 @@ class SchedulerDogProfileController implements ISchedulerDogProfileController {
         }
 
         switch (booking.type) {
-            case "boarding":
+            case DEFAULT.CONSTANTS.BOARDING:
                 return formatDate(booking.startDate) + " - " + formatDate(booking.endDate);
-            case "daycare":
+            case DEFAULT.CONSTANTS.DAYCARE:
                 return formatDate(booking.startDate);
             default:
                 return "Error";

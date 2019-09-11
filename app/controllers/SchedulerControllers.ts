@@ -120,7 +120,7 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
             }
         }
 
-        if (event.event_type === "daycare" && repeatOptions && repeatOptions.stopDate) {
+        if (event.event_type === DEFAULT.CONSTANTS.DAYCARE && repeatOptions && repeatOptions.stopDate) {
 
             const inc = getRepeatIncrement(repeatOptions.frequency);
             if (inc < 0) {
@@ -129,7 +129,7 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
             }
 
             for (let i = event.event_start.valueOf();
-                i < repeatOptions.stopDate.valueOf();
+                i < repeatOptions.stopDate.valueOf() + inc;
                 i += inc) {
                 event.event_start = i;
                 event.event_end = i;

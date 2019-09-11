@@ -1,4 +1,4 @@
-import { Settings } from "../default";
+import { Settings, DEFAULT } from "../default";
 import { SchedulerService } from "../services/Scheduler.service";
 
 interface IDayEvent {
@@ -52,10 +52,10 @@ class DayEventController implements IDayEventController {
         }
 
         switch (this.scheduleEvent.type) {
-            case "arriving":
-            case "departing":
-            case "boarding":
-            case "daycare":
+            case DEFAULT.CONSTANTS.ARRIVING:
+            case DEFAULT.CONSTANTS.DEPARTING:
+            case DEFAULT.CONSTANTS.BOARDING:
+            case DEFAULT.CONSTANTS.DAYCARE:
                 this.$Scheduler.retrieveDog(this.scheduleEvent.id);
                 break;
         }

@@ -62,6 +62,7 @@ interface IDefaults {
         ARRIVING: string;
         BOARDING: string,
         DEPARTING: string,
+        DAYCARE: string,
         USER_CONSTANT: {
             [key: string]: number,
         },
@@ -75,6 +76,7 @@ export const DEFAULT: IDefaults = {
         ARRIVING: "arriving",
         BOARDING: "boarding",
         DEPARTING: "departing",
+        DAYCARE: "daycare",
         USER_CONSTANT: {
             ["Admin"]: 10,
             ["Inputer"]: 5,
