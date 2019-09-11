@@ -1,18 +1,20 @@
 {
     "name": "Hounds",
-    "version": "0.3.2",
+    "version": "0.3.4",
     "description": "Dog Scheduling App",
     "main": "main.js",
     "scripts": {
         "compile": "webpack",
         "start": "webpack && electron .",
         "lint": "tslint -p .",
-        "pack-linux": "electron-builder --linux",
-        "pack-mac": "electron-builder --mac",
-        "pack-win": "electron-builder --win"
+        "pack-all": "npm run compile; electron-builder -mwl",
+        "pack-linux": "npm run compile; electron-builder --linux",
+        "pack-mac": "npm run compile; electron-builder --mac",
+        "pack-win": "npm run compile; electron-builder --win"
     },
     "build": {
         "productName": "Hounds",
+        "appId": "com.github.hhhotel.hounds",
         "copyright": "Copyright © 2019 Matt Rochford",
         "directories": {
             "output": "release_builds"
@@ -31,6 +33,7 @@
             "icon": "dist/res/images/icon.png"
         },
         "win": {
+            "artifactName": "${productName}-Web-Setup-${version}.exe",
             "target": "nsis-web",
             "icon": "dist/res/images/icon.ico"
         },

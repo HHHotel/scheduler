@@ -1,5 +1,7 @@
 !macro customInstall
-    SetOutPath $APPDATA\Hounds
+    ${ifNot} ${isUpdated}
+        SetOutPath $APPDATA\Hounds
 
-    File ${BUILD_RESOURCES_DIR}\config\settings.json
+        File ${BUILD_RESOURCES_DIR}\config\settings.json
+    ${endIf}
 !macroend
