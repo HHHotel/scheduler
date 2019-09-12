@@ -1,14 +1,9 @@
 import { Settings, DEFAULT } from "../default";
 import { SchedulerService } from "../services/Scheduler.service";
+import * as HHH from "../types/HHHTypes";
 
-interface IDayEvent {
-    text: string;
-    type: string;
-    id: string;
-    date: Date;
-}
 interface IDayEventBindings {
-    scheduleEvent?: IDayEvent;
+    scheduleEvent?: HHH.ISchedulerEvent | HHH.ISchedulerBooking;
     $Scheduler: SchedulerService;
 }
 
@@ -19,7 +14,7 @@ interface IDayEventController extends IDayEventBindings {
 
 class DayEventController implements IDayEventController {
 
-    public scheduleEvent?: IDayEvent;
+    public scheduleEvent?: HHH.ISchedulerBooking;
     public $Scheduler: SchedulerService;
 
     constructor($Scheduler: SchedulerService) {
@@ -27,28 +22,16 @@ class DayEventController implements IDayEventController {
     }
 
     public getEventText(): string {
-        if (this.scheduleEvent) {
-            const date: Date | null = this.scheduleEvent.date ? new Date(this.scheduleEvent.date) : null;
-            const text = this.scheduleEvent.text;
-
-            if (date) {
-
-                const hours = convertHours(date.getHours());
-                // let minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-
-                return "(" + hours + getClosing(date) + getTimeExtension(date) + ") " + text;
-
-            } else {
-                return text;
-            }
-        } else {
+        if (!this.scheduleEvent) {
             return "";
         }
+
+        return getTimePrepend(this.scheduleEvent) + " " + this.scheduleEvent.text;
     }
 
     public lookup() {
         if (!this.scheduleEvent || !this.$Scheduler) {
-            return null;
+            return;
         }
 
         switch (this.scheduleEvent.type) {
@@ -74,19 +57,64 @@ export class DayEventComponent implements ng.IComponentOptions {
             scheduleEvent: "<",
         };
         this.controller = DayEventController;
-        this.template = `<div ng-click = "$ctrl.lookup($ctrl.scheduleEvent)"
+        this.template = `<div ng-click = "$ctrl.lookup()"
                          class = "{{$ctrl.scheduleEvent.type}}"
                          id = "{{$ctrl.scheduleEvent.id}}">{{$ctrl.getEventText()}}</div> `;
     }
 
 }
 
+function getTimePrepend(record: HHH.ISchedulerBooking) {
+    const event = record;
+    const startHour = convertHours(event.startDate.getHours());
+    let endHour = convertHours(event.endDate.getHours());
+
+    /*
+     * The event has no real end time so we give it the end time of the closing hour
+     * */
+    if (event.startDate.valueOf() === event.endDate.valueOf()) {
+        endHour = getClosingHour(event.endDate);
+
+        // Daycare with no end are special and they need to have their end set to closing hour
+        if (event.type === DEFAULT.CONSTANTS.DAYCARE) {
+            event.endDate = new Date(new Date(event.startDate).setHours(Settings.CLOSING_HOUR_PM));
+        }
+    }
+
+    switch (event.type) {
+        case DEFAULT.CONSTANTS.BOARDING:
+            return "";
+        case DEFAULT.CONSTANTS.ARRIVING:
+            return "(" + startHour + getClosing(event.startDate) + ")";
+        case DEFAULT.CONSTANTS.DEPARTING:
+            return "(" + endHour + getClosing(event.endDate) + ")";
+        default:
+            return "(" + startHour + getTimeExtension(event.startDate) + "-"
+                + endHour + getTimeExtension(event.endDate) + ")";
+    }
+}
+
 function getClosing(date: Date) {
     if (date.getHours() === Settings.OPENING_HOUR_AM || date.getHours() === Settings.OPENING_HOUR_PM) {
-        return "-" + (date.getHours() >= 12 ? convertHours(Settings.CLOSING_HOUR_PM) :
-            convertHours(Settings.CLOSING_HOUR_AM));
+        return "-" + getClosingHour(date) + getTimeExtension(date);
     } else {
         return ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
+    }
+}
+
+function getClosingHour(date: Date) {
+    if (date.getHours() < 12) {
+        return convertHours(Settings.CLOSING_HOUR_AM);
+    } else {
+        return convertHours(Settings.CLOSING_HOUR_PM);
+    }
+}
+
+function getOpeningHour(date: Date) {
+    if (date.getHours() < 12) {
+        return convertHours(Settings.OPENING_HOUR_AM);
+    } else {
+        return convertHours(Settings.OPENING_HOUR_PM);
     }
 }
 

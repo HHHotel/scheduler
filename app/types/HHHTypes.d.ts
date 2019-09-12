@@ -21,15 +21,14 @@ export interface ISchedulerApiEvent {
 }
 
 export interface ISchedulerEvent {
-    date?: Date;
+    startDate: Date;
+    endDate: Date;
     type: string;
     text: string;
     id: string;
 }
 
 export interface ISchedulerBooking extends ISchedulerEvent {
-    startDate: Date;
-    endDate: Date;
     dogName: string;
     clientName: string;
     dogId: string;

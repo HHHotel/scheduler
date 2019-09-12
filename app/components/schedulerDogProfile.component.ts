@@ -39,6 +39,7 @@ class SchedulerDogProfileController implements ISchedulerDogProfileController {
             case DEFAULT.CONSTANTS.BOARDING:
                 return formatDate(booking.startDate) + " - " + formatDate(booking.endDate);
             case DEFAULT.CONSTANTS.DAYCARE:
+                // TODO format start and end time
                 return formatDate(booking.startDate);
             default:
                 return "Error";

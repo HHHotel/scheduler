@@ -45,8 +45,10 @@
 
         <div ng-show = "form.booking.event_type === 'daycare'">
 
-            Date
+            Start
             <input ng-model = "form.booking.event_start" type = "datetime-local" />
+            End
+            <input ng-model = "form.booking.event_end" type = "datetime-local" />
 
             <button style = "margin-bottom: 1rem" ng-click = "showRepeat = !showRepeat">Toggle Repeat</button>
 

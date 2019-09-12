@@ -104,6 +104,7 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
 
     // TODO: ADD TYPINGS & refractor
     $scope.addEvent = (event: HHH.ISQLEvent, repeatOptions: any) => {
+
         if (!event || !(event.event_text || event.id) || !event.event_start || !event.event_type) {
             alert("Insufficent event details");
             return;
@@ -121,18 +122,20 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
         }
 
         if (event.event_type === DEFAULT.CONSTANTS.DAYCARE && repeatOptions && repeatOptions.stopDate) {
-
             const inc = getRepeatIncrement(repeatOptions.frequency);
             if (inc < 0) {
                 alert("Enter repeat frequency");
                 return;
             }
 
+            const duration = new Date(event.event_end).valueOf() -
+                                     new Date(event.event_start).valueOf();
+
             for (let i = event.event_start.valueOf();
                 i < repeatOptions.stopDate.valueOf() + inc;
                 i += inc) {
                 event.event_start = i;
-                event.event_end = i;
+                event.event_end = i + duration;
                 $Scheduler.addEvent(event);
             }
         } else {

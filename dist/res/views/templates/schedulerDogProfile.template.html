@@ -35,8 +35,7 @@
         <div ng-if = "$ctrl.editMode" class = "dog-profile-dog-booking" ng-repeat = "booking in $ctrl.dogProfile.bookings">
             <input type = "datetime-local" class = "profile-edit-input" ng-model = "booking.startDate" />
             
-            <input type = "datetime-local" class = "profile-edit-input"
-                ng-if="booking.type === 'boarding'" ng-model = "booking.endDate" />
+            <input type = "datetime-local" class = "profile-edit-input" ng-model = "booking.endDate" />
         </div>
     </div>
 </div>
