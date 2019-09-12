@@ -8,6 +8,26 @@ import { SchedulerService } from "./services/Scheduler.service";
 import { DayEventComponent } from "./components/dayEvent.component";
 import { SchedulerDogProfileComponent } from "./components/schedulerDogProfile.component";
 
+import { remote } from "electron";
+
+remote.globalShortcut.register("CommandOrControl+Shift+I", () => {
+    const win = remote.BrowserWindow.getFocusedWindow();
+    if (win) {
+        win.webContents.openDevTools();
+    }
+});
+
+remote.globalShortcut.register("CommandOrControl+P", () => {
+    const { ipcRenderer } = require("electron");
+    ipcRenderer.send("print-schedule");
+});
+
+window.onbeforeunload = () => {
+    remote.globalShortcut.unregisterAll();
+    saveSettings();
+    // TODO Maybe Add a cancel close
+};
+
 // tslint:disable-next-line: no-var-requires
 module(DEFAULT.MAIN_PKG, [require("angular-route")])
     .config(($routeProvider: ng.route.IRouteProvider) => {
@@ -65,7 +85,6 @@ module(DEFAULT.MAIN_PKG)
     .controller("titleBar", [
         "$scope",
         ($scope) => {
-            const { remote } = require("electron");
             const win = remote.getCurrentWindow();
 
             $scope.minimize = () => {

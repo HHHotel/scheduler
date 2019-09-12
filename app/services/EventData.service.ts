@@ -6,8 +6,8 @@ export class EventData {
 
     public static toApiEvent(event: HHH.ISchedulerEvent): HHH.ISchedulerApiEvent {
         return {
-            endDate: event.startDate.valueOf(),
-            startDate: event.endDate.valueOf(),
+            startDate: event.startDate.valueOf(),
+            endDate: event.endDate.valueOf(),
             id: event.id,
             text: event.text,
             type: event.type,
@@ -31,7 +31,7 @@ export class EventData {
 
     public static toApiDog(dog: HHH.ISchedulerDog): HHH.ISchedulerApiDog {
         return {
-            bookings: dog.bookings.map((ev) => EventData.toApiBooking(ev)),
+            bookings: dog.bookings.map((ev) => EventData.toApiEvent(ev)),
             clientName: dog.clientName,
             id: dog.id,
             name: dog.name,
@@ -76,15 +76,12 @@ export class EventData {
             events[i] = [];
         }
 
-        function getScheduleEvent(event: HHH.ISchedulerBooking, index: number): HHH.ISchedulerBooking {
-            const record: HHH.ISchedulerBooking = {
+        function getScheduleEvent(event: HHH.ISchedulerBooking, index: number): HHH.ISchedulerEvent {
+            const record: HHH.ISchedulerEvent = {
                 startDate: event.startDate,
                 endDate: event.endDate,
                 type: event.type,
                 text: event.text,
-                dogName: event.dogName,
-                clientName: event.clientName,
-                dogId: event.dogId,
                 id: event.dogId ? event.dogId : event.id,
             };
 

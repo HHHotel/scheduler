@@ -1,21 +1,17 @@
 {
-  "compilerOptions": {
-    "target": "es3",                          
-    "module": "commonjs",                     
-    "allowJs": true,                       
-    "outDir": "./dist/src",                        
-    "removeComments": true,                
-    "strict": true,                           
-    "moduleResolution": "node",            
-    "resolveJsonModule": true,
-    "esModuleInterop": true
-  },
-  "include": [
-    "app/*",
-    "app*"
-  ],
-  "exclude": [
-      "node_modules",
-      "**/*.spec.ts"
-  ]
+    "compilerOptions": {
+        "target": "es3",                          
+        "module": "commonjs",                     
+        "allowJs": true,                       
+        "outDir": "./dist/src",                        
+        "removeComments": true,                
+        "strict": true,                           
+        "moduleResolution": "node",            
+        "resolveJsonModule": true,
+        "esModuleInterop": true
+    },
+    "include": [
+        "app/**/*",
+        "app/*"
+    ]
 }

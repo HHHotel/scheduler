@@ -2,7 +2,7 @@ export interface ISchedulerApiDog {
     name: string;
     clientName: string;
     id: string;
-    bookings: ISchedulerApiBooking[];
+    bookings: ISchedulerApiEvent[];
 }
 
 export interface ISchedulerApiBooking extends ISchedulerApiEvent {
@@ -44,7 +44,7 @@ export interface ISchedulerDog {
     name: string;
     clientName: string;
     id: string;
-    bookings: ISchedulerBooking[];
+    bookings: ISchedulerEvent[];
 }
 
 export interface ISQLDog {

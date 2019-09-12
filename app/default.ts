@@ -1,23 +1,3 @@
-import { remote } from "electron";
-
-remote.globalShortcut.register("CommandOrControl+Shift+I", () => {
-    const win = remote.BrowserWindow.getFocusedWindow();
-    if (win) {
-        win.webContents.openDevTools();
-    }
-});
-
-remote.globalShortcut.register("CommandOrControl+P", () => {
-    const { ipcRenderer } = require("electron");
-    ipcRenderer.send("print-schedule");
-});
-
-window.onbeforeunload = () => {
-    remote.globalShortcut.unregisterAll();
-    saveSettings();
-    // TODO Maybe Add a cancel close
-};
-
 import fs from "fs";
 import os from "os";
 import path from "path";
@@ -51,7 +31,9 @@ if (os.platform() === "win32") {
 // Set the settings path
 SETTINGS_PATH = path.join(SETTINGS_BASEDIR, "settings.json");
 
-console.log(SETTINGS_PATH);
+if (typeof window !== "undefined") {
+    console.log(SETTINGS_PATH);
+}
 
 loadSettings();
 
@@ -91,7 +73,9 @@ export function loadSettings() {
     if (fs.existsSync(path.join(SETTINGS_PATH))) {
         Settings = JSON.parse(fs.readFileSync(SETTINGS_PATH).toString());
     }
-    console.log(Settings);
+    if (typeof window !== "undefined") {
+        console.log(Settings);
+    }
 }
 
 export function saveSettings() {
