@@ -60,7 +60,7 @@ class SchedulerDogProfileController implements ISchedulerDogProfileController {
 
         for (const booking of this.dogProfile.bookings) {
             try {
-                newDog.bookings.push(EventData.toApiBooking(booking));
+                newDog.bookings.push(EventData.toApiEvent(booking));
             } catch (e) {
                 alert("Invalid Date: " + e.message);
             }

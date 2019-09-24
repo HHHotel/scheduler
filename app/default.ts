@@ -19,23 +19,36 @@ export interface IHHHSettings {
 
 export let Settings: IHHHSettings;
 let SETTINGS_PATH: string;
-let SETTINGS_BASEDIR: string;
+let SETTINGS_BASEDIR: string = ".";
+
+function setSettingsPath(basedir: string) {
+    SETTINGS_BASEDIR = path.join(process.cwd(), basedir);
+
+    // Set the settings path
+    SETTINGS_PATH = path.join(SETTINGS_BASEDIR, "settings.json");
+
+    if (typeof window !== "undefined") { // Dont log settings when running tests
+        console.log(SETTINGS_PATH);
+    }
+
+    loadSettings();
+}
 
 // Set the basedir of settings to users home directory
-if (os.platform() === "win32") {
-    SETTINGS_BASEDIR = path.join(process.env.APPDATA as string, "Hounds");
+let winPath: string;
+let unixPath: string;
+let devPath: string;
+
+if (process.env.NODE_ENV === "development") {
+    devPath = path.join("build/config/");
+    setSettingsPath(devPath);
+} else if (os.platform() === "win32") {
+    winPath = path.join(process.env.APPDATA as string, "Hounds");
+    setSettingsPath(winPath);
 } else {
-    SETTINGS_BASEDIR = path.join(os.homedir(), ".hounds");
+    unixPath = path.join(process.env.HOME as string, ".hounds");
+    setSettingsPath(unixPath);
 }
-
-// Set the settings path
-SETTINGS_PATH = path.join(SETTINGS_BASEDIR, "settings.json");
-
-if (typeof window !== "undefined") {
-    console.log(SETTINGS_PATH);
-}
-
-loadSettings();
 
 import packjson from "../package.json";
 
@@ -43,11 +56,11 @@ interface IDefaults {
     CONSTANTS: {
         ARRIVING: string;
         BOARDING: string,
-        DEPARTING: string,
-        DAYCARE: string,
-        USER_CONSTANT: {
-            [key: string]: number,
-        },
+            DEPARTING: string,
+            DAYCARE: string,
+            USER_CONSTANT: {
+                [key: string]: number,
+            },
     };
     MAIN_PKG: string;
     VERSION: string;
@@ -73,7 +86,8 @@ export function loadSettings() {
     if (fs.existsSync(path.join(SETTINGS_PATH))) {
         Settings = JSON.parse(fs.readFileSync(SETTINGS_PATH).toString());
     }
-    if (typeof window !== "undefined") {
+
+    if (typeof window !== "undefined") { // Dont log settings when running tests
         console.log(Settings);
     }
 }
