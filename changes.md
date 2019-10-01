@@ -15,4 +15,10 @@
 
 - fix ordering  
 
+- Confirmation on delete dog  
+
+- Search dialog for dogProfile  
+- Jump button for bookings  
+- Taxi color category (blueish-green turquoise)  
+
 ## ERRORS  
