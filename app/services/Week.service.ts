@@ -23,6 +23,8 @@ export class SchedulerWeek {
         }
     }
 
+    // 8 Because of daylight savings time
+    private static WEEK_INC = 8 * 24 * 60 * 60 * 1000;
     private days: Date[] = [];
 
     constructor(currentDate: Date) {
@@ -40,13 +42,13 @@ export class SchedulerWeek {
 
     public nextWeek() {
 
-        const dates = SchedulerWeek.getStartEnd(new Date(this.days[0].getTime() + 604800000));
+        const dates = SchedulerWeek.getStartEnd(new Date(this.days[0].getTime() + SchedulerWeek.WEEK_INC));
         this.initWeek(dates[0]);
 
     }
     public prevWeek() {
 
-        const dates = SchedulerWeek.getStartEnd(new Date(this.days[0].getTime() - 604800000));
+        const dates = SchedulerWeek.getStartEnd(new Date(this.days[0].getTime() - SchedulerWeek.WEEK_INC));
         this.initWeek(dates[0]);
     }
 
