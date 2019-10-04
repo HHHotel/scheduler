@@ -9,15 +9,16 @@
   <input ng-change = "findEvents(search.input)" ng-model = "search.input" type = "text"/>
 
   <div class = "search">
-    <div ng-repeat = "event in cache.searchEvents | limitTo: 20"
+    <div ng-repeat = "event in cache.searchEvents | orderBy:event.startDate:true | limitTo:200"
     class = "clearfix">
       {{ event.text }} <br />
       <i> {{ formatDate(event.startDate) }} </i>
 
 
       <!-- TODO add click event to do things like delete and edit event -->
-      <button ng-show = "event.type === 'dog'" ng-click = "retrieveDog(event.dogId)" class = "hand" type = "button">...</button>
-      <button ng-show = "event.type !== 'dog'" ng-click = "removeEvent(event.id)" class = "hand" type = "button">Delete</button>
+      <button ng-show = "event.type === 'dog'" ng-click = "retrieveDog(event.dogId)" class = "hand search-button" type = "button">...</button>
+      <button ng-show = "event.type !== 'dog'" ng-click = "editEvent(event.id)" class = "hand search-button" type = "button">Edit</button>
+      <button ng-show = "event.type !== 'dog'" ng-click = "removeEvent(event.id)" class = "hand search-button" type = "button">Delete</button>
       <br />
     </div>
 

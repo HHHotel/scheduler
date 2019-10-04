@@ -78,7 +78,8 @@
 }
 
 .search button {
-    margin: .25rem 0;
+    margin: .25rem .1rem;
+    width: auto;
     float: right;
 }
 
