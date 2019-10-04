@@ -48,7 +48,9 @@ export class SchedulerWeek {
     }
     public prevWeek() {
 
-        const dates = SchedulerWeek.getStartEnd(new Date(this.days[0].getTime() - SchedulerWeek.WEEK_INC));
+        // Increment from the last day of the week to land somewhere in the middle of the prev week
+        // Otherwise it can happen where you skip a week
+        const dates = SchedulerWeek.getStartEnd(new Date(this.days[6].getTime() - SchedulerWeek.WEEK_INC));
         this.initWeek(dates[0]);
     }
 

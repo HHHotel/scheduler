@@ -17,4 +17,6 @@
 - Jump button for bookings  
 - Change event search to search with date  
 
+- When the server passes me dates they should always be in time since epoch
+
 ## ERRORS  

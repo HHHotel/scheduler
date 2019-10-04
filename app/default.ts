@@ -56,11 +56,12 @@ interface IDefaults {
     CONSTANTS: {
         ARRIVING: string;
         BOARDING: string,
-            DEPARTING: string,
-            DAYCARE: string,
-            USER_CONSTANT: {
-                [key: string]: number,
-            },
+        DEPARTING: string,
+        DAYCARE: string,
+        DOG: string,
+        USER_CONSTANT: {
+            [key: string]: number,
+        },
     };
     MAIN_PKG: string;
     VERSION: string;
@@ -72,6 +73,7 @@ export const DEFAULT: IDefaults = {
         BOARDING: "boarding",
         DEPARTING: "departing",
         DAYCARE: "daycare",
+        DOG: "dog",
         USER_CONSTANT: {
             ["Admin"]: 10,
             ["Inputer"]: 5,

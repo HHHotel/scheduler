@@ -9,7 +9,7 @@
   <input ng-change = "findEvents(search.input)" ng-model = "search.input" type = "text"/>
 
   <div class = "search">
-    <div ng-repeat = "event in cache.searchEvents | orderBy:event.startDate:true | limitTo:200"
+    <div ng-repeat = "event in cache.searchEvents | limitTo:200 | orderBy:event.startDate:true:eventSearchComparator "
     class = "clearfix">
       {{ event.text }} <br />
       <i> {{ formatDate(event.startDate) }} </i>

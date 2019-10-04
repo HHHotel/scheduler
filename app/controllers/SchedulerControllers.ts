@@ -160,6 +160,16 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
     $scope.jumpToWeek = (date: Date) => {
         $Scheduler.jumpToWeek(date);
     };
+
+    $scope.eventSearchComparator = (a: any, b: any) => {
+        if (a.value.type === DEFAULT.CONSTANTS.DOG) {
+            return 1;
+        } else if (b.value.type === DEFAULT.CONSTANTS.DOG) {
+            return -1;
+        } else {
+            return (a.value.startDate < b.value.startDate) ? -1 : 1;
+        }
+    };
 }
 
 export function LoginController($scope: any, $location: ILocationService, $Scheduler: SchedulerService) {
