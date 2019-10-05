@@ -31,8 +31,8 @@
         <div ng-if = "!$ctrl.editMode" class = "dog-profile-dog-booking" ng-repeat = "booking in
             $ctrl.dogProfile.bookings | orderBy:'-startDate' | filter:bookingSearch:false">
             <span>{{$ctrl.displayBooking(booking)}}</span>
-            <button ng-click = "$ctrl.$Scheduler.jumpToWeek(booking.startDate); $ctrl.exitProfile()" class = "booking-button">See</button> 
             <button ng-click = "$ctrl.removeEvent(booking.id)" class = "booking-button">Delete</button> 
+            <button ng-click = "$ctrl.$Scheduler.jumpToWeek(booking.startDate); $ctrl.exitProfile()" class = "booking-button">See</button> 
         </div>
         <div ng-if = "$ctrl.editMode" class = "dog-profile-dog-booking" ng-repeat = "booking in $ctrl.dogProfile.bookings">
             <input type = "datetime-local" class = "profile-edit-input" ng-model = "booking.startDate" />
