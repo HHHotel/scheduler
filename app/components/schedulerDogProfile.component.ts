@@ -5,6 +5,7 @@ import { EventData } from "../services/EventData.service";
 
 interface ISchedulerDogProfileBindings {
     dogProfile?: HHH.ISchedulerDog;
+    bookingSearch: string;
     editMode: boolean;
     $Scheduler: SchedulerService;
 }
@@ -12,11 +13,13 @@ interface ISchedulerDogProfileBindings {
 interface ISchedulerDogProfileController extends ISchedulerDogProfileBindings {
     displayBooking(booking: HHH.ISchedulerBooking): string;
     saveProfile(): void;
+    exitProfile(): void;
 }
 
 class SchedulerDogProfileController implements ISchedulerDogProfileController {
 
     public dogProfile?: HHH.ISchedulerDog;
+    public bookingSearch: string = "";
     public editMode: boolean = false;
     public $Scheduler: SchedulerService;
 
@@ -74,6 +77,10 @@ class SchedulerDogProfileController implements ISchedulerDogProfileController {
             alert("Error: Details not provided");
         }
 
+    }
+
+    public exitProfile() {
+        this.$Scheduler.cache.dogProfile = null;
     }
 
     public removeEvent(id: string) {

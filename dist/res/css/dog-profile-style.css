@@ -93,3 +93,8 @@
   padding: 0;
   margin: 0;
 }
+
+.booking-search-input {
+    width: 80%;
+    margin: auto 10%;
+}
