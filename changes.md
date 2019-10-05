@@ -6,17 +6,15 @@
 
 - General input validation  
 - Better dialogs / popups  
+    - Confirmation delete dog
 
 - Timestamp for printout  
 
 - fix ordering  
 
-- Confirmation on delete dog  
-
-- Search dialog for dogProfile  
-- Jump button for bookings  
-- Change event search to search with date  
-
 - When the server passes me dates they should always be in time since epoch
+
+- Use https://date-fns.org for date formating
+- Use system time setting for 24 hour
 
 ## ERRORS  

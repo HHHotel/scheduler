@@ -19,7 +19,7 @@ export class SchedulerService {
     private loadInterval?: number;
 
     constructor(week: SchedulerWeek, api: ApiService, eventData: EventData, $location: ILocationService) {
-        // TODO: Refractor the loading of settings so its a service implemented
+        // TODO  Refractor the loading of settings so its a service implemented
         // by this class
 
         this.cache = {
@@ -116,7 +116,7 @@ export class SchedulerService {
     }
 
     public addDog(dog: HHH.ISchedulerApiDog) {
-        // TODO: make a popup notification with the server response
+        // TODO  make a popup notification with the server response
         this.api.post("/api/dogs", dog, () => alert("Success"));
     }
 
@@ -149,7 +149,7 @@ export class SchedulerService {
 
     public editDog(dogProfile: HHH.ISchedulerApiDog,
                    callback: (response: IHttpResponse<unknown>) => void) {
-        // TODO: make a popup notification with the server response
+        // TODO  make a popup notification with the server response
         this.api.put("/api/dogs", dogProfile, callback);
     }
 

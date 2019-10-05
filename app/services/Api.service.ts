@@ -32,7 +32,7 @@ export class ApiService {
 
     }
 
-    /* TODO: implement error function for this service */
+    /* TODO  implement error function for this service */
     public get(endpoint: string, query: string,
                callback?: (response: IHttpResponse<unknown>) => void) {
         const url = Settings.BASE_URL + endpoint + "?" + query

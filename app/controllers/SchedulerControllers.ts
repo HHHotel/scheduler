@@ -102,23 +102,17 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
         }
     };
 
-    // TODO: ADD TYPINGS & refractor
-    $scope.addEvent = (event: HHH.ISQLEvent, repeatOptions: any) => {
+    interface IRepeatOptions {
+        stopDate: string;
+        frequency: string;
+    }
 
+    $scope.addEvent = (event: HHH.ISQLEvent, repeatOptions: IRepeatOptions) => {
+
+        // Make sure everyting exists
         if (!event || !(event.event_text || event.id) || !event.event_start || !event.event_type) {
             alert("Insufficent event details");
             return;
-        }
-
-        function getRepeatIncrement(repeatOpt: string) {
-            switch (repeatOpt) {
-                case "daily":
-                    return 86400000;
-                case "weekly":
-                    return 604800000;
-                default:
-                    return -1;
-            }
         }
 
         if (event.event_type === DEFAULT.CONSTANTS.DAYCARE && repeatOptions && repeatOptions.stopDate) {
@@ -128,20 +122,38 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
                 return;
             }
 
-            const duration = new Date(event.event_end).valueOf() -
-                                     new Date(event.event_start).valueOf();
-
-            for (let i = event.event_start.valueOf();
-                i < repeatOptions.stopDate.valueOf() + inc;
-                i += inc) {
-                event.event_start = i;
-                event.event_end = i + duration;
-                $Scheduler.addEvent(event);
-            }
+            addEventUntil(event, repeatOptions.stopDate, inc);
         } else {
             $Scheduler.addEvent(event);
         }
+
         clearForm();
+
+        function getRepeatIncrement(repeatOpt: string) {
+            const DAILY_INC = 86400000; // 24 * 60 * 60 * 1000
+            const WEEKLY_INC = 604800000; // 7 * 24 * ...
+            switch (repeatOpt) {
+                case "daily":
+                    return DAILY_INC;
+                case "weekly":
+                    return WEEKLY_INC;
+                default:
+                    return -1;
+            }
+        }
+
+        function addEventUntil(baseEvent: HHH.ISQLEvent, stopDate: any,  increment: number) {
+            // Store some things in variables for better use
+            const start = new Date(baseEvent.event_start).valueOf();
+            const end = new Date(baseEvent.event_start).valueOf();
+            const duration = end - start; // Get duration of event
+
+            for (let i = start; i < stopDate.valueOf() + increment; i += increment) {
+                baseEvent.event_start = i + ""; // Make sure that event_start is a string with ""
+                baseEvent.event_end = i + duration + "";
+                $Scheduler.addEvent(baseEvent);
+            }
+        }
     };
 
     $scope.removeEvent = (id: string) => {
