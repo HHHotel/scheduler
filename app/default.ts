@@ -86,9 +86,9 @@ export const DEFAULT: IDefaults = {
             "general",
         ],
         USER_CONSTANT: {
-            ["Admin"]: 10,
+            ["Viewer"]: 1,
             ["Inputer"]: 5,
-            ["Viewer"]: 0,
+            ["Admin"]: 10,
         },
     },
     MAIN_PKG: packjson.name + ".App",

@@ -32,10 +32,6 @@ export function SchedulerController($rootScope: any, $scope: any, $Scheduler: Sc
         }
     };
 
-    const EVENT_TYPES = [
-
-    ];
-
     $scope.dayEventComparator = (a: any, b: any) => {
         if (a.value.type === DEFAULT.CONSTANTS.BOARDING) {
             return -1;
