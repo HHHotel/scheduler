@@ -1,56 +1,48 @@
-import { EventData } from "./EventData.service";
-import { SchedulerWeek } from "./Week.service";
-import * as HHH from "../types/HHHTypes";
-import * as API from "../types/HHHApiTypes";
-
-import { expect } from "chai";
-import { describe } from "mocha";
-
-describe("EventData Service", () => {
-    it("#toApiEvent(daycare)", () => {
-        const schedulerEvent: HHH.ISchedulerEvent = {
+"use strict";
+exports.__esModule = true;
+var EventData_service_1 = require("./EventData.service");
+var Week_service_1 = require("./Week.service");
+var chai_1 = require("chai");
+var mocha_1 = require("mocha");
+mocha_1.describe("EventData Service", function () {
+    it("#toApiEvent(daycare)", function () {
+        var schedulerEvent = {
             endDate: new Date("2019-09-10T15:00:00.000Z"),
             id: "98354372299207068",
             startDate: new Date("2019-09-10T15:00:00.000Z"),
             text: "Blitzen H",
-            type: "daycare",
+            type: "daycare"
         };
-
-        const apiEvent: API.ISchedulerApiEvent = {
+        var apiEvent = {
             desc: "",
             endDate: new Date("2019-09-10T15:00:00.000Z").valueOf(),
             id: "98354372299207068",
             startDate: new Date("2019-09-10T15:00:00.000Z").valueOf(),
             text: "Blitzen H",
-            type: "daycare",
+            type: "daycare"
         };
-
-        expect(apiEvent).to.deep.equal(EventData.toApiEvent(schedulerEvent));
+        chai_1.expect(apiEvent).to.deep.equal(EventData_service_1.EventData.toApiEvent(schedulerEvent));
     });
-
-    it("#toApiEvent(boarding)", () => {
-        const schedulerEvent: HHH.ISchedulerEvent = {
+    it("#toApiEvent(boarding)", function () {
+        var schedulerEvent = {
             endDate: new Date("2019-09-15T15:00:00.000Z"),
             id: "98354372299207068",
             startDate: new Date("2019-09-10T15:00:00.000Z"),
             text: "Blitzen H",
-            type: "boarding",
+            type: "boarding"
         };
-
-        const apiEvent: API.ISchedulerApiEvent = {
+        var apiEvent = {
             desc: "",
             endDate: new Date("2019-09-15T15:00:00.000Z").valueOf(),
             id: "98354372299207068",
             startDate: new Date("2019-09-10T15:00:00.000Z").valueOf(),
             text: "Blitzen H",
-            type: "boarding",
+            type: "boarding"
         };
-
-        expect(apiEvent).to.deep.equal(EventData.toApiEvent(schedulerEvent));
+        chai_1.expect(apiEvent).to.deep.equal(EventData_service_1.EventData.toApiEvent(schedulerEvent));
     });
-
-    it("#toApiBooking()", () => {
-        const schedulerBooking: HHH.ISchedulerBooking = {
+    it("#toApiBooking()", function () {
+        var schedulerBooking = {
             dogName: "Blitzen H",
             clientName: "",
             dogId: "98354372299207068",
@@ -58,10 +50,9 @@ describe("EventData Service", () => {
             id: "98354372299207133",
             startDate: new Date("2019-09-10T15:00:00.000Z"),
             text: "Blitzen H",
-            type: "daycare",
+            type: "daycare"
         };
-
-        const apiBooking: API.ISchedulerApiBooking = {
+        var apiBooking = {
             desc: "",
             dogName: "Blitzen H",
             clientName: "",
@@ -70,14 +61,12 @@ describe("EventData Service", () => {
             id: "98354372299207133",
             startDate: new Date("2019-09-10T15:00:00.000Z").valueOf(),
             text: "Blitzen H",
-            type: "daycare",
+            type: "daycare"
         };
-
-        expect(apiBooking).to.deep.equal(EventData.toApiBooking(schedulerBooking));
+        chai_1.expect(apiBooking).to.deep.equal(EventData_service_1.EventData.toApiBooking(schedulerBooking));
     });
-
-    it("#toApiDog()", () => {
-        const apiDog: API.ISchedulerApiDog = {
+    it("#toApiDog()", function () {
+        var apiDog = {
             bookings: [
                 {
                     desc: "",
@@ -85,7 +74,7 @@ describe("EventData Service", () => {
                     startDate: new Date("2019-05-07T15:00:00.000Z").valueOf(),
                     id: "98354372299207123",
                     text: "undefined",
-                    type: "daycare",
+                    type: "daycare"
                 },
                 {
                     desc: "",
@@ -93,7 +82,7 @@ describe("EventData Service", () => {
                     startDate: new Date("2019-05-02T15:00:00.000Z").valueOf(),
                     id: "98354372299207122",
                     text: "undefined",
-                    type: "boarding",
+                    type: "boarding"
                 },
                 {
                     desc: "",
@@ -101,7 +90,7 @@ describe("EventData Service", () => {
                     endDate: new Date("2019-04-30T15:00:00.000Z").valueOf(),
                     id: "98354372299207121",
                     text: "undefined",
-                    type: "daycare",
+                    type: "daycare"
                 },
                 {
                     desc: "",
@@ -109,7 +98,7 @@ describe("EventData Service", () => {
                     startDate: new Date("2019-04-23T15:00:00.000Z").valueOf(),
                     id: "98354372299207120",
                     text: "undefined",
-                    type: "daycare",
+                    type: "daycare"
                 },
                 {
                     desc: "",
@@ -117,7 +106,7 @@ describe("EventData Service", () => {
                     startDate: new Date("2019-04-16T15:00:00.000Z").valueOf(),
                     id: "98354372299207119",
                     text: "undefined",
-                    type: "daycare",
+                    type: "daycare"
                 },
                 {
                     desc: "",
@@ -125,69 +114,66 @@ describe("EventData Service", () => {
                     startDate: new Date("2019-04-05T15:00:00.000Z").valueOf(),
                     id: "98354372299207118",
                     text: "undefined",
-                    type: "boarding",
+                    type: "boarding"
                 },
             ],
             clientName: "undefined",
             id: "98354372299207068",
-            name: "Blitzen H",
+            name: "Blitzen H"
         };
-
-        const schedulerDog: HHH.ISchedulerDog = {
+        var schedulerDog = {
             bookings: [
                 {
                     endDate: new Date("2019-05-07T15:00:00.000Z"),
                     startDate: new Date("2019-05-07T15:00:00.000Z"),
                     id: "98354372299207123",
                     text: "undefined",
-                    type: "daycare",
+                    type: "daycare"
                 },
                 {
                     endDate: new Date("2019-05-08T23:00:00.000Z"),
                     startDate: new Date("2019-05-02T15:00:00.000Z"),
                     id: "98354372299207122",
                     text: "undefined",
-                    type: "boarding",
+                    type: "boarding"
                 },
                 {
                     endDate: new Date("2019-04-30T15:00:00.000Z"),
                     startDate: new Date("2019-04-30T15:00:00.000Z"),
                     id: "98354372299207121",
                     text: "undefined",
-                    type: "daycare",
+                    type: "daycare"
                 },
                 {
                     endDate: new Date("2019-04-23T15:00:00.000Z"),
                     startDate: new Date("2019-04-23T15:00:00.000Z"),
                     id: "98354372299207120",
                     text: "undefined",
-                    type: "daycare",
+                    type: "daycare"
                 },
                 {
                     endDate: new Date("2019-04-16T15:00:00.000Z"),
                     startDate: new Date("2019-04-16T15:00:00.000Z"),
                     id: "98354372299207119",
                     text: "undefined",
-                    type: "daycare",
+                    type: "daycare"
                 },
                 {
                     endDate: new Date("2019-04-15T23:00:00.000Z"),
                     startDate: new Date("2019-04-05T15:00:00.000Z"),
                     id: "98354372299207118",
                     text: "undefined",
-                    type: "boarding",
+                    type: "boarding"
                 },
             ],
             clientName: "undefined",
             id: "98354372299207068",
-            name: "Blitzen H",
+            name: "Blitzen H"
         };
-
-        expect(apiDog).to.deep.equal(EventData.toApiDog(schedulerDog));
+        chai_1.expect(apiDog).to.deep.equal(EventData_service_1.EventData.toApiDog(schedulerDog));
     });
-
-    it("#fromApiBooking()", () => {
-        const schedulerBooking: HHH.ISchedulerBooking = {
+    it("#fromApiBooking()", function () {
+        var schedulerBooking = {
             dogName: "Blitzen H",
             clientName: "",
             dogId: "98354372299207068",
@@ -195,10 +181,9 @@ describe("EventData Service", () => {
             id: "98354372299207133",
             startDate: new Date("2019-09-10T15:00:00.000Z"),
             text: "Blitzen H",
-            type: "daycare",
+            type: "daycare"
         };
-
-        const apiBooking: API.ISchedulerApiBooking = {
+        var apiBooking = {
             desc: "",
             dogName: "Blitzen H",
             clientName: "",
@@ -207,35 +192,30 @@ describe("EventData Service", () => {
             id: "98354372299207133",
             startDate: new Date("2019-09-10T15:00:00.000Z").valueOf(),
             text: "Blitzen H",
-            type: "daycare",
+            type: "daycare"
         };
-
-        expect(schedulerBooking).to.deep.equal(EventData.fromApiBooking(apiBooking));
+        chai_1.expect(schedulerBooking).to.deep.equal(EventData_service_1.EventData.fromApiBooking(apiBooking));
     });
-
-    it("#fromApiEvent()", () => {
-        const schedulerEvent: HHH.ISchedulerEvent = {
+    it("#fromApiEvent()", function () {
+        var schedulerEvent = {
             endDate: new Date("2019-09-10T15:00:00.000Z"),
             id: "98354372299207068",
             startDate: new Date("2019-09-10T15:00:00.000Z"),
             text: "Blitzen H",
-            type: "daycare",
+            type: "daycare"
         };
-
-        const apiEvent: API.ISchedulerApiEvent = {
+        var apiEvent = {
             desc: "",
             endDate: new Date("2019-09-10T15:00:00.000Z").valueOf(),
             id: "98354372299207068",
             startDate: new Date("2019-09-10T15:00:00.000Z").valueOf(),
             text: "Blitzen H",
-            type: "daycare",
+            type: "daycare"
         };
-
-        expect(schedulerEvent).to.deep.equal(EventData.fromApiEvent(apiEvent));
+        chai_1.expect(schedulerEvent).to.deep.equal(EventData_service_1.EventData.fromApiEvent(apiEvent));
     });
-
-    it("#loadEventData()", () => {
-        const serverRes: API.ISchedulerApiBooking[] = [
+    it("#loadEventData()", function () {
+        var serverRes = [
             {
                 desc: "",
                 dogName: "",
@@ -245,7 +225,7 @@ describe("EventData Service", () => {
                 id: "98354372299206999",
                 startDate: new Date("2019-09-03T15:00:00.000Z").valueOf(),
                 text: "Bentley H",
-                type: "boarding",
+                type: "boarding"
             },
             {
                 desc: "",
@@ -256,7 +236,7 @@ describe("EventData Service", () => {
                 id: "98354372299207034",
                 startDate: new Date("2019-09-10T23:00:00.000Z").valueOf(),
                 text: "Beyla F",
-                type: "boarding",
+                type: "boarding"
             },
             {
                 desc: "",
@@ -267,7 +247,7 @@ describe("EventData Service", () => {
                 id: "98354372299207133",
                 startDate: new Date("2019-09-10T15:00:00.000Z").valueOf(),
                 text: "Blitzen H",
-                type: "daycare",
+                type: "daycare"
             },
             {
                 desc: "",
@@ -278,7 +258,7 @@ describe("EventData Service", () => {
                 id: "98354372299207134",
                 startDate: new Date("2019-09-12T15:00:00.000Z").valueOf(),
                 text: "Blitzen H",
-                type: "boarding",
+                type: "boarding"
             },
             {
                 desc: "",
@@ -289,7 +269,7 @@ describe("EventData Service", () => {
                 id: "98354372299207344",
                 startDate: new Date("2019-09-10T15:00:00.000Z").valueOf(),
                 text: "Bruce & Leila V",
-                type: "boarding",
+                type: "boarding"
             },
             {
                 desc: "",
@@ -300,11 +280,10 @@ describe("EventData Service", () => {
                 id: "98354372299207510",
                 startDate: new Date("2019-09-05T15:00:00.000Z").valueOf(),
                 text: "Cash S",
-                type: "boarding",
+                type: "boarding"
             },
         ];
-
-        const expectedResult: HHH.ISchedulerEvent[][] = [
+        var expectedResult = [
             [],
             [
                 {
@@ -312,7 +291,7 @@ describe("EventData Service", () => {
                     endDate: new Date("2019-09-13T23:00:00.000Z"),
                     type: "arriving",
                     text: "Bentley H",
-                    id: "98354372299206991",
+                    id: "98354372299206991"
                 },
             ],
             [
@@ -321,7 +300,7 @@ describe("EventData Service", () => {
                     endDate: new Date("2019-09-13T23:00:00.000Z"),
                     type: "boarding",
                     text: "Bentley H",
-                    id: "98354372299206991",
+                    id: "98354372299206991"
                 },
             ],
             [
@@ -330,14 +309,14 @@ describe("EventData Service", () => {
                     endDate: new Date("2019-09-13T23:00:00.000Z"),
                     type: "boarding",
                     text: "Bentley H",
-                    id: "98354372299206991",
+                    id: "98354372299206991"
                 },
                 {
                     startDate: new Date("2019-09-05T15:00:00.000Z"),
                     endDate: new Date("2019-09-10T23:00:00.000Z"),
                     type: "arriving",
                     text: "Cash S",
-                    id: "98354372299207509",
+                    id: "98354372299207509"
                 },
             ],
             [
@@ -346,14 +325,14 @@ describe("EventData Service", () => {
                     endDate: new Date("2019-09-13T23:00:00.000Z"),
                     type: "boarding",
                     text: "Bentley H",
-                    id: "98354372299206991",
+                    id: "98354372299206991"
                 },
                 {
                     startDate: new Date("2019-09-05T15:00:00.000Z"),
                     endDate: new Date("2019-09-10T23:00:00.000Z"),
                     type: "boarding",
                     text: "Cash S",
-                    id: "98354372299207509",
+                    id: "98354372299207509"
                 },
             ],
             [
@@ -362,14 +341,14 @@ describe("EventData Service", () => {
                     endDate: new Date("2019-09-13T23:00:00.000Z"),
                     type: "boarding",
                     text: "Bentley H",
-                    id: "98354372299206991",
+                    id: "98354372299206991"
                 },
                 {
                     startDate: new Date("2019-09-05T15:00:00.000Z"),
                     endDate: new Date("2019-09-10T23:00:00.000Z"),
                     type: "boarding",
                     text: "Cash S",
-                    id: "98354372299207509",
+                    id: "98354372299207509"
                 },
             ],
             [
@@ -378,18 +357,18 @@ describe("EventData Service", () => {
                     endDate: new Date("2019-09-13T23:00:00.000Z"),
                     type: "boarding",
                     text: "Bentley H",
-                    id: "98354372299206991",
+                    id: "98354372299206991"
                 },
                 {
                     startDate: new Date("2019-09-05T15:00:00.000Z"),
                     endDate: new Date("2019-09-10T23:00:00.000Z"),
                     type: "boarding",
                     text: "Cash S",
-                    id: "98354372299207509",
+                    id: "98354372299207509"
                 },
             ],
         ];
-        const ed = new EventData(new SchedulerWeek(new Date("2019-09-09"))).valueOf() as EventData;
-        expect(ed.loadEventData(serverRes)).to.deep.equal(expectedResult);
+        var ed = new EventData_service_1.EventData(new Week_service_1.SchedulerWeek(new Date("2019-09-09"))).valueOf();
+        chai_1.expect(ed.loadEventData(serverRes)).to.deep.equal(expectedResult);
     });
 });

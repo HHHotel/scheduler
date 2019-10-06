@@ -1,10 +1,11 @@
 import { DEFAULT } from "../default";
 import * as HHH from "../types/HHHTypes";
+import * as API from "../types/HHHApiTypes";
 import { SchedulerWeek } from "./Week.service";
 
 export class EventData {
 
-    public static toApiEvent(event: HHH.ISchedulerEvent): HHH.ISchedulerApiEvent {
+    public static toApiEvent(event: HHH.ISchedulerEvent): API.ISchedulerApiEvent {
         return {
             startDate: event.startDate.valueOf(),
             endDate: event.endDate.valueOf(),
@@ -15,7 +16,7 @@ export class EventData {
         };
     }
 
-    public static toApiBooking(booking: HHH.ISchedulerBooking): HHH.ISchedulerApiBooking {
+    public static toApiBooking(booking: HHH.ISchedulerBooking): API.ISchedulerApiBooking {
         return {
             dogId: booking.dogId,
             startDate: booking.startDate.valueOf(),
@@ -29,7 +30,7 @@ export class EventData {
         };
     }
 
-    public static toApiDog(dog: HHH.ISchedulerDog): HHH.ISchedulerApiDog {
+    public static toApiDog(dog: HHH.ISchedulerDog): API.ISchedulerApiDog {
         return {
             bookings: dog.bookings.map((ev) => EventData.toApiEvent(ev)),
             clientName: dog.clientName,
@@ -38,7 +39,7 @@ export class EventData {
         };
     }
 
-    public static fromApiBooking(event: HHH.ISchedulerApiBooking): HHH.ISchedulerBooking {
+    public static fromApiBooking(event: API.ISchedulerApiBooking): HHH.ISchedulerBooking {
         return {
             startDate: new Date(event.startDate),
             endDate: new Date(event.endDate),
@@ -51,7 +52,7 @@ export class EventData {
         };
     }
 
-    public static fromApiEvent(event: HHH.ISchedulerApiEvent): HHH.ISchedulerEvent {
+    public static fromApiEvent(event: API.ISchedulerApiEvent): HHH.ISchedulerEvent {
         return {
             startDate: new Date(event.startDate),
             endDate: new Date(event.endDate),
@@ -67,7 +68,7 @@ export class EventData {
         this.week = week;
     }
 
-    public loadEventData(serverEventResponse: HHH.ISchedulerApiBooking[]): HHH.ISchedulerEvent[][] {
+    public loadEventData(serverEventResponse: API.ISchedulerApiBooking[]): HHH.ISchedulerEvent[][] {
         const events: HHH.ISchedulerEvent[][] = [];
         const self = this;
 
@@ -116,6 +117,7 @@ export class EventData {
 
             let startDay = Math.round(msDiffStart / 1000 / 60 / 60 / 24); // convert to literal days
             let endDay = Math.round(msDiffEnd / 1000 / 60 / 60 / 24); // convert to literal days
+
             if (event.type === DEFAULT.CONSTANTS.BOARDING) {
 
                 // Ignore days beyond current week

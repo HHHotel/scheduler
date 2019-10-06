@@ -1,7 +1,9 @@
 import { ILocationService } from "angular";
 import { DEFAULT, Settings, saveSettings } from "../default";
 import * as HHH from "../types/HHHTypes";
+import * as API from "../types/HHHApiTypes";
 import { SchedulerService } from "../services/Scheduler.service";
+import { DEFAULT_ENCODING } from "crypto";
 
 export function SchedulerController($rootScope: any, $scope: any, $Scheduler: SchedulerService) {
     $rootScope.Settings = Settings;
@@ -65,8 +67,8 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
     $scope.showRepeat = false;
 
     /* USER MANAGEMENT */
-    $scope.addUser = (username: string, password: string, permissionType: any) => {
-        const permissionLevel: number | null = DEFAULT.CONSTANTS.USER_CONSTANT[permissionType];
+    $scope.addUser = (username: string, password: string, permissionType: string) => {
+        const permissionLevel: number = DEFAULT.CONSTANTS.USER_CONSTANT[permissionType];
 
         if (permissionLevel) {
             $Scheduler.addUser(username, password, permissionLevel.toString());
@@ -93,7 +95,7 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
     };
 
     /* DOG SCHEDULE MANAGEMENT */
-    $scope.addDog = (dog: HHH.ISchedulerApiDog) => {
+    $scope.addDog = (dog: API.ISchedulerApiDog) => {
         if (dog.name && dog.clientName) {
             $Scheduler.addDog(dog);
             clearForm();
@@ -107,27 +109,42 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
         frequency: string;
     }
 
-    $scope.addEvent = (event: HHH.ISQLEvent, repeatOptions: IRepeatOptions) => {
+    $scope.addEvent = (event: HHH.ISchedulerEvent, repeatOptions: IRepeatOptions) => {
 
         // Make sure everyting exists
-        if (!event || !(event.event_text || event.id) || !event.event_start || !event.event_type) {
+        if (!event || !(event.text || event.id) || !event.startDate || !event.type) {
             alert("Insufficent event details");
             return;
         }
 
-        if (event.event_type === DEFAULT.CONSTANTS.DAYCARE && repeatOptions && repeatOptions.stopDate) {
+        const startTime = event.startDate.valueOf() - new Date(event.startDate.toLocaleDateString()).valueOf();
+        const endTime = event.endDate.valueOf() - new Date("Jan 1 1970").valueOf();
+
+        const eventDuration = endTime - startTime;
+
+        if (eventDuration <= 0) {
+            alert("Please enter a valid end time");
+            return;
+        }
+
+        if (repeatOptions && repeatOptions.stopDate) {
             const inc = getRepeatIncrement(repeatOptions.frequency);
             if (inc < 0) {
                 alert("Enter repeat frequency");
                 return;
             }
 
-            addEventUntil(event, repeatOptions.stopDate, inc);
+            addEventUntil(event, eventDuration, repeatOptions.stopDate, inc);
         } else {
+            if (event.type !== DEFAULT.CONSTANTS.BOOKING) {
+                event.endDate = new Date(event.startDate.valueOf() + eventDuration);
+            }
             $Scheduler.addEvent(event);
         }
 
         clearForm();
+
+        /* End Of Function */
 
         function getRepeatIncrement(repeatOpt: string) {
             const DAILY_INC = 86400000; // 24 * 60 * 60 * 1000
@@ -142,15 +159,10 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
             }
         }
 
-        function addEventUntil(baseEvent: HHH.ISQLEvent, stopDate: any,  increment: number) {
-            // Store some things in variables for better use
-            const start = new Date(baseEvent.event_start).valueOf();
-            const end = new Date(baseEvent.event_start).valueOf();
-            const duration = end - start; // Get duration of event
-
-            for (let i = start; i < stopDate.valueOf() + increment; i += increment) {
-                baseEvent.event_start = i + ""; // Make sure that event_start is a string with ""
-                baseEvent.event_end = i + duration + "";
+        function addEventUntil(baseEvent: HHH.ISchedulerEvent, duration: number, stopDate: any, increment: number) {
+            for (let i = event.startDate.valueOf(); i < stopDate.valueOf() + increment; i += increment) {
+                baseEvent.startDate = new Date(i);
+                baseEvent.endDate = new Date(i + duration);
                 $Scheduler.addEvent(baseEvent);
             }
         }

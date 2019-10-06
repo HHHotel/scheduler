@@ -1,0 +1,76 @@
+{
+    "name": "hounds",
+    "version": "0.3.2",
+    "description": "Dog Scheduling App",
+    "main": "main.js",
+    "scripts": {
+        "test": "ts-mocha -p tsconfig.json app/**/*.spec.ts",
+        "compile": "webpack",
+        "start": "webpack && electron .",
+        "lint": "tslint -p .",
+        "pack-all": "npm run compile; electron-builder -mwl",
+        "pack-linux": "npm run compile; electron-builder --linux",
+        "pack-mac": "npm run compile; electron-builder --mac",
+        "pack-win": "npm run compile; electron-builder --win"
+    },
+    "build": {
+        "productName": "Hounds",
+        "appId": "com.github.hhhotel.hounds",
+        "copyright": "Copyright © 2019 Matt Rochford",
+        "directories": {
+            "output": "release_builds"
+        },
+        "publish": [
+            "github"
+        ],
+        "files": [
+            "main.js",
+            "config/*",
+            "dist/**/**/*"
+        ],
+        "linux": {
+            "target": "AppImage",
+            "category": "Utilities",
+            "icon": "dist/res/images/icon.png"
+        },
+        "win": {
+            "artifactName": "${productName}-Web-Setup-${version}.exe",
+            "target": "nsis-web",
+            "icon": "dist/res/images/icon.ico"
+        },
+        "nsis": {
+            "deleteAppDataOnUninstall": true,
+            "oneClick": false
+        },
+        "mac": {
+            "category": "public.app-category.business",
+            "target": "zip",
+            "icon": "dist/res/images/icon.icns"
+        }
+    },
+    "author": "Matt Rochford",
+    "repository": "https://github.com/hhhotel/scheduler",
+    "license": "MIT",
+    "dependencies": {
+        "angular": "^1.6.9",
+        "angular-route": "^1.6.9",
+        "electron-updater": "^4.1.2",
+        "fs": "0.0.1-security"
+    },
+    "devDependencies": {
+        "@types/angular": "^1.6.56",
+        "@types/angular-route": "^1.7.0",
+        "@types/chai": "^4.2.2",
+        "@types/mocha": "^5.2.7",
+        "chai": "^4.2.0",
+        "electron": "^4.1.4",
+        "electron-builder": "^21.2.0",
+        "mocha": "^6.2.0",
+        "ts-loader": "^6.0.4",
+        "ts-mocha": "^6.0.0",
+        "tslint": "^5.19.0",
+        "typescript": "^3.5.3",
+        "webpack": "^4.39.2",
+        "webpack-cli": "^3.3.7"
+    }
+}

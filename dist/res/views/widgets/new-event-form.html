@@ -8,23 +8,23 @@ ng-click = "$event.stopPropagation();">
   Text
   <br />
 
-  <input ng-model = "form.event.event_text" type = "text"/>
+  <input ng-model = "form.event.text" type = "text"/>
 
   <br />
   Start Date
   <br />
 
-  <input ng-model = "form.event.event_start" type = "datetime-local"/>
+  <input ng-model = "form.event.startDate" type = "datetime-local"/>
 
-  End Date
+  End Time
   <br />
 
-  <input ng-model = "form.event.event_end" type = "datetime-local"/>
+  <input ng-model = "form.event.endDate" type = "time"/>
 
   <br />
   Event Type
   <br />
-  <select ng-model = "form.event.event_type">
+  <select ng-model = "form.event.type">
     <option selected="selected">general</option>
     <option>grooming</option>
     <option>visit</option>

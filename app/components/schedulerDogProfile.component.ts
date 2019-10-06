@@ -1,5 +1,6 @@
 import { DEFAULT } from "../default";
 import * as HHH from "../types/HHHTypes";
+import * as API from "../types/HHHAPITypes";
 import { SchedulerService } from "../services/Scheduler.service";
 import { EventData } from "../services/EventData.service";
 
@@ -54,7 +55,7 @@ class SchedulerDogProfileController implements ISchedulerDogProfileController {
             return;
         }
 
-        const newDog: HHH.ISchedulerApiDog = {
+        const newDog: API.ISchedulerApiDog = {
             bookings: [],
             clientName: this.dogProfile.clientName,
             id: this.dogProfile.id,

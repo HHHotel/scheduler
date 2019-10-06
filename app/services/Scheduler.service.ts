@@ -1,6 +1,7 @@
 import { IHttpResponse, ILocationService } from "angular";
 import { saveSettings, Settings } from "../default";
 import * as HHH from "../types/HHHTypes";
+import * as API from "../types/HHHApiTypes";
 import { ApiService } from "./Api.service";
 import { EventData } from "./EventData.service";
 import { SchedulerWeek } from "./Week.service";
@@ -96,7 +97,7 @@ export class SchedulerService {
 
     public load() {
         this.api.get("/api/week", "date=" + this.week.getDay(0), (response) => {
-            this.cache.events = this.eventData.loadEventData(response.data as HHH.ISchedulerApiBooking[]);
+            this.cache.events = this.eventData.loadEventData(response.data as API.ISchedulerApiBooking[]);
         });
     }
 
@@ -115,19 +116,13 @@ export class SchedulerService {
         this.load();
     }
 
-    public addDog(dog: HHH.ISchedulerApiDog) {
+    public addDog(dog: API.ISchedulerApiDog) {
         // TODO  make a popup notification with the server response
         this.api.post("/api/dogs", dog, () => alert("Success"));
     }
 
-    public addEvent(event: HHH.ISQLEvent) {
-        const newEvent = {
-            event_end: event.event_end ? event.event_end.valueOf() : event.event_start.valueOf(),
-            event_start: event.event_start.valueOf(),
-            event_text: event.event_text,
-            event_type: event.event_type,
-            id: event.id,
-        };
+    public addEvent(event: HHH.ISchedulerEvent) {
+        const newEvent = EventData.toApiEvent(event);
 
         this.api.post("/api/events", newEvent);
     }
@@ -147,7 +142,7 @@ export class SchedulerService {
         this.api.delete("/api/dogs/" + dogId, callback);
     }
 
-    public editDog(dogProfile: HHH.ISchedulerApiDog,
+    public editDog(dogProfile: API.ISchedulerApiDog,
                    callback: (response: IHttpResponse<unknown>) => void) {
         // TODO  make a popup notification with the server response
         this.api.put("/api/dogs", dogProfile, callback);

@@ -16,5 +16,8 @@
 
 - Use https://date-fns.org for date formating
 - Use system time setting for 24 hour
+- Edit for normal events
+
+- Daylight savings can't put an end time later than 20:00
 
 ## ERRORS  

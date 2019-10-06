@@ -1,25 +1,3 @@
-export interface ISchedulerApiDog {
-    name: string;
-    clientName: string;
-    id: string;
-    bookings: ISchedulerApiEvent[];
-}
-
-export interface ISchedulerApiBooking extends ISchedulerApiEvent {
-    dogName: string;
-    clientName: string;
-    dogId: string;
-}
-
-export interface ISchedulerApiEvent {
-    startDate: number;
-    endDate: number;
-    desc: string;
-    type: string;
-    text: string;
-    id: string;
-}
-
 export interface ISchedulerEvent {
     startDate: Date;
     endDate: Date;
@@ -57,6 +35,6 @@ export interface ISQLEvent extends ISQLDog {
     event_id: string;
     event_type: string;
     event_text: string;
-    event_start: string;
-    event_end: string;
+    event_start: number;
+    event_end: number;
 }
