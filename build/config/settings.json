@@ -1,1 +1,1 @@
-{"TWENTY_FOUR_HOUR":true,"SIDEBAR_OPEN":true,"BASE_URL":"http://localhost:8080","user":{"id":11,"permissions":100,"token":"455675","username":"admin"},"OPENING_HOUR_AM":8,"CLOSING_HOUR_AM":10,"OPENING_HOUR_PM":16,"CLOSING_HOUR_PM":18}
+{"TWENTY_FOUR_HOUR":true,"SIDEBAR_OPEN":true,"BASE_URL":"https://hhh-scheduler.herokuapp.com","user":{},"OPENING_HOUR_AM":8,"CLOSING_HOUR_AM":10,"OPENING_HOUR_PM":16,"CLOSING_HOUR_PM":18}
