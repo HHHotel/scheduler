@@ -3,7 +3,6 @@ import { DEFAULT, Settings, saveSettings } from "../default";
 import * as HHH from "../types/HHHTypes";
 import * as API from "../types/HHHApiTypes";
 import { SchedulerService } from "../services/Scheduler.service";
-import { DEFAULT_ENCODING } from "crypto";
 
 export function SchedulerController($rootScope: any, $scope: any, $Scheduler: SchedulerService) {
     $rootScope.Settings = Settings;
@@ -31,6 +30,40 @@ export function SchedulerController($rootScope: any, $scope: any, $Scheduler: Sc
             date = new Date(date);
             return date.toDateString();
         }
+    };
+
+    const EVENT_TYPES = [
+
+    ];
+
+    $scope.dayEventComparator = (a: any, b: any) => {
+        if (a.value.type === DEFAULT.CONSTANTS.BOARDING) {
+            return -1;
+        }
+
+        if (b.value.type === DEFAULT.CONSTANTS.BOARDING) {
+            return 1;
+        }
+
+        if (!a.value.endDate || !a.value.startDate || !b.value.startDate || !b.value.endDate) {
+            return 0;
+        }
+
+        const aDate = a.value.type === DEFAULT.CONSTANTS.DEPARTING ? a.value.endDate : a.value.startDate;
+        const aTime = aDate.getHours() * 60 + aDate.getMinutes();
+        const bDate = b.value.type === DEFAULT.CONSTANTS.DEPARTING ? b.value.endDate : b.value.startDate;
+        const bTime = bDate.getHours() * 60 + bDate.getMinutes();
+
+        const timeDiff = aTime - bTime;
+
+        if (timeDiff === 0) {
+            const aIndex = DEFAULT.CONSTANTS.EVENT_TYPES.indexOf(a.value.type);
+            const bIndex = DEFAULT.CONSTANTS.EVENT_TYPES.indexOf(b.value.type);
+            return aIndex - bIndex;
+        } else {
+            return timeDiff;
+        }
+
     };
 
     $scope.load = () => $Scheduler.load();
@@ -136,7 +169,7 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
 
             addEventUntil(event, eventDuration, repeatOptions.stopDate, inc);
         } else {
-            if (event.type !== DEFAULT.CONSTANTS.BOOKING) {
+            if (event.type !== DEFAULT.CONSTANTS.BOARDING) {
                 event.endDate = new Date(event.startDate.valueOf() + eventDuration);
             }
             $Scheduler.addEvent(event);
@@ -194,6 +227,7 @@ export function SidebarController($scope: any, $rootScope: any, $Scheduler: Sche
             return (a.value.startDate < b.value.startDate) ? -1 : 1;
         }
     };
+
 }
 
 export function LoginController($scope: any, $location: ILocationService, $Scheduler: SchedulerService) {

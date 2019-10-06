@@ -58,8 +58,8 @@ interface IDefaults {
         BOARDING: string,
         DEPARTING: string,
         DAYCARE: string,
-        BOOKING: string,
         DOG: string,
+        EVENT_TYPES: string[],
         USER_CONSTANT: {
             [key: string]: number,
         },
@@ -71,11 +71,20 @@ interface IDefaults {
 export const DEFAULT: IDefaults = {
     CONSTANTS: {
         ARRIVING: "arriving",
-        BOARDING: "boarding",
         DEPARTING: "departing",
+        BOARDING: "boarding",
         DAYCARE: "daycare",
-        BOOKING: "booking",
         DOG: "dog",
+        EVENT_TYPES: [
+            "arriving",
+            "departing",
+            "daycare",
+            "grooming",
+            "visit",
+            "foster",
+            "eval",
+            "general",
+        ],
         USER_CONSTANT: {
             ["Admin"]: 10,
             ["Inputer"]: 5,

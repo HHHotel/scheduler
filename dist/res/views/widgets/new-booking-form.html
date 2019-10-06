@@ -7,11 +7,11 @@
     </div>
 
     <form class = "sidebar-panel"
-          ng-init = "form.booking.event_type = 'boarding'">
+          ng-init = "form.booking.type = 'boarding'">
 
         <div class = "booking-type-wrapper">
-            <button ng-click = "form.booking.event_type = 'boarding'" id = "booking-type-btn">Boarding</button>
-            <button ng-click = "form.booking.event_type = 'daycare'" id = "booking-type-btn">Daycare</button>
+            <button ng-click = "form.booking.type = 'boarding'" id = "booking-type-btn">Boarding</button>
+            <button ng-click = "form.booking.type = 'daycare'" id = "booking-type-btn">Daycare</button>
         </div>
 
         <br />
@@ -33,22 +33,22 @@
 
         <br />
 
-        <div ng-show = "form.booking.event_type === 'boarding'">
+        <div ng-show = "form.booking.type === 'boarding'">
 
             Start
-            <input ng-model = "form.booking.event_start" type = "datetime-local" />
+            <input ng-model = "form.booking.startDate" type = "datetime-local" />
 
             End
-            <input ng-model = "form.booking.event_end" type = "datetime-local" />
+            <input ng-model = "form.booking.endDate" type = "datetime-local" />
 
         </div>
 
-        <div ng-show = "form.booking.event_type === 'daycare'">
+        <div ng-show = "form.booking.type === 'daycare'">
 
             Start Date
-            <input ng-model = "form.booking.event_start" type = "datetime-local" />
+            <input ng-model = "form.booking.startDate" type = "datetime-local" />
             End Time
-            <input ng-model = "form.booking.event_end" type = "time" />
+            <input ng-model = "form.booking.endDate" type = "time" />
 
             <button style = "margin-bottom: 1rem" ng-click = "showRepeat = !showRepeat">Toggle Repeat</button>
 

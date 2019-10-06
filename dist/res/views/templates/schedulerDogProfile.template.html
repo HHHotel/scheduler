@@ -26,8 +26,8 @@
     <h2 style = "text-align:center">Bookings</h2>
     <div class = "dog-profile-bookings">
         <input type = "text" ng-model = "bookingSearch" class = "booking-search-input"/>
-        <div ng-if = "!$ctrl.editMode" class = "dog-profile-dog-booking" ng-repeat = "booking in
-            $ctrl.dogProfile.bookings | orderBy:'-startDate' | filter:bookingSearch:false">
+        <div ng-if = "!$ctrl.editMode" class = "dog-profile-dog-booking" 
+             ng-repeat = "booking in $ctrl.dogProfile.bookings | orderBy:'-startDate' | filter:bookingSearch:false">
             <span>{{$ctrl.displayBooking(booking)}}</span>
             <button ng-click = "$ctrl.removeEvent(booking.id)" class = "booking-button">Delete</button> 
             <button ng-click = "$ctrl.$Scheduler.jumpToWeek(booking.startDate); $ctrl.exitProfile()" class = "booking-button">See</button> 

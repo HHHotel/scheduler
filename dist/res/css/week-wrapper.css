@@ -70,53 +70,42 @@ disconnect-notice {
 .dog-list * {
     min-height: 1rem;
     color: black;
-    order: 10;
-    display: inline-flex;
     margin: 0 4px;
 }
 
 .arriving {
     color: blue;
-    order: 3;
 }
 
 .departing {
     color: red;
-    order: 4;
 }
 
 
 .boarding {
-    order: 1;
     color: maroon;
 }
 
 .daycare {
-    order: 5;
     color: hotpink;
 }
 
 .grooming {
-    order: 9;
     color: green;
 }
 
 .foster {
     color: darkblue;
-    order: 2;
 }
 
 .visit {
     color: purple;
-    order: 10;
 }
 
 .eval {
     color: darkturquoise;
-    order: 10;
 }
 
 .general {
-    order: 10;
     color: darkslategrey;
 }
