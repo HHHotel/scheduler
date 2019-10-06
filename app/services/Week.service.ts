@@ -1,3 +1,5 @@
+import { DayEventComponent } from "../components/dayEvent.component";
+
 export class SchedulerWeek {
 
     public static getStartEnd(currentDate: Date) {
@@ -23,8 +25,6 @@ export class SchedulerWeek {
         }
     }
 
-    // 8 Because of daylight savings time
-    private static WEEK_INC = 8 * 24 * 60 * 60 * 1000;
     private days: Date[] = [];
 
     constructor(currentDate: Date) {
@@ -41,17 +41,14 @@ export class SchedulerWeek {
     }
 
     public nextWeek() {
-
-        const dates = SchedulerWeek.getStartEnd(new Date(this.days[0].getTime() + SchedulerWeek.WEEK_INC));
-        this.initWeek(dates[0]);
-
+        for (const day of this.days) {
+            day.setDate(day.getDate() + 7);
+        }
     }
     public prevWeek() {
-
-        // Increment from the last day of the week to land somewhere in the middle of the prev week
-        // Otherwise it can happen where you skip a week
-        const dates = SchedulerWeek.getStartEnd(new Date(this.days[6].getTime() - SchedulerWeek.WEEK_INC));
-        this.initWeek(dates[0]);
+        for (const day of this.days) {
+            day.setDate(day.getDate() - 7);
+        }
     }
 
     public initWeek(sDate: Date) {
