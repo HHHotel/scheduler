@@ -10,10 +10,6 @@
 
 - Timestamp for printout  
 
-- fix ordering  
-
-- When the server passes me dates they should always be in time since epoch
-
 - Use https://date-fns.org for date formating
 - Use system time setting for 24 hour
 - Edit for normal events
