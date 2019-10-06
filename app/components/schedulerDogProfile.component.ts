@@ -1,6 +1,6 @@
 import { DEFAULT } from "../default";
 import * as HHH from "../types/HHHTypes";
-import * as API from "../types/HHHAPITypes";
+import * as API from "../types/HHHApiTypes";
 import { SchedulerService } from "../services/Scheduler.service";
 import { EventData } from "../services/EventData.service";
 

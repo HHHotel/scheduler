@@ -8,10 +8,10 @@
         "compile": "webpack",
         "start": "webpack && electron .",
         "lint": "tslint -p .",
-        "pack-all": "npm run compile; electron-builder -mwl",
-        "pack-linux": "npm run compile; electron-builder --linux",
-        "pack-mac": "npm run compile; electron-builder --mac",
-        "pack-win": "npm run compile; electron-builder --win"
+        "pack-all": "webpack; electron-builder -mwl",
+        "pack-linux": "webpack; electron-builder --linux",
+        "pack-mac": "webpack; electron-builder --mac",
+        "pack-win": "webpack; electron-builder --win"
     },
     "build": {
         "productName": "Hounds",
