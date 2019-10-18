@@ -22,7 +22,7 @@ let SETTINGS_PATH: string;
 let SETTINGS_BASEDIR: string = ".";
 
 function setSettingsPath(basedir: string) {
-    SETTINGS_BASEDIR = path.join(process.cwd(), basedir);
+    SETTINGS_BASEDIR = basedir;
 
     // Set the settings path
     SETTINGS_PATH = path.join(SETTINGS_BASEDIR, "settings.json");
@@ -34,19 +34,14 @@ function setSettingsPath(basedir: string) {
     loadSettings();
 }
 
-// Set the basedir of settings to users home directory
-let winPath: string;
-let unixPath: string;
-let devPath: string;
-
 if (process.env.NODE_ENV === "development") {
-    devPath = path.join("build/config/");
+    const devPath = path.join(process.cwd(), "build/config/");
     setSettingsPath(devPath);
 } else if (os.platform() === "win32") {
-    winPath = path.join(process.env.APPDATA as string, "Hounds");
+    const winPath = path.join(process.env.APPDATA as string, "Hounds");
     setSettingsPath(winPath);
 } else {
-    unixPath = path.join(process.env.HOME as string, ".hounds");
+    const unixPath = path.join(process.env.HOME as string, ".hounds");
     setSettingsPath(unixPath);
 }
 
@@ -91,7 +86,7 @@ export const DEFAULT: IDefaults = {
             ["Admin"]: 10,
         },
     },
-    MAIN_PKG: packjson.name + ".App",
+    MAIN_PKG: "Hounds.App",
     VERSION: packjson.version,
 };
 
