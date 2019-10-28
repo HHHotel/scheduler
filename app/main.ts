@@ -8,7 +8,7 @@ import { SchedulerService } from "./services/Scheduler.service";
 import { DayEventComponent } from "./components/dayEvent.component";
 import { SchedulerDogProfileComponent } from "./components/schedulerDogProfile.component";
 
-import { remote, MenuItem } from "electron";
+import { remote } from "electron";
 
 window.onbeforeunload = () => {
     remote.globalShortcut.unregisterAll();
@@ -16,8 +16,9 @@ window.onbeforeunload = () => {
     // TODO Maybe Add a cancel close
 };
 
-// tslint:disable-next-line: no-var-requires
-module(DEFAULT.MAIN_PKG, [require("angular-route")])
+import ngroute = require("angular-route");
+
+module(DEFAULT.MAIN_PKG, [ngroute])
     .config(($routeProvider: ng.route.IRouteProvider) => {
         $routeProvider
             .when("/", {
