@@ -52,6 +52,7 @@
     "repository": "https://github.com/hhhotel/scheduler",
     "license": "MIT",
     "dependencies": {
+        "@happyhoundhotel/hounds-ts": "^0.3.2",
         "angular": "^1.6.9",
         "angular-route": "^1.6.9",
         "electron-updater": "^4.1.2",
