@@ -79,13 +79,30 @@ app.on("activate", function() {
   }
 });
 
-// In this file you can include the rest of your app"s specific main process
-// code. You can also put them in separate files and require them here.
-const { ipcMain } = require("electron");
+const menu = new electron.Menu();
 
-ipcMain.on("print-schedule", () => {
+menu.append(new electron.MenuItem({
+    label: "Print",
+    accelerator: "CmdOrCtrl+P",
+    click: () => printSchedule(),
+}));
+
+menu.append(new electron.MenuItem({
+    label: "Dev Tools",
+    accelerator: "CmdOrCtrl+Shift+I",
+    click: () => openDevTools(),
+}));
+
+function openDevTools() {
+    const win = remote.BrowserWindow.getFocusedWindow();
+    if (win) {
+        win.webContents.openDevTools();
+    }
+}
+
+function printSchedule() {
   mainWindow.webContents.print({
     printBackground: false
   });
-});
+}
 
