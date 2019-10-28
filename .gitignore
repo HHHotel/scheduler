@@ -4,3 +4,5 @@ release_builds/
 *.log
 .vscode/
 dist/bundle.js
+
+/settings.json

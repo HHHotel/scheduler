@@ -35,8 +35,7 @@ function setSettingsPath(basedir: string) {
 }
 
 if (process.env.NODE_ENV === "development") {
-    const devPath = path.join(process.cwd(), "build/config/");
-    setSettingsPath(devPath);
+    setSettingsPath(process.cwd());
 } else if (os.platform() === "win32") {
     const winPath = path.join(process.env.APPDATA as string, "Hounds");
     setSettingsPath(winPath);

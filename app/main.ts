@@ -8,19 +8,7 @@ import { SchedulerService } from "./services/Scheduler.service";
 import { DayEventComponent } from "./components/dayEvent.component";
 import { SchedulerDogProfileComponent } from "./components/schedulerDogProfile.component";
 
-import { remote } from "electron";
-
-remote.globalShortcut.register("CommandOrControl+Shift+I", () => {
-    const win = remote.BrowserWindow.getFocusedWindow();
-    if (win) {
-        win.webContents.openDevTools();
-    }
-});
-
-remote.globalShortcut.register("CommandOrControl+P", () => {
-    const { ipcRenderer } = require("electron");
-    ipcRenderer.send("print-schedule");
-});
+import { remote, MenuItem } from "electron";
 
 window.onbeforeunload = () => {
     remote.globalShortcut.unregisterAll();
@@ -31,14 +19,14 @@ window.onbeforeunload = () => {
 // tslint:disable-next-line: no-var-requires
 module(DEFAULT.MAIN_PKG, [require("angular-route")])
     .config(($routeProvider: ng.route.IRouteProvider) => {
-    $routeProvider
-        .when("/", {
-            templateUrl: "views/login.html",
-        })
-        .when("/main", {
-            templateUrl: "views/main.html",
-        });
-});
+        $routeProvider
+            .when("/", {
+                templateUrl: "views/login.html",
+            })
+            .when("/main", {
+                templateUrl: "views/main.html",
+            });
+    });
 
 module(DEFAULT.MAIN_PKG).factory("Api", ["$http", "$location",
     (http: IHttpService, loc: ILocationService) => new ApiService(http, loc)]);
@@ -46,7 +34,7 @@ module(DEFAULT.MAIN_PKG).factory("Api", ["$http", "$location",
 module(DEFAULT.MAIN_PKG).factory("Week", () => new SchedulerWeek(new Date()));
 
 module(DEFAULT.MAIN_PKG).factory("EventData",
-    [ "Week", (week: SchedulerWeek) => new EventData(week)]);
+    ["Week", (week: SchedulerWeek) => new EventData(week)]);
 
 module(DEFAULT.MAIN_PKG).factory("$Scheduler", [
     "Week",
@@ -58,18 +46,18 @@ module(DEFAULT.MAIN_PKG).factory("$Scheduler", [
 ]);
 
 module(DEFAULT.MAIN_PKG).controller("loginCtrl", [
-        "$scope",
-        "$location",
-        "$Scheduler",
-        ctrls.LoginController,
-    ]);
+    "$scope",
+    "$location",
+    "$Scheduler",
+    ctrls.LoginController,
+]);
 
 module(DEFAULT.MAIN_PKG).controller("schedCtrl", [
-        "$scope",
-        "$rootScope",
-        "$Scheduler",
-        ctrls.SchedulerController,
-    ]);
+    "$scope",
+    "$rootScope",
+    "$Scheduler",
+    ctrls.SchedulerController,
+]);
 
 module(DEFAULT.MAIN_PKG).controller("sidebarCtrl", [
     "$scope",
