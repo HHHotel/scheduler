@@ -1,34 +1,23 @@
-import { DEFAULT } from "../default";
-import * as HHH from "../types/HHHTypes";
-import * as API from "../types/HHHApiTypes";
-import { SchedulerService } from "../services/Scheduler.service";
-import { EventData } from "../services/EventData.service";
+import { IHoundDog, IHoundBooking, DEFAULT, IHoundAPIDog,
+     toApiEvent, editDog, removeEvent, removeDog, retrieveDog } from "@happyhoundhotel/hounds-ts";
 
-interface ISchedulerDogProfileBindings {
-    dogProfile?: HHH.ISchedulerDog;
+interface IHoundDogProfileBindings {
+    dogProfile?: IHoundDog;
     bookingSearch: string;
     editMode: boolean;
-    $Scheduler: SchedulerService;
 }
 
-interface ISchedulerDogProfileController extends ISchedulerDogProfileBindings {
-    displayBooking(booking: HHH.ISchedulerBooking): string;
-    saveProfile(): void;
-    exitProfile(): void;
+interface IHoundDogProfileController extends IHoundDogProfileBindings {
+    displayBooking(booking: IHoundBooking): string;
 }
 
-class SchedulerDogProfileController implements ISchedulerDogProfileController {
+class SchedulerDogProfileController implements IHoundDogProfileController {
 
-    public dogProfile?: HHH.ISchedulerDog;
+    public dogProfile?: IHoundDog;
     public bookingSearch: string = "";
     public editMode: boolean = false;
-    public $Scheduler: SchedulerService;
 
-    constructor($Scheduler: SchedulerService) {
-        this.$Scheduler = $Scheduler;
-    }
-
-    public displayBooking(booking: HHH.ISchedulerBooking): string {
+    public displayBooking(booking: IHoundBooking): string {
         if (!(booking.startDate instanceof Date)) { return ""; }
 
         function formatDate(date: Date) {
@@ -50,56 +39,9 @@ class SchedulerDogProfileController implements ISchedulerDogProfileController {
         }
     }
 
-    public saveProfile(): void {
-        if (!this.dogProfile) {
-            return;
-        }
-
-        const newDog: API.ISchedulerApiDog = {
-            bookings: [],
-            clientName: this.dogProfile.clientName,
-            id: this.dogProfile.id,
-            name: this.dogProfile.name,
-        };
-
-        for (const booking of this.dogProfile.bookings) {
-            try {
-                newDog.bookings.push(EventData.toApiEvent(booking));
-            } catch (e) {
-                alert("Invalid Date: " + e.message);
-            }
-        }
-
-        if (newDog.name && newDog.clientName) {
-            this.$Scheduler.editDog(newDog, () => {
-                this.updateDogProfile();
-            });
-        } else {
-            alert("Error: Details not provided");
-        }
-
-    }
-
     public exitProfile() {
-        this.$Scheduler.cache.dogProfile = null;
+        this.dogProfile = undefined;
     }
-
-    public removeEvent(id: string) {
-        this.$Scheduler.removeEvent(id, () => this.updateDogProfile());
-    }
-
-    public removeDog(id: string) {
-        this.$Scheduler.removeDog(id, () => {
-            this.$Scheduler.cache.dogProfile = null;
-        });
-    }
-
-    private updateDogProfile() {
-        if (this.dogProfile) {
-            this.$Scheduler.retrieveDog(this.dogProfile.id);
-        }
-    }
-
 }
 
 // tslint:disable-next-line: max-classes-per-file
@@ -110,7 +52,10 @@ export class SchedulerDogProfileComponent implements ng.IComponentOptions {
 
     constructor() {
         this.bindings = {
-            dogProfile: "<",
+            dogProfile: "=",
+            removeEvent: "&",
+            removeDog: "&",
+            updateDogProfile: "&",
         };
         this.controller = SchedulerDogProfileController;
         this.templateUrl = "views/templates/schedulerDogProfile.template.html";
