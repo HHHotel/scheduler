@@ -1,13 +1,9 @@
 import { IHoundDog, IHoundBooking, DEFAULT, IHoundAPIDog,
      toApiEvent, editDog, removeEvent, removeDog, retrieveDog } from "@happyhoundhotel/hounds-ts";
+import { IComponentController } from "angular";
+import * as dates from "date-fns";
 
-interface IHoundDogProfileBindings {
-    dogProfile?: IHoundDog;
-    bookingSearch: string;
-    editMode: boolean;
-}
-
-interface IHoundDogProfileController extends IHoundDogProfileBindings {
+interface IHoundDogProfileController extends IComponentController {
     displayBooking(booking: IHoundBooking): string;
 }
 
@@ -20,20 +16,21 @@ class SchedulerDogProfileController implements IHoundDogProfileController {
     public displayBooking(booking: IHoundBooking): string {
         if (!(booking.startDate instanceof Date)) { return ""; }
 
-        function formatDate(date: Date) {
-            return date.toDateString() + getAmPm(date);
-        }
-
-        function getAmPm(date: Date) {
-            return date.getHours() < 12 ? " AM" : " PM";
-        }
+        const sameTOD = booking.startDate.getHours() >= 12 === booking.endDate.getHours() >= 12;
 
         switch (booking.type) {
             case DEFAULT.CONSTANTS.BOARDING:
-                return formatDate(booking.startDate) + " - " + formatDate(booking.endDate);
+                if (sameTOD) {
+                    return dates.format(booking.startDate, "MM/d/y") + " - " +   dates.format(booking.endDate, "MM/d/y b");
+                } else {
+                    return dates.format(booking.startDate, "MM/d/y b") + " - " + dates.format(booking.endDate, "MM/d/y b");
+                }
             case DEFAULT.CONSTANTS.DAYCARE:
-                // TODO format start and end time
-                return formatDate(booking.startDate);
+                if (sameTOD) {
+                    return dates.format(booking.startDate, "MM/d/y b");
+                } else {
+                    return dates.format(booking.startDate, "MM/d/y b") + " - " + dates.format(booking.endDate, "b");
+                }
             default:
                 return "Error";
         }
@@ -53,9 +50,6 @@ export class SchedulerDogProfileComponent implements ng.IComponentOptions {
     constructor() {
         this.bindings = {
             dogProfile: "=",
-            removeEvent: "&",
-            removeDog: "&",
-            updateDogProfile: "&",
         };
         this.controller = SchedulerDogProfileController;
         this.templateUrl = "views/templates/schedulerDogProfile.template.html";
