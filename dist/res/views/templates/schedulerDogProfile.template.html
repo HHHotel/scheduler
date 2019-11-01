@@ -1,41 +1,56 @@
-<div class = "dog-profile-img"> 
-    <img width = "100%" src = "images/icon.png" />
-</div>
+<div class="cover" ng-click = "$ctrl.exitProfile()"></div>
 
-<div class = "dog-info">
+<div class="dog-profile">
 
-    <button ng-show = "!$ctrl.editMode" 
-        class = "profile-button" ng-click = "$ctrl.editMode = true">Edit Mode</button>
-    <button ng-show = "$ctrl.editMode" 
-        class = "profile-button" ng-click = "$ctrl.editMode = false; $ctrl.saveProfile()">Save</button>
-
-    <div ng-if = "!$ctrl.editMode" class = "dog-profile-name">{{$ctrl.dogProfile.name}}</div>
-    <h2 class="dog-profile-name" style = "font-size:1rem">
-        <i ng-if = "!$ctrl.editMode">{{$ctrl.dogProfile.clientName}}</i>
-    </h2>
-    <div ng-if = "$ctrl.editMode" class = "dog-profile-name">
-        <input class = "profile-edit-input" 
-        style = "font-size:1rem" ng-model = $ctrl.dogProfile.name></input>
-        <input class = "profile-edit-input" 
-        style = "display:inline-block;font-size:1rem;" ng-model = $ctrl.dogProfile.clientName></input>
+    <div class="close dog-profile-close"><svg class="hand" ng-click="$ctrl.exitProfile()" name="ProfileClose"
+            width="24" height="24" viewBox="0 0 12 12">
+            <polygon fill="#ffffff" fill-rule="evenodd"
+                points="11 1.576 6.583 6 11 10.424 10.424 11 6 6.583 1.576 11 1 10.424 5.417 6 1 1.576 1.576 1 6 5.417 10.424 1">
+            </polygon>
+        </svg>
     </div>
 
-    <!-- TODO <div class = "dog-profile-breed">{{$ctrl.dogProfile.breed}}</div> -->
-
-    <div class = "page-break"></div>
-    <h2 style = "text-align:center">Bookings</h2>
-    <div class = "dog-profile-bookings">
-        <input type = "text" ng-model = "bookingSearch" class = "booking-search-input"/>
-        <div ng-if = "!$ctrl.editMode" class = "dog-profile-dog-booking" 
-             ng-repeat = "booking in $ctrl.dogProfile.bookings | orderBy:'-startDate' | filter:bookingSearch:false">
-            <span>{{$ctrl.displayBooking(booking)}}</span>
-            <button ng-click = "$ctrl.removeEvent(booking.id)" class = "booking-button">Delete</button> 
-            <button ng-click = "$ctrl.$Scheduler.jumpToWeek(booking.startDate); $ctrl.exitProfile()" class = "booking-button">See</button> 
+    <div class="dog-profile-content">
+        <div class="dog-profile-img">
+            <img width="100%" src="images/icon.png" />
         </div>
-        <div ng-if = "$ctrl.editMode" class = "dog-profile-dog-booking" ng-repeat = "booking in $ctrl.dogProfile.bookings">
-            <input type = "datetime-local" class = "profile-edit-input" ng-model = "booking.startDate" />
-            
-            <input type = "datetime-local" class = "profile-edit-input" ng-model = "booking.endDate" />
+
+        <div class="dog-info">
+
+            <button ng-show="!$ctrl.editMode" class="profile-button" ng-click="$ctrl.editMode = true">Edit Mode</button>
+            <button ng-show="$ctrl.editMode" class="profile-button"
+                ng-click="$ctrl.editMode = false; $ctrl.saveProfile()">Save</button>
+
+            <div ng-if="!$ctrl.editMode" class="dog-profile-name">{{$ctrl.dogProfile.name}}</div>
+            <h2 class="dog-profile-name" style="font-size:1rem">
+                <i ng-if="!$ctrl.editMode">{{$ctrl.dogProfile.clientName}}</i>
+            </h2>
+            <div ng-if="$ctrl.editMode" class="dog-profile-name">
+                <input class="profile-edit-input" style="font-size:1rem" ng-model=$ctrl.dogProfile.name></input>
+                <input class="profile-edit-input" style="display:inline-block;font-size:1rem;"
+                    ng-model=$ctrl.dogProfile.clientName></input>
+            </div>
+
+            <!-- TODO <div class = "dog-profile-breed">{{$ctrl.dogProfile.breed}}</div> -->
+
+            <div class="page-break"></div>
+            <h2 style="text-align:center">Bookings</h2>
+            <div class="dog-profile-bookings">
+                <input type="text" ng-model="bookingSearch" class="booking-search-input" />
+                <div ng-if="!$ctrl.editMode" class="dog-profile-dog-booking"
+                    ng-repeat="booking in $ctrl.dogProfile.bookings | orderBy:'-startDate' | filter:bookingSearch:false">
+                    <span>{{$ctrl.displayBooking(booking)}}</span>
+                    <button ng-click="$ctrl.removeEvent(booking.id)" class="booking-button">Delete</button>
+                    <button ng-click="$ctrl.$Scheduler.jumpToWeek(booking.startDate); $ctrl.exitProfile()"
+                        class="booking-button">See</button>
+                </div>
+                <div ng-if="$ctrl.editMode" class="dog-profile-dog-booking"
+                    ng-repeat="booking in $ctrl.dogProfile.bookings">
+                    <input type="datetime-local" class="profile-edit-input" ng-model="booking.startDate" />
+
+                    <input type="datetime-local" class="profile-edit-input" ng-model="booking.endDate" />
+                </div>
+            </div>
         </div>
     </div>
 </div>

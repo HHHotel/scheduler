@@ -86,8 +86,10 @@
                 <div ng-repeat = "day in week.$week.days" class = "day day-{{$index}}">
                     <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
                     <div class = "dog-list">
-                        <day-event ng-repeat = "event in week.events[$index] | orderBy:event:false:week.dayEventComparator" 
-                                   schedule-event="event" class="{{event.type}}"></day-event>
+                        <div ng-repeat = "event in week.events[$index] | orderBy:event:false:week.dayEventComparator" 
+                            ng-click = "root.dogLookup(event.dogId)" id = "{{event.id}}" class="{{event.type}}" >
+                            {{ root.getEventText(event) }}
+                        </div>
                     </div>
                 </div>
 
@@ -104,6 +106,6 @@
 
     </div>
 
-    <ng-include ng-show = "dogProfile" src = "'views/profile.html'" dog-profile="dogProfile"></ng-include>
+    <scheduler-dog-profile ng-show = "root.dogProfile" dog-profile="root.dogProfile"></scheduler-dog-profile>
 
 </div>
