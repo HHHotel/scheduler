@@ -1,5 +1,3 @@
-import { DayEventComponent } from "../components/dayEvent.component";
-
 export class SchedulerWeek {
 
     public static getStartEnd(currentDate: Date) {

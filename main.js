@@ -10,8 +10,6 @@ const BrowserWindow = electron.BrowserWindow;
 
 const path = require("path");
 const url = require("url");
-const os = require("os");
-const fs = require("fs");
 
 // Second window for intializing settings on the first launch
 let configWindow;
@@ -77,6 +75,12 @@ app.on("activate", function() {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+const { ipcMain } = require("electron");
+
+ipcMain.on("print-schedule", () => {
+    printSchedule();
 });
 
 const menu = new electron.Menu();

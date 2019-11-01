@@ -1,17 +1,16 @@
-<div ng-show = "!cache.loggedIn" ng-controller = "loginCtrl">
+<div ng-controller = "loginCtrl as login">
 
         <img class = "login-logo" src = "images/icon.png" />
 
-        <form ng-submit = "submit()" class = "login-inputs">
+        <form ng-submit = "login.submit()" class = "login-inputs">
                 <div class = "login-label">Username</div>
-                <input ng-model = "cache.user.username" class = "login-input"></input>
+                <input ng-model = "login.user.username" class = "login-input"></input>
                 <div class = "login-label">Password</div>
-                <input type = "password" ng-enter = "submit()" ng-model = "cache.user.password" class = "login-input"></input>
+                <input type = "password" ng-enter = "login.submit()" ng-model = "login.user.password" class = "login-input"></input>
                 <br />
 
-                <button ng-show="!loginLoading"type = "submit" class = "login-button">login</button>
-                <div ng-show="loginLoading" class="cirle-loader"></div>
-
+                <button ng-show="!login.loginLoading"type = "submit" class = "login-button">login</button>
+                <div ng-show="login.loginLoading" class="cirle-loader"></div>
         </form>
 
 </div>

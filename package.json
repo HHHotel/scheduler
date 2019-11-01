@@ -6,12 +6,19 @@
     "scripts": {
         "test": "ts-mocha -p tsconfig.json app/**/*.spec.ts",
         "compile": "webpack --config webpack.prod.js",
-        "start": "webpack && electron .",
+        "watch": "webpack --watch",
+        "prestart": "webpack",
+        "start": "electron .",
         "lint": "tslint -p .",
-        "pack-all": "npm run compile && electron-builder -mwl",
-        "pack-linux": "npm run compile && electron-builder --linux",
-        "pack-mac": "npm run compile && electron-builder --mac",
-        "pack-win": "npm run compile && electron-builder --win"
+        "prepack-all": "npm run compile",
+        "pack-all": "electron-builder -mwl",
+        "prepack-unix": "npm run compile",
+        "pack-unix": "electron-builder -ml",
+        "pack-linux": "electron-builder --linux",
+        "prepack-mac": "electron-builder --mac",
+        "pack-mac": "electron-builder --mac",
+        "prepack-win": "npm run compile",
+        "pack-win": "electron-builder --win"
     },
     "build": {
         "productName": "Hounds",
@@ -52,7 +59,7 @@
     "repository": "https://github.com/hhhotel/scheduler",
     "license": "MIT",
     "dependencies": {
-        "@happyhoundhotel/hounds-ts": "^0.3.2",
+        "@happyhoundhotel/hounds-ts": "^0.3.12",
         "angular": "^1.6.9",
         "angular-route": "^1.6.9",
         "electron-updater": "^4.1.2",
