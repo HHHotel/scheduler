@@ -50,10 +50,8 @@ export class HoundsService {
                 username: auth.username,
                 token: auth.token
             };
-            this.$rootScope.$apply();
             return true;
         } catch (err) {
-            this.$rootScope.$apply();
             return false;
         }
     }
