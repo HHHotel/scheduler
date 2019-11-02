@@ -25,7 +25,6 @@ export class LoginController {
             .then((res) => {
                 if (res) {
                     this.$location.path("/main");
-                    this.$scope.$apply();
                 } else {
                     alert("Login failed: Please Try Again");
                 }
