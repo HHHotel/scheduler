@@ -68,7 +68,7 @@ export class HoundsService {
         this.handleError(addEvent(event, houndsConfig));
     }
 
-    public async findEvents(eventText: string): Promise<IHoundEvent | IHoundDog> {
+    public async findEvents(eventText: string): Promise<IHoundEvent | IHoundDog[]> {
         const houndsConfig = await this.checkAuth();
         const events = await findEvents(eventText, houndsConfig);
         return events.data;

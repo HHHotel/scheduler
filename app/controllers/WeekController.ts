@@ -3,13 +3,25 @@ import { HoundsService } from "../services/Hounds.service";
 import { SchedulerWeek } from "../services/Week.service";
 import { HoundsSettings } from "../services/Settings.service";
 import * as dates from "date-fns";
+import { IIntervalService, IPromise } from "angular";
 
 export class WeekController implements ng.IController {
 
-    protected static $inject = ["$scope", "HoundsService", "WeekService", "HoundsSettings"];
+    protected static $inject = ["$scope", "HoundsService", "WeekService", "HoundsSettings", "$interval"];
+
+    private loadInterval: IPromise<any>;
 
     constructor(private $scope: ng.IScope, public hounds: HoundsService, private week: SchedulerWeek,
-                private $settings: HoundsSettings) {
+                private $settings: HoundsSettings, private $interval: IIntervalService) {
+        this.loadInterval = this.$interval(() => {
+            this.hounds.load(this.week.getDay(0));
+        }, 5000);
+
+        this.hounds.load(this.week.getDay(0));
+
+        window.addEventListener("beforeunload", () => {
+            this.$interval.cancel(this.loadInterval);
+        });
     }
 
     public dayEventComparator(a: any, b: any) {

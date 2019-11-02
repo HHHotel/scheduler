@@ -2,19 +2,13 @@ import {
     IHoundDog,
     IHoundBooking,
     DEFAULT,
-    IHoundAPIDog,
-    toApiEvent,
-    editDog,
-    removeEvent,
-    removeDog,
-    retrieveDog
 } from "@happyhoundhotel/hounds-ts";
 import * as dates from "date-fns";
 import { HoundsService } from "../services/Hounds.service";
 import { SchedulerWeek } from "../services/Week.service";
 import { HoundsSettings } from "../services/Settings.service";
 
-class ProfileController implements ng.IComponentController {
+export class ProfileController implements ng.IComponentController {
     protected static $inject = [
         "$scope",
         "HoundsService",
@@ -22,7 +16,6 @@ class ProfileController implements ng.IComponentController {
         "HoundsSettings"
     ];
 
-    public dogProfile?: IHoundDog;
     public bookingSearch: string = "";
     public editMode: boolean = false;
 
@@ -70,9 +63,5 @@ class ProfileController implements ng.IComponentController {
             default:
                 return "Error";
         }
-    }
-
-    public exitProfile() {
-        this.dogProfile = undefined;
     }
 }
