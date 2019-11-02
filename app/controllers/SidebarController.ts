@@ -11,6 +11,10 @@ import { HoundsSettings } from "../services/Settings.service";
 import { HoundsService } from "../services/Hounds.service";
 import { SchedulerWeek } from "../services/Week.service";
 
+import * as dates from "date-fns";
+
+const START_OF_TIME = new Date("1/1/1970").valueOf(); // Used for time inputs for event forms
+
 interface IRepeatOptions {
     showRepeat: boolean;
     stopDate: Date;
@@ -58,8 +62,16 @@ export class SidebarController {
     }
 
     public addEvent(newEvent: IHoundEvent) {
+        const newEventDuration = this.getEndDateFromTime(newEvent.startDate, newEvent.endDate);
+
+        if (newEventDuration < 0) {
+            alert("Please enter a valid end time")
+            return;
+        }
+
+        newEvent.endDate = new Date(newEvent.startDate.valueOf() + newEventDuration);
+
         this.hounds.addEvent(newEvent);
-        console.log(newEvent);
         this.event = this.zeroEvent();
     }
 
@@ -75,16 +87,10 @@ export class SidebarController {
             return;
         }
 
-        const startTime =
-            newBooking.startDate.valueOf() -
-            new Date(newBooking.startDate.toLocaleDateString()).valueOf();
-        const endTime =
-            newBooking.endDate.valueOf() - new Date("Jan 1 1970").valueOf();
+        const newBookingDuration = this.getEndDateFromTime(newBooking.startDate, newBooking.endDate);
 
-        const newBookingDuration = endTime - startTime;
-
-        if (newBookingDuration <= 0) {
-            alert("Please enter a valid end time");
+        if (newBookingDuration < 0) {
+            alert("Please enter a valid end time")
             return;
         }
 
@@ -142,6 +148,14 @@ export class SidebarController {
         }
     }
 
+    public formatDate(date: Date) {
+        if (!date) {
+            return "";
+        }
+
+        return dates.format(date, "MMM d y a");
+    }
+
     public async findEvents(searchText: string) {
         this.searchEvents = await this.hounds.findEvents(searchText);
         this.$scope.$apply();
@@ -158,13 +172,30 @@ export class SidebarController {
     }
 
     public eventSearchComparator(a: any, b: any) {
-        if (a.value.type === DEFAULT.CONSTANTS.DOG) {
+        if (a.value.name) {
             return 1;
-        } else if (b.value.type === DEFAULT.CONSTANTS.DOG) {
+        } else if (b.value.name) {
             return -1;
         } else {
             return a.value.startDate < b.value.startDate ? -1 : 1;
         }
+    }
+
+    // TODO check that endDate is in the same day as star 
+    private getEndDateFromTime(startDate: Date, endDate: Date) {
+        const startTime =
+            startDate.valueOf() -
+            new Date(startDate.toLocaleDateString()).valueOf();
+        const endTime =
+            endDate.valueOf() - START_OF_TIME;
+
+        const newBookingDuration = endTime - startTime;
+
+        if (newBookingDuration < 0) {
+            return -1;
+        }
+
+        return newBookingDuration;
     }
 
     private clearForm() {
@@ -185,7 +216,7 @@ export class SidebarController {
     private zeroEvent(): IHoundEvent {
         return {
             startDate: new Date(new Date().toDateString()),
-            endDate: new Date(new Date().toDateString()),
+            endDate: new Date(START_OF_TIME), // Needs to be the same as the 
             id: "",
             type: "",
             text: ""

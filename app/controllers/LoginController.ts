@@ -49,6 +49,7 @@ export class LoginController {
                    .finally(() => {
                        this.loginLoading = false;
                        user.password = "";
+                       this.$scope.$apply();
                    });
            }
        }

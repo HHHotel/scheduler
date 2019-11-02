@@ -13,7 +13,7 @@
     <div ng-repeat = "event in sidebar.searchEvents | limitTo:200 | orderBy:event.startDate:true:sidebar.eventSearchComparator"
     class = "clearfix">
       {{ event.text || event.name }} <br />
-      <i> {{ formatDate(event.startDate) }} </i>
+      <i> {{ sidebar.formatDate(event.startDate) }} </i>
 
 
       <!-- TODO add click event to do things like delete and edit event -->
