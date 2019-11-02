@@ -8,51 +8,41 @@ import { SchedulerWeek } from "../services/Week.service";
 
 export class RootController implements ng.IController {
 
-    protected static $inject = ["$scope", "$location", "HoundsService", "WeekService", "HoundsSettings", "$interval"];
+    protected static $inject = ["$scope", "$location", "HoundsService", "WeekService", "HoundsSettings"];
 
     public dogProfile?: IHoundDog;
     public weekEvents: IScheduleEvent[][];
-    private loadInterval: IPromise<any>;
 
     constructor(private $scope: ng.IScope, private $location: ILocationService, private hounds: HoundsService,
-                private week: SchedulerWeek, private $settings: HoundsSettings, private $interval: IIntervalService) {
+                private week: SchedulerWeek, private $settings: HoundsSettings) {
         this.weekEvents = [[]];
-        this.loadInterval = this.$interval(() => {
-            this.hounds.load(this.week.getDay(0));
-        }, 5000);
-    }
 
-    public $onDestroy() {
-        this.$interval.cancel(this.loadInterval);
-        this.$settings.save();
-    }
-
-    public $onInit() {
         this.hounds.checkAuth().then(() => {
             this.$location.path("/main");
         }).catch(() => {
             this.$location.path("/");
         });
 
-        this.hounds.load(this.week.getDay(0));
+        window.addEventListener("beforeunload", () => {
+            this.$settings.save();
+        });
     }
 
     public jumpToWeek(date: Date) {
         this.week.advanceToDate(date);
-        this.hounds.load(date);
+        this.hounds.load(this.week.getDay(0));
     }
 
     public removeEvent(id: string) {
         this.hounds.removeEvent(id);
     }
-
-    public saveProfile(newDog: IHoundDog) {
-        console.log(newDog);
-    }
-
     public async dogLookup(id: string) {
         this.dogProfile = await this.hounds.retrieveDog(id);
         this.$scope.$apply();
     }
 
+    public saveProfile(dog: IHoundDog) {
+        this.hounds.editDog(dog);
+        this.hounds.load(this.week.getDay(0));
+    }
 }

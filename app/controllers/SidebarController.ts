@@ -33,11 +33,7 @@ export class SidebarController {
     };
 
     public booking: IHoundBooking;
-    public repeatOptions: IRepeatOptions = {
-        showRepeat: false,
-        stopDate: new Date(),
-        frequency: "daily"
-    };
+    public repeatOptions?: IRepeatOptions = undefined;
     public dog: IHoundDog;
     public event: IHoundEvent;
     public searchEvents: IHoundEvent | IHoundDog[];
@@ -63,7 +59,87 @@ export class SidebarController {
 
     public addEvent(newEvent: IHoundEvent) {
         this.hounds.addEvent(newEvent);
+        console.log(newEvent);
         this.event = this.zeroEvent();
+    }
+
+    public addBooking(newBooking: IHoundBooking, repeatOptions: IRepeatOptions) {
+        if (
+            !newBooking ||
+            !newBooking.id ||
+            !newBooking.startDate ||
+            !newBooking.endDate || 
+            !newBooking.type
+        ) {
+            alert("Insufficent newBooking details");
+            return;
+        }
+
+        const startTime =
+            newBooking.startDate.valueOf() -
+            new Date(newBooking.startDate.toLocaleDateString()).valueOf();
+        const endTime =
+            newBooking.endDate.valueOf() - new Date("Jan 1 1970").valueOf();
+
+        const newBookingDuration = endTime - startTime;
+
+        if (newBookingDuration <= 0) {
+            alert("Please enter a valid end time");
+            return;
+        }
+
+        if (repeatOptions && repeatOptions.stopDate) {
+            const inc = getRepeatIncrement(repeatOptions.frequency);
+            if (inc < 0) {
+                alert("Enter repeat frequency");
+                return;
+            }
+
+            addEventUntil(newBooking, newBookingDuration, repeatOptions.stopDate, inc);
+        } else {
+            if (newBooking.type !== DEFAULT.CONSTANTS.BOARDING) {
+                newBooking.endDate = new Date(
+                    newBooking.startDate.valueOf() + newBookingDuration
+                );
+            }
+            this.hounds.addEvent(newBooking);
+        }
+
+        this.booking = this.zeroBooking();
+
+        /* End Of Function */
+
+        function getRepeatIncrement(repeatOpt: string) {
+            const DAILY_INC = 86400000; // 24 * 60 * 60 * 1000
+            const WEEKLY_INC = 604800000; // 7 * 24 * ...
+            switch (repeatOpt) {
+                case "daily":
+                    return DAILY_INC;
+                case "weekly":
+                    return WEEKLY_INC;
+                default:
+                    return -1;
+            }
+        }
+
+        const self = this;
+
+        function addEventUntil(
+            baseEvent: IHoundEvent,
+            duration: number,
+            stopDate: any,
+            increment: number
+        ) {
+            for (
+                let i = newBooking.startDate.valueOf();
+                i < stopDate.valueOf() + increment;
+                i += increment
+            ) {
+                baseEvent.startDate = new Date(i);
+                baseEvent.endDate = new Date(i + duration);
+                self.hounds.addEvent(baseEvent);
+            }
+        }
     }
 
     public async findEvents(searchText: string) {
@@ -78,7 +154,7 @@ export class SidebarController {
 
     public advanceToDate(date: Date) {
         this.$week.advanceToDate(date);
-        this.hounds.load(date);
+        this.hounds.load(this.$week.getDay(0));
     }
 
     public eventSearchComparator(a: any, b: any) {
