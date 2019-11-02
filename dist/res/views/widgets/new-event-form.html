@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <div class = "sidebar-sub-heading">
   <h3>New Event</h3>
 </div>
@@ -8,23 +9,23 @@ ng-click = "$event.stopPropagation();">
   Text
   <br />
 
-  <input ng-model = "form.event.text" type = "text"/>
+  <input ng-model = "sidebar.event.text" type = "text"/>
 
   <br />
   Start Date
   <br />
 
-  <input ng-model = "form.event.startDate" type = "datetime-local"/>
+  <input ng-model = "sidebar.event.startDate" type = "datetime-local"/>
 
   End Time
   <br />
 
-  <input ng-model = "form.event.endDate" type = "time"/>
+  <input ng-model = "sidebar.event.endDate" type = "time"/>
 
   <br />
   Event Type
   <br />
-  <select ng-model = "form.event.type">
+  <select ng-model = "sidebar.event.type">
     <option selected="selected">general</option>
     <option>grooming</option>
     <option>visit</option>
@@ -34,7 +35,7 @@ ng-click = "$event.stopPropagation();">
 
   <br />
 
-  <button class = "hand" ng-click = "addEvent(form.event)" type = "button">Submit</button>
+  <button class = "hand" ng-click = "sidebar.addEvent(sidebar.event)" type = "button">Submit</button>
 
 </form>
 

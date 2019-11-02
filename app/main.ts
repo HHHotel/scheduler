@@ -6,7 +6,7 @@ import ngroute from "angular-route";
 import { HoundsService } from "./services/Hounds.service";
 import { SchedulerWeek } from "./services/Week.service";
 import { HoundsSettings, HOUNDS_MAIN_PKG, HOUNDS_API_VERSION } from "./services/Settings.service";
-import { SchedulerDogProfileComponent } from "./components/schedulerDogProfile.component";
+import { SchedulerDogProfileComponent } from "./controllers/ProfileController";
 import { DEFAULT } from "@happyhoundhotel/hounds-ts";
 
 module(HOUNDS_MAIN_PKG, [ngroute])
@@ -32,8 +32,7 @@ module(HOUNDS_MAIN_PKG).controller("houndsCtrl", ctrls.RootController);
 module(HOUNDS_MAIN_PKG).controller("weekCtrl", ctrls.WeekController);
 module(HOUNDS_MAIN_PKG).controller("sidebarCtrl", ctrls.SidebarController);
 module(HOUNDS_MAIN_PKG).controller("loginCtrl", ctrls.LoginController);
-
-module(HOUNDS_MAIN_PKG).component("schedulerDogProfile", new SchedulerDogProfileComponent());
+module(HOUNDS_MAIN_PKG).controller("profileCtrl", ctrl.ProfileController);
 
 module(HOUNDS_MAIN_PKG).controller("titleBar", [
         "$scope",

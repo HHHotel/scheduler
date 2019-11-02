@@ -74,10 +74,13 @@
         "chai": "^4.2.0",
         "electron": "^4.1.4",
         "electron-builder": "^21.2.0",
+        "htmlhint": "^0.11.0",
         "mocha": "^6.2.0",
+        "prettier": "^1.18.2",
         "ts-loader": "^6.0.4",
         "ts-mocha": "^6.0.0",
         "tslint": "^5.19.0",
+        "tslint-config-prettier": "^1.18.0",
         "typescript": "^3.5.3",
         "webpack": "^4.39.2",
         "webpack-cli": "^3.3.7"
