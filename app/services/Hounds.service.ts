@@ -2,7 +2,6 @@ import {
     HoundsConfig,
     checkAuthentication,
     addDog,
-    IHoundAPIDog,
     IHoundEvent,
     addEvent,
     findEvents,
@@ -11,24 +10,24 @@ import {
     removeDog,
     editDog,
     retrieveDog,
-    toApiDog,
     addUser,
     changePassword,
     deleteUser,
     login,
     getWeek,
-    IHoundAuth,
-    IScheduleEvent
-} from "@happyhoundhotel/hounds-ts";
+    IScheduleEvent} from "@happyhoundhotel/hounds-ts";
 import { IRootScopeService } from "angular";
 import { HoundsSettings } from "./Settings.service";
 
-/*
-Wrapper Class for the Hounds api library for angular
-*/
+/**
+ * Wrapper for the hounds API in the form of an AngularJs Service
+ */
 export class HoundsService {
+    /** Holds the week events from the API */
     public events: IScheduleEvent[][] = [[]];
+    /** URL of the API to query */
     private API_URL: string;
+    /** Boolean value of whether or not the API */
     private loggedIn: boolean = false;
 
     constructor(
@@ -38,11 +37,24 @@ export class HoundsService {
         this.API_URL = $settings.apiConfig.apiURL;
     }
 
+    /**
+     * Updates the services's events field with the newest data from the API
+     * @param {Date} date The date of the week to get from the API
+     * 
+     * Calls Apply to the root scope of the angular app
+     */
     public async load(date: Date) {
         this.events = await this.getWeek(date);
         this.$rootScope.$apply();
     }
 
+    /**
+     * Logs into the API service storing the API token
+     * @param {string} username the username of the user
+     * @param {string} password  the password of the user
+     * 
+     * @returns {Promise<boolean>} true on success false on failure
+     */
     public async login(username: string, password: string): Promise<boolean> {
         try {
             const auth = await login(username, password, this.API_URL);
@@ -56,58 +68,108 @@ export class HoundsService {
         }
     }
 
-    public async addDog(dog: IHoundAPIDog) {
+    /**
+     * Add a new empty dog to the API
+     * @param {IHoundDog} dog 
+     */
+    public async addDog(dog: IHoundDog) {
         const houndsConfig = await this.checkAuth();
         this.handleError(addDog(dog, houndsConfig));
     }
 
+    /**
+     * Add a new event to the API
+     * @param {IHoundEvent} event the event to add
+     */
     public async addEvent(event: IHoundEvent) {
         const houndsConfig = await this.checkAuth();
         this.handleError(addEvent(event, houndsConfig));
     }
 
+    /**
+     * Get a list of dogs and events from the API
+     * @param eventText text to search events for
+     * 
+     * @returns {Promise<IHoundDog | IHoundEvent} list of dogs and events
+     */
     public async findEvents(eventText: string): Promise<IHoundEvent | IHoundDog[]> {
         const houndsConfig = await this.checkAuth();
         const events = await findEvents(eventText, houndsConfig);
         return events.data;
     }
 
+    /**
+     * Remove an event from the API
+     * @param eventId event id to remove from the API
+     */
     public async removeEvent(eventId: string) {
         const houndsConfig = await this.checkAuth();
         this.handleError(removeEvent(eventId, houndsConfig));
     }
 
+    /**
+     * Removes one dog from the API
+     * @param dogId dog id to remove from the API
+     */
     public async removeDog(dogId: string) {
         const houndsConfig = await this.checkAuth();
         this.handleError(removeDog(dogId, houndsConfig));
     }
 
+    /**
+     * Edits the details and bookings of a dog
+     * @param dogProfile Dog object with the new details
+     */
     public async editDog(dogProfile: IHoundDog) {
         const houndsConfig = await this.checkAuth();
-        this.handleError(editDog(toApiDog(dogProfile), houndsConfig));
+        this.handleError(editDog(dogProfile, houndsConfig));
     }
 
+    /**
+     * Gets the profile of a dog from the API
+     * @param dogId Id of the dog to get
+     */
     public async retrieveDog(dogId: string): Promise<IHoundDog> {
         const houndsConfig = await this.checkAuth();
         return retrieveDog(dogId, houndsConfig);
     }
 
+    /**
+     * Adds a new user to the API
+     * @param username 
+     * @param password 
+     * @param permissions number representing the level of permissions for new user
+     * 
+     * A user's permissions must be greater or equal to the new user's permissions
+     */
     public async addUser(
         username: string,
         password: string,
-        permissionLevel: string
+        permissions: number
     ) {
         const houndsConfig = await this.checkAuth();
         this.handleError(
-            addUser(username, password, permissionLevel, houndsConfig)
+            addUser(username, password, permissions, houndsConfig)
         );
     }
 
+    /**
+     * Deletes a user from the API
+     * @param username username to delet
+     * 
+     * A user must have permissions >= 10 to alter users
+     */
     public async deleteUser(username: string) {
         const houndsConfig = await this.checkAuth();
         this.handleError(deleteUser(username, houndsConfig));
     }
 
+    /**
+     * Changes a user's password
+     * @param username username of user to change
+     * @param oldPassword old password of the user
+     * @param newPassword  new password for the user
+     */
     public async changePassword(
         username: string,
         oldPassword: string,
@@ -119,6 +181,11 @@ export class HoundsService {
         );
     }
 
+    /**
+     * Checks the authentication token of this service
+     * 
+     * @returns {Promise<HoundsConfig>} the config object for the Hounds API
+     */
     public async checkAuth(): Promise<HoundsConfig> {
         if (this.loggedIn) {
             return this.$settings.apiConfig;
@@ -134,17 +201,24 @@ export class HoundsService {
         }
     }
 
-    private async getWeek(date: Date) {
+    /**
+     * Gets a week of Schedule events from the API
+     * @param date date of the week to get
+     * 
+     * @returns One week from the API
+     */
+    private async getWeek(date: Date): Promise<IScheduleEvent[][]> {
         const houndsConfig = await this.checkAuth();
         const week = await getWeek(date, houndsConfig);
         return week;
     }
 
+    /**
+     * Logs any errors from API methods
+     * @param result result from one of this service's methods
+     */
     private handleError(result: Promise<any>) {
         result
-            .then(res => {
-                console.log(res);
-            })
             .catch(err => {
                 this.loggedIn = false;
                 console.error(err);

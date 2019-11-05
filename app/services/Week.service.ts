@@ -53,13 +53,10 @@ export class SchedulerWeek {
         this.days = [];
 
         for (let i = 0; i < 7; i++) {
-
             const d = new Date(sDate.toString());
             d.setDate(sDate.getDate() + i);
             this.days.push(d);
-
         }
-
     }
 
     public toString() {

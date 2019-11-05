@@ -9,18 +9,32 @@ export const HOUNDS_API_URL = "http://localhost:8080";
 export const HOUNDS_API_VERSION = "0.3.2";
 
 interface IHoundsSettingsFile {
+    /** Whether or not to use Twenty four hour time */
     TWENTY_FOUR_HOUR: boolean;
+    /** Sidebar open setting */
     SIDEBAR_OPEN: boolean;
+    /** Url for the Hounds API */
     BASE_URL: string;
+    /** Authentication deatils with username and token */
     AUTH: IHoundAuth;
+    /** Opening Hour in the morning */
     OPENING_HOUR_AM: number;
+    /** Closing hour in the morning */
     CLOSING_HOUR_AM: number;
+    /** Opening hour in the evening */
     OPENING_HOUR_PM: number;
+    /** Closing hour in the evening */
     CLOSING_HOUR_PM: number;
 }
 
+/** Angular service for the Hounds settings */
 export class HoundsSettings {
 
+    /** 
+     * Get the OS dependent settings path
+     * 
+     * @returns string which is the path to the settings file
+     */
     private static getSettingsPath(): string {
         if (process.env.NODE_ENV === "development") {
             return joinSettingsName(process.cwd());
@@ -32,6 +46,7 @@ export class HoundsSettings {
             return joinSettingsName(unixPath);
         }
 
+        // tslint:disable-next-line: completed-docs
         function joinSettingsName(basedir: string) {
             // Set the settings path
             const SETTINGS_PATH = path.join(basedir, "settings.json");
@@ -44,18 +59,28 @@ export class HoundsSettings {
         }
     }
 
+    /**
+     * Read settings file from path and parse json
+     * @param filePath path to read from
+     */
     private static readSettingsFile(filePath: string): IHoundsSettingsFile {
         const data = fs.readFileSync(filePath);
         return JSON.parse(data.toString());
     }
 
+    /** expose sidebar setting for use in the ui */
     public sidebarOpen: boolean;
+    /** Configuration object holding token etc for hounds api */
     public apiConfig: HoundsConfig;
+    /** Opening and closing hours for AM and PM */
     public HOURS: {
+        // tslint:disable-next-line: completed-docs
         CLOSING: { AM: number, PM: number },
+        // tslint:disable-next-line: completed-docs
         OPENING: { AM: number, PM: number },
     };
 
+    /** path to the settings file */
     private settingsPath: string;
 
     constructor() {
@@ -85,6 +110,7 @@ export class HoundsSettings {
         };
     }
 
+    /** Write the settings object in json format to the settings path */
     public save() {
         const settingsObj: IHoundsSettingsFile = {
             TWENTY_FOUR_HOUR: false,
