@@ -1,15 +1,16 @@
+<!DOCTYPE html>
 <div ng-controller = "loginCtrl as login">
 
         <img class = "login-logo" src = "images/icon.png" />
 
-        <form ng-submit = "login.submit()" class = "login-inputs">
+        <form ng-submit = "login.submit(login.user.username, login.user.password)" class = "login-inputs">
                 <div class = "login-label">Username</div>
-                <input ng-model = "login.user.username" class = "login-input"></input>
+                <input ng-model = "login.user.username" class = "login-input" />
                 <div class = "login-label">Password</div>
-                <input type = "password" ng-enter = "login.submit()" ng-model = "login.user.password" class = "login-input"></input>
+                <input type = "password" ng-enter = "login.submit(login.user.username, login.user.password)" ng-model = "login.user.password" class = "login-input" />
                 <br />
 
-                <button ng-show="!login.loginLoading"type = "submit" class = "login-button">login</button>
+                <button ng-show="!login.loginLoading" type = "submit" class = "login-button">Login</button>
                 <div ng-show="login.loginLoading" class="cirle-loader"></div>
         </form>
 

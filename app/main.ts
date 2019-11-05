@@ -5,7 +5,7 @@ import { module, IRootScopeService } from "angular";
 import ngroute from "angular-route";
 import { HoundsService } from "./services/Hounds.service";
 import { SchedulerWeek } from "./services/Week.service";
-import { HoundsSettings, HOUNDS_MAIN_PKG, HOUNDS_API_VERSION } from "./services/Settings.service";
+import { HoundsSettings, HOUNDS_MAIN_PKG } from "./services/Settings.service";
 
 module(HOUNDS_MAIN_PKG, [ngroute])
     .config(($routeProvider: ng.route.IRouteProvider) => {

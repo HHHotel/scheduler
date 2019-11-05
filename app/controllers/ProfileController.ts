@@ -8,7 +8,10 @@ import { HoundsService } from "../services/Hounds.service";
 import { SchedulerWeek } from "../services/Week.service";
 import { HoundsSettings } from "../services/Settings.service";
 
+/** AngularJs controller for the dog profile view */
 export class ProfileController implements ng.IComponentController {
+
+    /** Declare dependencies for AngularJs injection */
     protected static $inject = [
         "$scope",
         "HoundsService",
@@ -16,7 +19,9 @@ export class ProfileController implements ng.IComponentController {
         "HoundsSettings"
     ];
 
+    /** string to search dog bookings */
     public bookingSearch: string = "";
+    /** boolean value for whether or not to edit the profile */
     public editMode: boolean = false;
 
     constructor(
@@ -26,6 +31,12 @@ export class ProfileController implements ng.IComponentController {
         private $settings: HoundsSettings
     ) {}
 
+    /**
+     * Gets a string for the given booking
+     * @param booking booking to get string for
+     * 
+     * @returns string representing the booking
+     */
     public displayBooking(booking: IHoundBooking): string {
         if (!(booking.startDate instanceof Date)) {
             return "";
