@@ -18,7 +18,6 @@
 - Move Grooming into dog profile
 
 - Add an event "copy" function
-
 - Update to new angular
 
 - Check API Responses and alert user on an error

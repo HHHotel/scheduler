@@ -198,13 +198,16 @@ export class SidebarController {
         ) {
             // TODO change the increment strategy from just number to date-fns
             for (
-                let i = newBooking.startDate.valueOf();
+                let i = baseEvent.startDate.valueOf();
                 i < stopDate.valueOf() + increment;
                 i += increment
             ) {
-                baseEvent.startDate = new Date(i);
-                baseEvent.endDate = new Date(i + duration);
-                houndsService.addEvent(baseEvent);
+                const event: IHoundEvent = {
+                    ...baseEvent,
+                    startDate: new Date(i),
+                    endDate: new Date(i + duration),
+                }
+                houndsService.addEvent(event);
             }
         }
     }

@@ -44,6 +44,10 @@ export class WeekController implements ng.IController {
         this.$scope.$on("logout", () => {
             this.$interval.cancel(this.loadInterval);
         });
+
+        this.$scope.$on("load", () => {
+            this.hounds.load(this.week.getDay(0));
+        });
     }
 
     /** Comparator to compare two events inside a day */
