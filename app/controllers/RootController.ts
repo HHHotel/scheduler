@@ -25,7 +25,6 @@ export class RootController implements ng.IController {
         private week: SchedulerWeek,
         private $settings: HoundsSettings
     ) {
-
         // Check the authentication and logout if not valid
         this.hounds
             .checkAuth()
@@ -40,6 +39,12 @@ export class RootController implements ng.IController {
         window.addEventListener("beforeunload", () => {
             this.$settings.save();
         });
+
+        this.$scope.$on("load", () => {
+            if (this.dogProfile) {
+                this.dogLookup(this.dogProfile.id);
+            }
+        });
     }
 
     /**
@@ -48,7 +53,6 @@ export class RootController implements ng.IController {
      */
     public jumpToWeek(date: Date) {
         this.week.advanceToDate(date);
-        this.hounds.load(this.week.getDay(0));
     }
 
     /**
@@ -57,16 +61,14 @@ export class RootController implements ng.IController {
      */
     public removeEvent(id: string) {
         this.hounds.removeEvent(id);
-        this.hounds.load(this.week.getDay(0));
     }
 
     /**
-     * edit dog and load from the API
+     * edit dog from the API
      * @param dog dog profile to pass to Hounds service
      */
     public saveProfile(dog: IHoundDog) {
         this.hounds.editDog(dog);
-        this.hounds.load(this.week.getDay(0));
     }
 
     /**
@@ -87,7 +89,6 @@ export class RootController implements ng.IController {
      */
     public logout() {
         this.$location.path("/");
-        this.$scope.$emit("logout");
+        this.$scope.$broadcast("logout");
     }
-
 }
