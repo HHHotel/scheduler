@@ -8,8 +8,9 @@ import { HoundsService } from "../services/Hounds.service";
 import { SchedulerWeek } from "../services/Week.service";
 
 import * as dates from "date-fns";
+import { HoundsSettings } from "../services/Settings.service";
 
-const START_OF_TIME = new Date("1/1/1970").valueOf(); // Used for time inputs for event forms
+const START_OF_TIME = new Date(new Date().toDateString()).valueOf(); // Used for time inputs for event forms
 
 interface IRepeatOptions {
     /** model for whether or not to show the repeat options forms */
@@ -30,8 +31,8 @@ export class SidebarController {
     /** Declare dependencies for AngularJs injection */
     protected static $inject = [
         "$scope",
-        "HoundsSettings",
         "HoundsService",
+        "HoundsSettings",
         "WeekService"
     ];
 
@@ -60,6 +61,7 @@ export class SidebarController {
     constructor(
         private $scope: ng.IScope,
         private hounds: HoundsService,
+        private $settings: HoundsSettings,
         private $week: SchedulerWeek
     ) {
         this.dog = this.zeroDog();
@@ -220,7 +222,7 @@ export class SidebarController {
     }
 
     /**
-     *   asd
+     * Find events and dogs given the search text
      * @param searchText 
      */
     public async findEvents(searchText: string) {
@@ -263,13 +265,56 @@ export class SidebarController {
     }
 
     /**
+     * Adds a user to the API
+     * @param username 
+     * @param password 
+     * @param permissionType string representing the level of permissions for the new user
+     */
+    public addUser(username: string, password: string, permissionType: string) {
+        if (!username || !password || !permissionType) {
+            alert("Please enter all details");
+            return;
+        }
+
+        const permissions = DEFAULT.CONSTANTS.USER_CONSTANT[permissionType];
+        this.hounds.addUser(username, password, permissions);
+    }
+
+    /**
+     * Deletes a user from the API
+     * @param username username to delete
+     */
+    public deleteUser(username: string) {
+        if (!username) {
+            alert("Please enter all details");
+            return;
+        }
+
+        this.hounds.deleteUser(username);
+    }
+
+    /**
+     * Changes the current user's password
+     * @param oldPassword 
+     * @param newPassword 
+     */
+    public changePassword(oldPassword: string, newPassword: string) {
+        if (!oldPassword || !newPassword) {
+            alert("Please enter all details");
+            return;
+        }
+
+        this.hounds.changePassword(this.$settings.apiConfig.apiAuth.username, oldPassword, newPassword);
+    }
+
+    /**
      * Gets the end date from the input type time
      * @param startDate startDate to get
      * @param endDate date object that is initalized to a known value
      *                and then subtracted from that value to get the time info
      */
     private getDurationFromTimeInput(startDate: Date, endDate: Date) {
-        // TODO check that endDate is in the same day as star
+        // TODO check that endDate is in the same day as start
         const startTime =
             startDate.valueOf() -
             new Date(startDate.toLocaleDateString()).valueOf();

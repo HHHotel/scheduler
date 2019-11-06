@@ -88,14 +88,25 @@ label {
 }
 
 .settings-number {
-    margin-left: 1rem;
-    width:3rem;
-    text-align:right;
+    margin: 0;
+    width: 3rem;
+    text-align: right;
 }
 
 .settings > h3 {
     margin-top: 1rem;
     text-align: center;
+}
+
+.settings > .logout-button {
+    margin-top: 0.5rem;
+    background-color: #aa2222;
+}
+
+.setting-option {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
 }
 
 .highlighted {

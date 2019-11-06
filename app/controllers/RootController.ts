@@ -82,4 +82,12 @@ export class RootController implements ng.IController {
         this.$scope.$apply();
     }
 
+    /**
+     * Logsout of the application
+     */
+    public logout() {
+        this.$location.path("/");
+        this.$scope.$emit("logout");
+    }
+
 }
