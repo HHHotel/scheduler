@@ -57,6 +57,14 @@ app.on("ready", () => {
     autoUpdater.checkForUpdatesAndNotify();
 
     createWindow();
+
+    const menu = electron.Menu.getApplicationMenu();
+
+    menu.append(new electron.MenuItem({
+        label: "Print",
+        accelerator: "CmdOrCtrl+P",
+        click: () => printSchedule(),
+    }));
 });
 
 // Quit when all windows are closed.
@@ -84,15 +92,16 @@ ipcMain.on("print-schedule", () => {
     printSchedule();
 });
 
-const menu = new electron.Menu();
+// const menu = new electron.Menu();
+const menu = electron.Menu.getApplicationMenu();
 
-menu.append(new electron.MenuItem({
-    label: "Print",
-    accelerator: "CmdOrCtrl+P",
-    click: () => printSchedule(),
-}));
+// menu.append(new electron.MenuItem({
+//     label: "Print",
+//     accelerator: "CmdOrCtrl+P",
+//     click: () => printSchedule(),
+// }));
 
-electron.Menu.setApplicationMenu(menu);
+// electron.Menu.setApplicationMenu(menu);
 
 function printSchedule() {
     mainWindow.webContents.print({

@@ -1,52 +1,53 @@
-<div class = "sidebar-sub-heading">
-  <h3>User Management</h3>
+<!DOCTYPE html>
+<div class="sidebar-sub-heading">
+    <h3>User Management</h3>
 </div>
 
 
-<div class = "sidebar-panel" ng-click = "$event.stopPropagation(); load();">
+<div class="sidebar-panel" ng-click="$event.stopPropagation()">
 
-  <h4>Action</h4>
-  <select ng-model = "userManagementAction">
-    <option>Add User</option>
-    <option>Delete User</option>
-    <option>Change Password</option>
-  </select>
-
-  
-  <div ng-show = "userManagementAction === 'Add User'" class = "add-user">
-    <h4>Add User</h4>
-    <label>Username</label>
-    <input ng-model = "newUser.username"/>
-    <label>Password</label>
-    <input type = "password" ng-model = "newUser.password"/>
-    <label>Permissions</label>
-    <select ng-model = "newUser.permissionType">
-      <option>Viewer</option>
-      <option>Inputer</option>
-      <option>Admin</option>
+    <h4>Action</h4>
+    <select ng-model="userManagementAction">
+        <option>Add User</option>
+        <option>Delete User</option>
+        <option>Change Password</option>
     </select>
 
-    <button ng-click = "addUser(newUser.username, newUser.password, newUser.permissionType);" class = "hand">Submit</button>
-  </div>
 
-  <div ng-show = "userManagementAction === 'Delete User'" class = "delete-user">
-    <h4>Delete User</h4>
-    <label>Username</label>
-    <input ng-model = "usernameToDelete"/>
-    
-    <button ng-click = "deleteUser(usernameToDelete); usernameToDelete = '';" class = "hand">Submit</button>
-  </div>
+    <div ng-show="userManagementAction === 'Add User'" class="add-user">
+        <h4>Add User</h4>
+        <label>Username</label>
+        <input ng-model="sidebar.newUser.username" />
+        <label>Password</label>
+        <input type="password" ng-model="sidebar.newUser.password" />
+        <label>Permissions</label>
+        <select ng-model="sidebar.newUser.permissionType">
+            <option>Viewer</option>
+            <option>Inputer</option>
+            <option>Admin</option>
+        </select>
 
-  <div ng-show = "userManagementAction === 'Change Password'" class = "change-password">
-    <h4>Change Your Password</h4>
-    <label>Old Password</label>
-    <input type = "password" ng-model = "oldPassword" />
-    <label>New Password</label>
-    <input type = "password" ng-model = "newPassword" />
+        <button
+            ng-click="sidebar.addUser(sidebar.newUser.username, sidebar.newUser.password, sidebar.newUser.permissionType);"
+            class="hand">Submit</button>
+    </div>
 
-    <button ng-click = "changePassword(oldPassword, newPassword); oldPassword = ''; newPassword = '';" class = "hand">Submit</button>
-  </div>
+    <div ng-show="userManagementAction === 'Delete User'" class="delete-user">
+        <h4>Delete User</h4>
+        <label>Username</label>
+        <input ng-model="usernameToDelete" />
+
+        <button ng-click="sidebar.deleteUser(usernameToDelete); usernameToDelete = '';" class="hand">Submit</button>
+    </div>
+
+    <div ng-show="userManagementAction === 'Change Password'" class="change-password">
+        <h4>Change Your Password</h4>
+        <label>Old Password</label>
+        <input type="password" ng-model="oldPassword" />
+        <label>New Password</label>
+        <input type="password" ng-model="newPassword" />
+
+        <button ng-click="sidebar.changePassword(oldPassword, newPassword); oldPassword = ''; newPassword = '';"
+            class="hand">Submit</button>
+    </div>
 </div>
-
-
-
