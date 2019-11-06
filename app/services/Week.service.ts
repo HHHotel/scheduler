@@ -1,5 +1,10 @@
+/** Angular service to track the current week */
 export class SchedulerWeek {
 
+    /** 
+     * Get the start date and end date of the week containing the current date
+     * @param currentDate date inside week
+     */
     public static getStartEnd(currentDate: Date) {
 
         let sDate;
@@ -15,6 +20,10 @@ export class SchedulerWeek {
 
     }
 
+    /**
+     * Get the correct day of the week for the date given
+     * @param date date to get the weekday for
+     */
     public static getDay(date: Date) {
         if (date.getDay() === 0) {
             return 6;
@@ -23,32 +32,52 @@ export class SchedulerWeek {
         }
     }
 
+    /** array of days in current week */
     private days: Date[] = [];
 
     constructor(currentDate: Date) {
         this.advanceToDate(currentDate);
     }
 
+    /**
+     * Move the week to the given date
+     * @param date date of week to advance to
+     */
     public advanceToDate(date: Date) {
         const startEnd = SchedulerWeek.getStartEnd(date);
         this.initWeek(startEnd[0]);
     }
 
+    /**
+     * Get day inside the week
+     * @param index index of day to return
+     */
     public getDay(index: number) {
         return this.days[index];
     }
 
+    /**
+     * Advance the week 7 days
+     */
     public nextWeek() {
         for (const day of this.days) {
             day.setDate(day.getDate() + 7);
         }
     }
+
+    /**
+     * Go back one week
+     */
     public prevWeek() {
         for (const day of this.days) {
             day.setDate(day.getDate() - 7);
         }
     }
 
+    /**
+     * Create the date array with the given date
+     * @param sDate start date of week to get
+     */
     public initWeek(sDate: Date) {
         this.days = [];
 
@@ -59,6 +88,9 @@ export class SchedulerWeek {
         }
     }
 
+    /**
+     * Return a string representing the week
+     */
     public toString() {
         const months = ["January", "February",
             "March", "April", "May", "June",
