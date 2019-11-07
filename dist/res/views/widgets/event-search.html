@@ -13,13 +13,13 @@
     <div ng-repeat = "event in sidebar.searchEvents | limitTo:200 | orderBy:event.startDate:true:sidebar.eventSearchComparator"
     class = "clearfix">
       {{ event.text || event.name }} <br />
-      <i> {{ sidebar.formatDate(event.startDate) }} </i>
+      <i ng-show = "event.text"> {{ sidebar.formatDate(event.startDate) }} </i>
 
 
       <!-- TODO add click event to do things like delete and edit event -->
       <button ng-show = "event.name" ng-click = "root.dogLookup(event.id)" class = "hand search-button" type = "button">...</button>
       <!-- <button ng-show = "event.type !== 'dog'" ng-click = "editEvent(event.id)" class = "hand search-button" type = "button">Edit</button> -->
-      <button ng-show = "!event.name" ng-click = "sidebar.removeEvent(event.id)" class = "hand search-button" type = "button">Delete</button>
+      <button ng-show = "!event.name" ng-click = "root.removeEvent(event.id)" class = "hand search-button" type = "button">Delete</button>
       <br />
     </div>
 

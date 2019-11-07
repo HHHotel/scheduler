@@ -18,6 +18,8 @@ import {
     IScheduleEvent} from "@happyhoundhotel/hounds-ts";
 import { IRootScopeService } from "angular";
 import { HoundsSettings } from "./Settings.service";
+import log from "electron-log";
+import { AxiosResponse } from "axios";
 
 /**
  * Wrapper for the hounds API in the form of an AngularJs Service
@@ -40,7 +42,7 @@ export class HoundsService {
     /**
      * Updates the services's events field with the newest data from the API
      * @param {Date} date The date of the week to get from the API
-     * 
+     *
      * Calls Apply to the root scope of the angular app
      */
     public async load(date: Date) {
@@ -52,7 +54,7 @@ export class HoundsService {
      * Logs into the API service storing the API token
      * @param {string} username the username of the user
      * @param {string} password  the password of the user
-     * 
+     *
      * @returns {Promise<boolean>} true on success false on failure
      */
     public async login(username: string, password: string): Promise<boolean> {
@@ -70,7 +72,7 @@ export class HoundsService {
 
     /**
      * Add a new empty dog to the API
-     * @param {IHoundDog} dog 
+     * @param {IHoundDog} dog
      */
     public async addDog(dog: IHoundDog) {
         const houndsConfig = await this.checkAuth();
@@ -89,10 +91,12 @@ export class HoundsService {
     /**
      * Get a list of dogs and events from the API
      * @param eventText text to search events for
-     * 
+     *
      * @returns {Promise<IHoundDog | IHoundEvent} list of dogs and events
      */
-    public async findEvents(eventText: string): Promise<IHoundEvent | IHoundDog[]> {
+    public async findEvents(
+        eventText: string
+    ): Promise<IHoundEvent | IHoundDog[]> {
         const houndsConfig = await this.checkAuth();
         const events = await findEvents(eventText, houndsConfig);
         return events.data;
@@ -136,10 +140,10 @@ export class HoundsService {
 
     /**
      * Adds a new user to the API
-     * @param username 
-     * @param password 
+     * @param username
+     * @param password
      * @param permissions number representing the level of permissions for new user
-     * 
+     *
      * A user's permissions must be greater or equal to the new user's permissions
      */
     public async addUser(
@@ -156,7 +160,7 @@ export class HoundsService {
     /**
      * Deletes a user from the API
      * @param username username to delet
-     * 
+     *
      * A user must have permissions >= 10 to alter users
      */
     public async deleteUser(username: string) {
@@ -183,7 +187,7 @@ export class HoundsService {
 
     /**
      * Checks the authentication token of this service
-     * 
+     *
      * @returns {Promise<HoundsConfig>} the config object for the Hounds API
      */
     public async checkAuth(): Promise<HoundsConfig> {
@@ -204,7 +208,7 @@ export class HoundsService {
     /**
      * Gets a week of Schedule events from the API
      * @param date date of the week to get
-     * 
+     *
      * @returns One week from the API
      */
     private async getWeek(date: Date): Promise<IScheduleEvent[][]> {
@@ -219,9 +223,24 @@ export class HoundsService {
      */
     private handleError(result: Promise<any>) {
         result
-            .catch(err => {
+            .then((res: AxiosResponse) => {
+                log.info("Server Response:", res.data);
+                log.info("Status:", res.statusText);
+                log.info("Code:", res.status);
+                log.debug("Headers:", res.headers);
+                log.debug("Config:", res.config);
+            })
+            .catch((res: AxiosResponse) => {
                 this.loggedIn = false;
-                console.error(err);
+                if (res) {
+                    alert("An error occured " + res.data);
+
+                    log.error("Server Response:", res.data);
+                    log.error("Status:", res.statusText);
+                    log.error("Code:", res.status);
+                    log.debug("Headers:", res.headers);
+                    log.debug("Config:", res.config);
+                }
             })
             .finally(() => {
                 this.$rootScope.$apply();

@@ -47,7 +47,6 @@ export class LoginController {
                     alert("Login failed: Please Try Again");
                 }
             }).catch(err => {
-                console.error(err);
                 alert("Error occured: " + err.message);
             }).finally(() => {
                 this.loginLoading = false;
