@@ -1,6 +1,7 @@
 import fs from "fs";
 import os from "os";
 import path from "path";
+import log from "electron-log";
 import { HoundsConfig, IHoundAuth } from "@happyhoundhotel/hounds-ts";
 
 /*  DEFAULT VALUES */
@@ -52,7 +53,7 @@ export class HoundsSettings {
             const SETTINGS_PATH = path.join(basedir, "settings.json");
 
             if (typeof window !== "undefined") { // Dont log settings when running tests
-                console.log(SETTINGS_PATH);
+                log.info("Settings Path:", SETTINGS_PATH);
             }
 
             return SETTINGS_PATH;

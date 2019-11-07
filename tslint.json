@@ -6,7 +6,7 @@
     ],
     "jsRules": true,
     "rules": {
-        "no-console": false,
+        "no-console": true,
         "ordered-imports": false,
         "object-literal-sort-keys": false,
         "completed-docs": true,

@@ -17,7 +17,7 @@ interface IRepeatOptions {
     showRepeat: boolean;
     /** Date to repeat booking to, inclusive */
     stopDate: Date;
-    /** 
+    /**
      * frequency string to describe how to repeat
      * i.e. "daily", "weekly"
      */
@@ -69,6 +69,10 @@ export class SidebarController {
         this.booking = this.zeroBooking();
 
         this.searchEvents = [];
+
+        this.$scope.$on("load", async () => {
+            this.searchEvents = await this.hounds.findEvents(this.searchText);
+        });
     }
 
     /**
@@ -76,6 +80,10 @@ export class SidebarController {
      * @param newDog dog to add
      */
     public addDog(newDog: IHoundDog) {
+        if (!newDog || !newDog.name || !newDog.clientName) {
+            alert("Please enter all details");
+            return;
+        }
         this.hounds.addDog(newDog);
         this.dog = this.zeroDog();
     }
@@ -85,6 +93,10 @@ export class SidebarController {
      * @param newEvent event to add
      */
     public addEvent(newEvent: IHoundEvent) {
+        if (!newEvent || !newEvent.text || !newEvent.type) {
+            alert("Pleaser enter all details");
+            return;
+        }
         const newEventDuration = this.getDurationFromTimeInput(
             newEvent.startDate,
             newEvent.endDate
@@ -159,10 +171,10 @@ export class SidebarController {
         this.booking = this.zeroBooking();
 
         /**
-         * Changes the repeat string "daily", "weekly" into a 
+         * Changes the repeat string "daily", "weekly" into a
          * number of milliseconds to add to get the next event
          * @param {string} repeatOpt
-         * 
+         *
          * @returns milliseconds to add to event
          */
         // tslint:disable-next-line: completed-docs
@@ -205,8 +217,8 @@ export class SidebarController {
                 const event: IHoundEvent = {
                     ...baseEvent,
                     startDate: new Date(i),
-                    endDate: new Date(i + duration),
-                }
+                    endDate: new Date(i + duration)
+                };
                 houndsService.addEvent(event);
             }
         }
@@ -226,7 +238,7 @@ export class SidebarController {
 
     /**
      * Find events and dogs given the search text
-     * @param searchText 
+     * @param searchText
      */
     public async findEvents(searchText: string) {
         this.searchEvents = await this.hounds.findEvents(searchText);
@@ -253,24 +265,27 @@ export class SidebarController {
     /**
      * Returns 1 if a is greater than b, -1 if b > a
      * @param a
-     * @param b 
-     * 
+     * @param b
+     *
      * Used to sort events in search view
      */
     public eventSearchComparator(a: any, b: any) {
-        if (a.value.name) { // if a is a dog object
+        if (a.value.name) {
+            // if a is a dog object
             return 1;
-        } else if (b.value.name) { // if b is a dog object
+        } else if (b.value.name) {
+            // if b is a dog object
             return -1;
-        } else { // compare on the value of the start date
+        } else {
+            // compare on the value of the start date
             return a.value.startDate < b.value.startDate ? -1 : 1;
         }
     }
 
     /**
      * Adds a user to the API
-     * @param username 
-     * @param password 
+     * @param username
+     * @param password
      * @param permissionType string representing the level of permissions for the new user
      */
     public addUser(username: string, password: string, permissionType: string) {
@@ -298,8 +313,8 @@ export class SidebarController {
 
     /**
      * Changes the current user's password
-     * @param oldPassword 
-     * @param newPassword 
+     * @param oldPassword
+     * @param newPassword
      */
     public changePassword(oldPassword: string, newPassword: string) {
         if (!oldPassword || !newPassword) {
@@ -307,7 +322,11 @@ export class SidebarController {
             return;
         }
 
-        this.hounds.changePassword(this.$settings.apiConfig.apiAuth.username, oldPassword, newPassword);
+        this.hounds.changePassword(
+            this.$settings.apiConfig.apiAuth.username,
+            oldPassword,
+            newPassword
+        );
     }
 
     /**
