@@ -15,18 +15,17 @@
         <link rel = "stylesheet" href = "css/titlebar.css" />
         <link rel = "stylesheet" href = "css/week-wrapper.css" />
         <link rel = "stylesheet" href = "css/sidebar-style.css" />
-        <link rel = "stylesheet" href = "css/form-style.css" />
         <link rel = "stylesheet" href = "css/dog-profile-style.css" />
         <link rel = "stylesheet" href = "css/login.css" />
 
     </head>
 
-    <body controller = "bodyCtrl">
+    <body>
 
         <!-- Title Bar with close buttons -->
         <ng-include src = "'views/widgets/titlebar.html'"></ng-include>
 
-        <div class = "ui" ng-view></div>
+        <div ng-controller = "houndsCtrl as root" class = "ui" ng-view></div>
 
         <!-- Webpack bundle --> 
         <script src="../bundle.js"></script>

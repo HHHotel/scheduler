@@ -1,13 +1,15 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint:recommended"
+        "tslint:recommended",
+        "tslint-config-prettier"
     ],
     "jsRules": true,
     "rules": {
-        "no-console": false,
+        "no-console": true,
         "ordered-imports": false,
-        "object-literal-sort-keys": false
-    },
-    "rulesDirectory": []
+        "object-literal-sort-keys": false,
+        "completed-docs": true,
+        "typedef": true
+    }
 }

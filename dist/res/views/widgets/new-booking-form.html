@@ -1,31 +1,30 @@
-<div class = "form-wrapper" ng-click = "$event.stopPropagation();">
+<!DOCTYPE html>
+<div class="form-wrapper" ng-click="$event.stopPropagation();">
 
-    <div class = "sidebar-sub-heading">
+    <div class="sidebar-sub-heading">
 
         <h3>New Booking</h3>
 
     </div>
 
-    <form class = "sidebar-panel"
-          ng-init = "form.booking.type = 'boarding'">
+    <form class="sidebar-panel" ng-init="sidebar.booking.type = 'boarding'">
 
-        <div class = "booking-type-wrapper">
-            <button ng-click = "form.booking.type = 'boarding'" id = "booking-type-btn">Boarding</button>
-            <button ng-click = "form.booking.type = 'daycare'" id = "booking-type-btn">Daycare</button>
+        <div class="booking-type-wrapper">
+            <button ng-click="sidebar.booking.type = 'boarding'" class="booking-type-btn">Boarding</button>
+            <button ng-click="sidebar.booking.type = 'daycare'" class="booking-type-btn">Daycare</button>
         </div>
 
         <br />
 
         Dog Name <br />
 
-        <input ng-change = "findEvents(form.booking.dogName)" ng-model = "form.booking.dogName" type = "text"/>
+        <input ng-change="sidebar.findEvents(sidebar.searchText)" ng-model="sidebar.searchText" type="text" />
 
-        <div class = "search">
-            <div ng-repeat = "event in cache.searchEvents | filter : {type: 'dog'} | limitTo: 7"
-                 ng-class = "{'highlighted': form.booking.id === event.dogId}"
-                 class = "clearfix">
-                {{ event.text }}
-                <button ng-click = "form.booking.id = event.dogId" class = "hand" type = 'button'>select</button>
+        <div class="search">
+            <div ng-repeat="event in sidebar.searchEvents | filter: {name: ''} | limitTo: 7"
+                ng-class="{'highlighted': sidebar.booking.id === event.id}" class="clearfix">
+                {{ event.name }}
+                <button ng-click="sidebar.booking.id = event.id" class="hand">select</button>
                 <br />
             </div>
 
@@ -33,39 +32,39 @@
 
         <br />
 
-        <div ng-show = "form.booking.type === 'boarding'">
+        <div ng-show="sidebar.booking.type === 'boarding'">
 
             Start
-            <input ng-model = "form.booking.startDate" type = "datetime-local" />
+            <input ng-model="sidebar.booking.startDate" type="datetime-local" />
 
             End
-            <input ng-model = "form.booking.endDate" type = "datetime-local" />
+            <input ng-model="sidebar.booking.endDate" type="datetime-local" />
 
         </div>
 
-        <div ng-show = "form.booking.type === 'daycare'">
+        <div ng-show="sidebar.booking.type === 'daycare'">
 
             Start Date
-            <input ng-model = "form.booking.startDate" type = "datetime-local" />
+            <input ng-model="sidebar.booking.startDate" type="datetime-local" />
             End Time
-            <input ng-model = "form.booking.endDate" type = "time" />
+            <input ng-model="sidebar.booking.endDate" type="time" />
 
-            <button style = "margin-bottom: 1rem" ng-click = "showRepeat = !showRepeat">Toggle Repeat</button>
+            <button style="margin-bottom: 1rem" ng-click="showRepeat = !showRepeat">Toggle Repeat</button>
 
-            <div ng-show = "showRepeat">
+            <div ng-show="showRepeat">
                 Repeat
-                <select ng-model = "form.repeatOptions.frequency" >
+                <select ng-model="sidebar.repeatOptions.frequency">
                     <option>daily</option>
                     <option>weekly</option>
                 </select>
 
                 Until
-                <input ng-model = "form.repeatOptions.stopDate" type = "date" />
+                <input ng-model="sidebar.repeatOptions.stopDate" type="date" />
             </div>
 
         </div>
 
-        <button ng-click = "addEvent(form.booking, form.repeatOptions)" type = "button">Submit</button>
+        <button ng-click="sidebar.addBooking(sidebar.booking, sidebar.repeatOptions)" type="button">Submit</button>
 
     </form>
 

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <div class = "sidebar-sub-heading">
 
   <h3>Search Events</h3>
@@ -6,19 +7,19 @@
 
 <div class = "sidebar-panel" ng-click = "$event.stopPropagation();">
 
-  <input ng-change = "findEvents(search.input)" ng-model = "search.input" type = "text"/>
+  <input ng-change = "sidebar.findEvents(sidebar.searchText)" ng-model = "sidebar.searchText" type = "text"/>
 
   <div class = "search">
-    <div ng-repeat = "event in cache.searchEvents | limitTo:200 | orderBy:event.startDate:true:eventSearchComparator "
+    <div ng-repeat = "event in sidebar.searchEvents | limitTo:200 | orderBy:event.startDate:true:sidebar.eventSearchComparator"
     class = "clearfix">
-      {{ event.text }} <br />
-      <i> {{ formatDate(event.startDate) }} </i>
+      {{ event.text || event.name }} <br />
+      <i ng-show = "event.text"> {{ sidebar.formatDate(event.startDate) }} </i>
 
 
       <!-- TODO add click event to do things like delete and edit event -->
-      <button ng-show = "event.type === 'dog'" ng-click = "retrieveDog(event.dogId)" class = "hand search-button" type = "button">...</button>
+      <button ng-show = "event.name" ng-click = "root.dogLookup(event.id)" class = "hand search-button" type = "button">...</button>
       <!-- <button ng-show = "event.type !== 'dog'" ng-click = "editEvent(event.id)" class = "hand search-button" type = "button">Edit</button> -->
-      <button ng-show = "event.type !== 'dog'" ng-click = "removeEvent(event.id)" class = "hand search-button" type = "button">Delete</button>
+      <button ng-show = "!event.name" ng-click = "root.removeEvent(event.id)" class = "hand search-button" type = "button">Delete</button>
       <br />
     </div>
 

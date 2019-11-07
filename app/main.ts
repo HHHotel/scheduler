@@ -1,24 +1,13 @@
-import * as ctrls from "./controllers/SchedulerControllers";
-import { ApiService } from "./services/Api.service";
-import { DEFAULT, saveSettings } from "./default";
-import { EventData } from "./services/EventData.service";
-import { IHttpService, ILocationService, module } from "angular";
-import { SchedulerWeek } from "./services/Week.service";
-import { SchedulerService } from "./services/Scheduler.service";
-import { DayEventComponent } from "./components/dayEvent.component";
-import { SchedulerDogProfileComponent } from "./components/schedulerDogProfile.component";
-
 import { remote } from "electron";
 
-window.onbeforeunload = () => {
-    remote.globalShortcut.unregisterAll();
-    saveSettings();
-    // TODO Maybe Add a cancel close
-};
+import * as ctrls from "./controllers/controllers";
+import { module, IRootScopeService } from "angular";
+import ngroute from "angular-route";
+import { HoundsService } from "./services/Hounds.service";
+import { SchedulerWeek } from "./services/Week.service";
+import { HoundsSettings, HOUNDS_MAIN_PKG } from "./services/Settings.service";
 
-import ngroute = require("angular-route");
-
-module(DEFAULT.MAIN_PKG, [ngroute])
+module(HOUNDS_MAIN_PKG, [ngroute])
     .config(($routeProvider: ng.route.IRouteProvider) => {
         $routeProvider
             .when("/", {
@@ -29,49 +18,21 @@ module(DEFAULT.MAIN_PKG, [ngroute])
             });
     });
 
-module(DEFAULT.MAIN_PKG).factory("Api", ["$http", "$location",
-    (http: IHttpService, loc: ILocationService) => new ApiService(http, loc)]);
-
-module(DEFAULT.MAIN_PKG).factory("Week", () => new SchedulerWeek(new Date()));
-
-module(DEFAULT.MAIN_PKG).factory("EventData",
-    ["Week", (week: SchedulerWeek) => new EventData(week)]);
-
-module(DEFAULT.MAIN_PKG).factory("$Scheduler", [
-    "Week",
-    "Api",
-    "EventData",
-    "$location",
-    (week: SchedulerWeek, api: ApiService, eventData: EventData, $location: ILocationService) =>
-        new SchedulerService(week, api, eventData, $location),
-]);
-
-module(DEFAULT.MAIN_PKG).controller("loginCtrl", [
-    "$scope",
-    "$location",
-    "$Scheduler",
-    ctrls.LoginController,
-]);
-
-module(DEFAULT.MAIN_PKG).controller("schedCtrl", [
-    "$scope",
+module(HOUNDS_MAIN_PKG).factory("WeekService", () => new SchedulerWeek(new Date()));
+module(HOUNDS_MAIN_PKG).factory("HoundsService", [
+    "HoundsSettings",
     "$rootScope",
-    "$Scheduler",
-    ctrls.SchedulerController,
+    ($settings: HoundsSettings, $rootScope: IRootScopeService) => new HoundsService($settings, $rootScope),
 ]);
+module(HOUNDS_MAIN_PKG).factory("HoundsSettings", () => new HoundsSettings());
 
-module(DEFAULT.MAIN_PKG).controller("sidebarCtrl", [
-    "$scope",
-    "$rootScope",
-    "$Scheduler",
-    ctrls.SidebarController,
-]);
+module(HOUNDS_MAIN_PKG).controller("houndsCtrl", ctrls.RootController);
+module(HOUNDS_MAIN_PKG).controller("weekCtrl", ctrls.WeekController);
+module(HOUNDS_MAIN_PKG).controller("sidebarCtrl", ctrls.SidebarController);
+module(HOUNDS_MAIN_PKG).controller("loginCtrl", ctrls.LoginController);
+module(HOUNDS_MAIN_PKG).controller("profileCtrl", ctrls.ProfileController);
 
-module(DEFAULT.MAIN_PKG).component("dayEvent", new DayEventComponent());
-module(DEFAULT.MAIN_PKG).component("schedulerDogProfile", new SchedulerDogProfileComponent());
-
-module(DEFAULT.MAIN_PKG)
-    .controller("titleBar", [
+module(HOUNDS_MAIN_PKG).controller("titleBar", [
         "$scope",
         ($scope) => {
             const win = remote.getCurrentWindow();
@@ -94,7 +55,21 @@ module(DEFAULT.MAIN_PKG)
                 if (win) {
                     win.close();
                 }
-                saveSettings();
             };
 
         }]);
+
+/* SAVE FOR RIGHT CLICK DIRECTIVE
+module(HOUNDS_MAIN_PKG).directive("ngRightClick", ($parse) => {
+    return (scope, element, attrs) => {
+        const fn = $parse(attrs.ngRightClick);
+        element.bind("contextmenu", (event) => {
+            scope.$apply(() => {
+                event.preventDefault();
+                fn(scope, { $event: event });
+            });
+        });
+    };
+});
+
+*/

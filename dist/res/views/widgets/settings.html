@@ -1,29 +1,43 @@
-<div class = "sidebar-sub-heading">
+<!DOCTYPE html>
+<div class="sidebar-sub-heading">
 
     <h3>Settings</h3>
 
 </div>
 
-<div class = "sidebar-panel settings" ng-click = "$event.stopPropagation(); load();">
-
+<div class="sidebar-panel settings" ng-click="$event.stopPropagation()">
+<div class = "setting-option">
     <label>Twenty Four Hour Time</label>
-    <input class = "radio hand" type = "checkbox" ng-click = "" ng-model = "Settings.TWENTY_FOUR_HOUR"></input><br />
-    <label>Server URL</label><br />
-    <input class = "" type = "text" ng-model-options="{updateOn : 'change blur'}" ng-click = "" ng-model = "Settings.BASE_URL"></input><br />
+    <input class="radio hand" type="checkbox" ng-model="root.$settings.TFHOUR">
+</div>
+<div ng-show="root.$settings.apiConfig && root.$settings.apiConfig.apiAuth.username === 'admin'">
+    <div class = "setting-option">
+        <label>Server URL</label>
+        <input class="" type="text" ng-model-options="{updateOn : 'change blur'}"
+            ng-model="root.$settings.apiConfig.apiURL">
+    </div>
 
-    <label>Opening Hour AM</label>
-    <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.OPENING_HOUR_AM"></input><br />
-    <label>Closing Hour AM</label>
-    <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.CLOSING_HOUR_AM"></input><br />
+    <div class = "setting-option">
+        <label>Opening Hour AM</label>
+        <input class="settings-number" type="number" ng-model="root.$settings.HOURS.OPENING.AM">
+    </div>
+    <div class = "setting-option">
+        <label>Closing Hour AM</label>
+        <input class="settings-number" type="number" ng-model="root.$settings.HOURS.OPENING.PM">
+    </div>
 
-    <label>Opening Hour PM</label>
-    <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.OPENING_HOUR_PM"></input><br />
-    <label>Closing Hour PM</label>
-    <input  class = "settings-number" type = "number" ng-click = "" ng-model = "Settings.CLOSING_HOUR_PM"></input><br />
+    <div class = "setting-option">
+        <label>Opening Hour PM</label>
+        <input class="settings-number" type="number" ng-model="root.$settings.HOURS.CLOSING.AM">
+    </div>
+    <div class = "setting-option">
+        <label>Closing Hour PM</label>
+        <input class="settings-number" type="number" ng-model="root.$settings.HOURS.CLOSING.PM">
+    </div>
+</div>
 
-    <button ng-click = "saveSettings();">Save</button>
-    <br></br>
-    <button style="background-color: #aa2222" ng-click = "logout()">Logout</button>
-    <h3>Version {{VERSION}}</h3>
+<button ng-click="root.$settings.save()">Save</button>
+<button class="logout-button" ng-click="root.logout()">Logout</button>
+<h3>Version {{root.$settings.apiConfig.apiVersion}}</h3>
 
 </div>
