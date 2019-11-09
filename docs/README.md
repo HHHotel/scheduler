@@ -13,7 +13,9 @@ TODO
 ```
 
 Windows:
-*Download the installer from the latest release*
+```
+Download the installer from the latest release
+```
 
 ## Development setup
 This project uses npm to manage dependencies  
