@@ -3,7 +3,7 @@
 
 Hounds makes keeping track of bookings and events for boarding facilities easy and painless. It has a server-client design to keep multiple different clients up to date with the newest info
 
-![](./dist/res/images/icon.png)
+<img style="margin: auto;" width="50%" src="/dist/res/images/icon.png" />
 
 ## Installation
 
