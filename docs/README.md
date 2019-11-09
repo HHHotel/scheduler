@@ -1,20 +1,56 @@
-# Happy Hound Scheduler  
+# Hounds 
+> Hounds is a dog scheduling app designed for Happy Hound Hotel
 
-## Installation  
+Hounds makes keeping track of bookings and events for boarding facilities easy and painless. It has a server-client design to keep multiple different clients up to date with the newest info
 
-### Windows 10  
-1. Download win32-x64-setup.exe from the [releases page](https://GitHub.com/hhhotel/scheduler/releases/latest)  
-![release screenshot](resources/releases_scrshot.jpg)  
-2. Run the setup program  
-3. Click more info and run anyway  
-![smartscreen screenshot](resources/protecting_scrshot.jpg)  
-![more info screenshot](resources/ignorethatbs_scrshot.jpg)  
-4. Follow the instructions to install the program  
+![](dist/res/images/icon.png)
 
-### MacOS  
-1. Download the darwin-x86_64 package from the [releases page](https://GitHub.com/hhhotel/scheduler/releases/latest)  
-2. Open finder and go to your downloads folder  
-3. Inside the new folder copy HHH-Scheduler.app into your /Applications folder  
-4. Find HHH-Scheduler in the /Applications directory  
-5. Ctrl-Click on HHH-Scheduler and click open, this creates an exception allowing the unsigned app  
-   to be run without further changes  
+## Installation
+
+OS X & Linux:
+```sh
+TODO
+```
+
+Windows:
+*Download the installer from the latest release*
+
+## Development setup
+This project uses npm to manage dependencies  
+
+> Installation:
+``` sh
+git clone "https://github.com/hhhotel/scheduler"
+cd scheduler
+cp build/config/settings.json .
+npm install
+```
+
+> Start:
+``` sh
+npm start
+```
+
+## Meta
+
+Matt Rochford – mattjohnrochford@gmail.com
+
+Distributed under the MIT license. See ``LICENSE`` for more information.
+
+[https://github.com/mjrochford/github-link](https://github.com/mjrochford/)
+
+## Contributing
+
+1. Fork it (<https://github.com/hhhotel/scheduler/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
+
+<!-- Markdown link & img dfn's -->
+[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/datadog-metrics
+[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
+[wiki]: https://github.com/yourname/yourproject/wiki
