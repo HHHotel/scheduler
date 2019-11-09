@@ -32,7 +32,7 @@ export class RootController implements ng.IController {
                 this.$location.path("/main");
             })
             .catch(() => {
-                this.$location.path("/");
+                this.logout();
             });
 
         // Save settings before the window is closed
@@ -90,5 +90,6 @@ export class RootController implements ng.IController {
     public logout() {
         this.$location.path("/");
         this.$scope.$broadcast("logout");
+        this.$scope.$apply();
     }
 }

@@ -15,7 +15,8 @@ import {
     deleteUser,
     login,
     getWeek,
-    IScheduleEvent} from "@happyhoundhotel/hounds-ts";
+    IScheduleEvent
+} from "@happyhoundhotel/hounds-ts";
 import { IRootScopeService } from "angular";
 import { HoundsSettings } from "./Settings.service";
 import log from "electron-log";
@@ -46,8 +47,13 @@ export class HoundsService {
      * Calls Apply to the root scope of the angular app
      */
     public async load(date: Date) {
-        this.events = await this.getWeek(date);
-        this.$rootScope.$apply();
+        try {
+            this.events = await this.getWeek(date);
+            this.$rootScope.$apply();
+            return true;
+        } catch (err) {
+            throw new Error(err);
+        }
     }
 
     /**
@@ -232,6 +238,7 @@ export class HoundsService {
             })
             .catch((res: AxiosResponse) => {
                 this.loggedIn = false;
+                log.log(res);
                 if (res) {
                     alert("An error occured " + res.data);
 

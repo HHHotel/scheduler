@@ -8,7 +8,7 @@ import { HoundsService } from "../services/Hounds.service";
 import { SchedulerWeek } from "../services/Week.service";
 import { HoundsSettings } from "../services/Settings.service";
 import * as dates from "date-fns";
-import { IIntervalService, IPromise } from "angular";
+import { IIntervalService, IPromise, ILocationService } from "angular";
 
 /** Angular controller for base view of the Hounds app */
 export class WeekController implements ng.IController {
@@ -18,7 +18,8 @@ export class WeekController implements ng.IController {
         "HoundsService",
         "WeekService",
         "HoundsSettings",
-        "$interval"
+        "$interval",
+        "$location"
     ];
 
     /** interval for loading data for the API */
@@ -29,13 +30,12 @@ export class WeekController implements ng.IController {
         public hounds: HoundsService,
         private week: SchedulerWeek,
         private $settings: HoundsSettings,
-        private $interval: IIntervalService
+        private $interval: IIntervalService,
+        private $location: ILocationService
     ) {
         this.loadInterval = this.$interval(() => {
-            this.hounds.load(this.week.getDay(0));
+            this.$scope.$emit("load");
         }, 5000); // Load data from API every 5 seconds
-
-        this.hounds.load(this.week.getDay(0)); // Load the data from API on startup
 
         window.addEventListener("beforeunload", () => {
             this.$interval.cancel(this.loadInterval); // Cancel the load interval on close
@@ -45,9 +45,18 @@ export class WeekController implements ng.IController {
             this.$interval.cancel(this.loadInterval);
         });
 
-        this.$scope.$on("load", () => {
-            this.hounds.load(this.week.getDay(0));
+        this.$scope.$on("load", async () => {
+            try {
+                await this.hounds.load(this.week.getDay(0));
+            } catch (err) {
+                alert("An error has occured loading the week");
+                this.$location.path("/");
+                this.$interval.cancel(this.loadInterval);
+                this.$scope.$apply();
+            }
         });
+
+        this.$scope.$emit("load");
     }
 
     /** Comparator to compare two events inside a day */
@@ -58,13 +67,13 @@ export class WeekController implements ng.IController {
     /** Advance to the next week and load data */
     public nextWeek() {
         this.week.nextWeek();
-        this.hounds.load(this.week.getDay(0));
+        this.$scope.$emit("load");
     }
 
     /** Go to the previous week and load data */
     public prevWeek() {
         this.week.prevWeek();
-        this.hounds.load(this.week.getDay(0));
+        this.$scope.$emit("load");
     }
 
     /**
