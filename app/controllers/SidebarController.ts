@@ -139,9 +139,9 @@ export class SidebarController {
         if (
             !newBooking ||
             !newBooking.id ||
-        !newBooking.startDate ||
-    !newBooking.endDate ||
-!newBooking.type
+            !newBooking.startDate ||
+            !newBooking.endDate ||
+            !newBooking.type
         ) {
             alert("Insufficent newBooking details");
             return;
