@@ -1,7 +1,7 @@
 import { ILocationService } from "angular";
 import { HoundsService } from "../services/Hounds.service";
 import { HoundsSettings } from "../services/Settings.service";
-import { IHoundDog, IScheduleEvent } from "@happyhoundhotel/hounds-ts";
+import { IHoundDog, IScheduleEvent, IHoundEvent } from "@happyhoundhotel/hounds-ts";
 import { SchedulerWeek } from "../services/Week.service";
 
 /** Root controller for the Hounds app */
@@ -82,6 +82,20 @@ export class RootController implements ng.IController {
 
         this.dogProfile = await this.hounds.retrieveDog(id);
         this.$scope.$apply();
+    }
+
+    /**
+     * Copys an event from the week view into the sidebar to edit
+     * @param Event to copy to sidebar
+     */
+    public eventCopy(event: IScheduleEvent) {
+        const houndEvent: IHoundEvent = {
+            startDate: event.startDate || new Date(),
+            endDate: event.endDate || new Date(),
+            ...event,
+        }
+        this.$settings.sidebarOpen = true;
+        this.$scope.$broadcast("copy-event", houndEvent);
     }
 
     /**

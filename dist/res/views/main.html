@@ -88,7 +88,7 @@
                     <h3 class = "day-title">{{day.toDateString().substring(0, 10)}}</h3>
                     <div class = "dog-list">
                         <div ng-repeat = "event in week.hounds.events[$index] | orderBy:event:false:week.dayEventComparator" 
-                            ng-click = "root.dogLookup(event.dogId)">
+                            ng-click = "event.dogId ? root.dogLookup(event.dogId) : root.eventCopy(event)">
                             <p class="event-text {{event.type}}" id = "{{event.dogId || event.id}}">{{ week.getEventText(event) }}</p>
                         </div>
                     </div>
