@@ -73,6 +73,13 @@ export class SidebarController {
         this.$scope.$on("load", async () => {
             this.searchEvents = await this.hounds.findEvents(this.searchText);
         });
+
+        this.$scope.$on("copy-event", (ev, data: IHoundEvent) => {
+            this.index = 1;
+            const time = data.endDate.valueOf() - new Date(data.endDate.toDateString()).valueOf();
+            data.endDate = new Date(START_OF_TIME + time);
+            this.event = data;
+        });
     }
 
     /**
@@ -92,7 +99,7 @@ export class SidebarController {
      * Adds a new event using the API
      * @param newEvent event to add
      */
-    public addEvent(newEvent: IHoundEvent) {
+    public async addEvent(newEvent: IHoundEvent) {
         if (!newEvent || !newEvent.text || !newEvent.type) {
             alert("Pleaser enter all details");
             return;
@@ -111,6 +118,11 @@ export class SidebarController {
             newEvent.startDate.valueOf() + newEventDuration
         );
 
+        if (newEvent.id) {
+            const res = await this.hounds.removeEvent(newEvent.id);
+            newEvent.id = "";
+        }
+
         this.hounds.addEvent(newEvent);
         this.event = this.zeroEvent();
     }
@@ -127,9 +139,9 @@ export class SidebarController {
         if (
             !newBooking ||
             !newBooking.id ||
-            !newBooking.startDate ||
-            !newBooking.endDate ||
-            !newBooking.type
+        !newBooking.startDate ||
+    !newBooking.endDate ||
+!newBooking.type
         ) {
             alert("Insufficent newBooking details");
             return;
@@ -211,8 +223,8 @@ export class SidebarController {
             // TODO change the increment strategy from just number to date-fns
             for (
                 let i = baseEvent.startDate.valueOf();
-                i < stopDate.valueOf() + increment;
-                i += increment
+            i < stopDate.valueOf() + increment;
+            i += increment
             ) {
                 const event: IHoundEvent = {
                     ...baseEvent,
