@@ -29,7 +29,12 @@ export class ProfileController implements ng.IComponentController {
         private hounds: HoundsService,
         private week: SchedulerWeek,
         private $settings: HoundsSettings
-    ) {}
+    ) {
+        this.$scope.$on("profile-close", () => {
+            this.editMode = false;
+            this.bookingSearch = "";
+        });
+    }
 
     /**
      * Gets a string for the given booking

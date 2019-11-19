@@ -74,6 +74,14 @@ export class RootController implements ng.IController {
     }
 
     /**
+     * Closes the dogProfile
+     */
+    public closeDogProfile() {
+        this.dogProfile = undefined;
+        this.$scope.$broadcast("profile-close");
+    }
+
+    /**
      * Displays the dog profile of the id given
      * @param id dog id to get
      */

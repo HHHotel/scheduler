@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<div class="cover" ng-click = "root.dogProfile = null"></div>
+<div class="cover" ng-click = "root.closeDogProfile()"></div>
 <div ng-controller = "profileCtrl as profile" class="dog-profile">
 
-    <div class="close dog-profile-close"><svg class="hand" ng-click="root.dogProfile = null" name="ProfileClose"
+    <div class="close dog-profile-close"><svg class="hand" ng-click="root.closeDogProfile()" name="ProfileClose"
             width="24" height="24" viewbox="0 0 12 12">
             <polygon fill="#ffffff" fill-rule="evenodd"
                 points="11 1.576 6.583 6 11 10.424 10.424 11 6 6.583 1.576 11 1 10.424 5.417 6 1 1.576 1.576 1 6 5.417 10.424 1">
@@ -42,7 +42,7 @@
                     ng-repeat="booking in root.dogProfile.bookings | orderBy:'-startDate' | filter:bookingSearch:false">
                     <span>{{profile.displayBooking(booking)}}</span>
                     <button ng-click="root.removeEvent(booking.id)" class="booking-button">Delete</button>
-                    <button ng-click="root.jumpToWeek(booking.startDate); root.dogProfile = null"
+                    <button ng-click="root.jumpToWeek(booking.startDate); root.closeDogProfile()"
 
                         class="booking-button">See</button>
                 </div>
