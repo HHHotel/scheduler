@@ -36,6 +36,7 @@
             <div class="page-break"></div>
             <h2 style="text-align:center">Bookings</h2>
             <div class="dog-profile-bookings">
+                <!-- TODO filter the bookings by checking the search is in the bookings -->
                 <input type="text" ng-model="bookingSearch" class="booking-search-input" />
                 <div ng-if="!profile.editMode" class="dog-profile-dog-booking"
                     ng-repeat="booking in root.dogProfile.bookings | orderBy:'-startDate' | filter:bookingSearch:false">
@@ -46,7 +47,7 @@
                         class="booking-button">See</button>
                 </div>
                 <div ng-if="profile.editMode" class="dog-profile-dog-booking"
-                    ng-repeat="booking in root.dogProfile.bookings">
+                    ng-repeat="booking in root.dogProfile.bookings | orderBy:'-startDate' | filter:bookingSearch:false">
                     <input type="datetime-local" class="profile-edit-input" ng-model="booking.startDate" />
 
                     <input type="datetime-local" class="profile-edit-input" ng-model="booking.endDate" />
