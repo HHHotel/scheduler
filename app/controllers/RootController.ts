@@ -53,7 +53,8 @@ export class RootController implements ng.IController {
      * Moves week to given date and loads from API
      * @param date date to jump to
      */
-    public jumpToWeek(date: Date) {
+    public jumpToWeek(date: Date | number) {
+        date = new Date(date);
         this.week.advanceToDate(date);
     }
 
