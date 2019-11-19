@@ -348,7 +348,10 @@ export class SidebarController {
      *                and then subtracted from that value to get the time info
      */
     private getDurationFromTimeInput(startDate: Date, endDate: Date) {
-        // TODO check that endDate is in the same day as start
+        if (dates.isSameDay(startDate, endDate)) {
+            return -1;
+        }
+
         const startTime =
             startDate.valueOf() -
             new Date(startDate.toLocaleDateString()).valueOf();

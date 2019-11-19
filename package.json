@@ -4,6 +4,7 @@
     "description": "Dog Scheduling App",
     "main": "main.js",
     "scripts": {
+        "debug": "electron --inspect=8081",
         "test": "ts-mocha -p tsconfig.json app/**/*.spec.ts",
         "compile": "webpack --config webpack.prod.js",
         "watch": "webpack --watch",
