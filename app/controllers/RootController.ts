@@ -40,11 +40,13 @@ export class RootController implements ng.IController {
             this.$settings.save();
         });
 
+        /*
         this.$scope.$on("load", () => {
             if (this.dogProfile) {
                 this.dogLookup(this.dogProfile.id);
             }
         });
+        */
     }
 
     /**
@@ -80,7 +82,8 @@ export class RootController implements ng.IController {
             return;
         }
 
-        this.dogProfile = await this.hounds.retrieveDog(id);
+        const newProfile = await this.hounds.retrieveDog(id);
+        this.dogProfile = newProfile;
         this.$scope.$apply();
     }
 
