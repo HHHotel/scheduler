@@ -101,7 +101,7 @@ export class SidebarController {
      */
     public async addEvent(newEvent: IHoundEvent) {
         if (!newEvent || !newEvent.text || !newEvent.type) {
-            alert("Pleaser enter all details");
+            alert("Please enter all details");
             return;
         }
         const newEventDuration = this.getDurationFromTimeInput(
