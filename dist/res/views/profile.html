@@ -42,9 +42,7 @@
                     ng-repeat="booking in root.dogProfile.bookings | orderBy:'-startDate' | filter:bookingSearch:false">
                     <span>{{profile.displayBooking(booking)}}</span>
                     <button ng-click="root.removeEvent(booking.id)" class="booking-button">Delete</button>
-                    <button ng-click="root.jumpToWeek(booking.startDate); root.closeDogProfile()"
-
-                        class="booking-button">See</button>
+                    <button ng-click="root.goTo(booking)" class="booking-button">See</button>
                 </div>
                 <div ng-if="profile.editMode" class="dog-profile-dog-booking"
                     ng-repeat="booking in root.dogProfile.bookings | orderBy:'-startDate' | filter:bookingSearch:false">
