@@ -146,6 +146,7 @@ button:hover {
 }
 
 .main-content {
+    overflow: hidden;
     width: 70%;
 }
 
@@ -154,6 +155,7 @@ button:hover {
 }
 
 .sidebar-wrapper {
+    overflow: hidden;
     width: 30%;
     height: calc(100vh - 5rem);
 }

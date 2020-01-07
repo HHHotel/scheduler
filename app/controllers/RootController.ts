@@ -53,9 +53,10 @@ export class RootController implements ng.IController {
      * Moves week to given date and loads from API
      * @param date date to jump to
      */
-    public jumpToWeek(date: Date | number) {
+    public async jumpToWeek(date: Date | number) {
         date = new Date(date);
         this.week.advanceToDate(date);
+        return this.hounds.load(this.week.getDay(0));
     }
 
     /**
@@ -97,8 +98,27 @@ export class RootController implements ng.IController {
     }
 
     /**
+     * Move the schedule to the week of this event
+     * @param event event to go to
+     */
+    public goTo(event: IHoundEvent) {
+        this.closeDogProfile();
+        this.jumpToWeek(event.startDate).then(() => {
+            const el = document.querySelector(event.id);
+            if (el) {
+                const opts: ScrollIntoViewOptions = {
+                    behavior: "smooth",
+                    block: "center",
+                };
+                el.scrollIntoView(opts);
+            }
+        });
+
+    }
+
+    /**
      * Copys an event from the week view into the sidebar to edit
-     * @param Event to copy to sidebar
+     * @param event to copy to sidebar
      */
     public eventCopy(event: IScheduleEvent) {
         const houndEvent: IHoundEvent = {
