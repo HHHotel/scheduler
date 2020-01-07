@@ -1,6 +1,6 @@
 {
     "name": "hounds",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "description": "Dog Scheduling App",
     "main": "main.js",
     "scripts": {
@@ -60,31 +60,31 @@
     "repository": "https://github.com/hhhotel/scheduler",
     "license": "MIT",
     "dependencies": {
-        "@happyhoundhotel/hounds-ts": "^0.3.14",
+        "@happyhoundhotel/hounds-ts": "^0.3.16",
         "angular": "^1.7.9",
         "angular-route": "^1.7.9",
-        "date-fns": "^2.6.0",
+        "date-fns": "^2.8.1",
         "electron-log": "^3.0.9",
-        "electron-updater": "^4.1.2",
+        "electron-updater": "^4.2.0",
         "fs": "0.0.1-security"
     },
     "devDependencies": {
-        "@types/angular": "^1.6.56",
+        "@types/angular": "^1.6.57",
         "@types/angular-route": "^1.7.0",
-        "@types/chai": "^4.2.2",
+        "@types/chai": "^4.2.7",
         "@types/mocha": "^5.2.7",
         "chai": "^4.2.0",
-        "electron": "^4.1.4",
+        "electron": "^4.2.12",
         "electron-builder": "^21.2.0",
         "htmlhint": "^0.11.0",
-        "mocha": "^6.2.0",
-        "prettier": "^1.18.2",
-        "ts-loader": "^6.0.4",
+        "mocha": "^6.2.2",
+        "prettier": "^1.19.1",
+        "ts-loader": "^6.2.1",
         "ts-mocha": "^6.0.0",
-        "tslint": "^5.19.0",
+        "tslint": "^5.20.1",
         "tslint-config-prettier": "^1.18.0",
-        "typescript": "^3.5.3",
-        "webpack": "^4.39.2",
-        "webpack-cli": "^3.3.7"
+        "typescript": "^3.7.4",
+        "webpack": "^4.41.4",
+        "webpack-cli": "^3.3.10"
     }
 }

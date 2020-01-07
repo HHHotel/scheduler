@@ -15,10 +15,7 @@
       {{ event.text || event.name }} <br />
       <i ng-show = "event.text"> {{ sidebar.formatDate(event.startDate) }} </i>
 
-
-      <!-- TODO add click event to do things like delete and edit event -->
       <button ng-show = "event.name" ng-click = "root.dogLookup(event.id)" class = "hand search-button" type = "button">...</button>
-      <!-- <button ng-show = "event.type !== 'dog'" ng-click = "editEvent(event.id)" class = "hand search-button" type = "button">Edit</button> -->
       <button ng-show = "!event.name" ng-click = "root.removeEvent(event.id)" class = "hand search-button" type = "button">Delete</button>
       <button ng-show = "!event.name" ng-click = "root.jumpToWeek(event.startDate)" class = "hand search-button" type = "button">See</button>
       <br />

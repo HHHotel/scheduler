@@ -8,6 +8,8 @@ import {
     IHoundDog,
     removeEvent,
     removeDog,
+    deactivateDog,
+    reactivateDog,
     editDog,
     retrieveDog,
     addUser,
@@ -124,6 +126,24 @@ export class HoundsService {
     public async removeDog(dogId: string) {
         const houndsConfig = await this.checkAuth();
         this.handleError(removeDog(dogId, houndsConfig));
+    }
+
+    /**
+     * Deactivates the dog from the schedule
+     * @param dogId dog to deactivate
+     */
+    public async deactivateDog(dogId: string) {
+        const houndsConfig = await this.checkAuth();
+        this.handleError(deactivateDog(dogId, houndsConfig));
+    }
+
+    /**
+     * Reactivates the dog from the schedule
+     * @param dogId dog to reactivate
+     */
+    public async reactivateDog(dogId: string) {
+        const houndsConfig = await this.checkAuth();
+        this.handleError(reactivateDog(dogId, houndsConfig));
     }
 
     /**

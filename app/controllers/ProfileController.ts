@@ -80,4 +80,13 @@ export class ProfileController implements ng.IComponentController {
                 return "Error";
         }
     }
+
+    /**
+     * Deactivates a dog 
+     * @param id to deactivate
+     */
+    public deactivate(id: string) {
+        this.hounds.deactivateDog(id);
+
+    }
 }

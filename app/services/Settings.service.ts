@@ -7,7 +7,7 @@ import { HoundsConfig, IHoundAuth } from "@happyhoundhotel/hounds-ts";
 /*  DEFAULT VALUES */
 export const HOUNDS_MAIN_PKG = "Hounds.App";
 export const HOUNDS_API_URL = "http://localhost:8080";
-export const HOUNDS_API_VERSION = "0.3.3";
+export const HOUNDS_API_VERSION = "0.3.4";
 
 interface IHoundsSettingsFile {
     /** Whether or not to use Twenty four hour time */
