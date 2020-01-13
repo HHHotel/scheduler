@@ -60,7 +60,7 @@
     "repository": "https://github.com/hhhotel/scheduler",
     "license": "MIT",
     "dependencies": {
-        "@happyhoundhotel/hounds-ts": "^0.3.16",
+        "@happyhoundhotel/hounds-ts": "^0.3.17",
         "angular": "^1.7.9",
         "angular-route": "^1.7.9",
         "date-fns": "^2.8.1",
