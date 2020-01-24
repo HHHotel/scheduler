@@ -272,6 +272,7 @@ export class HoundsService {
             .finally(() => {
                 this.$rootScope.$apply();
                 this.$rootScope.$broadcast("load");
+                this.$rootScope.$emit("load");
             });
     }
 }

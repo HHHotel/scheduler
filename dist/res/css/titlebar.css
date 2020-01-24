@@ -1,8 +1,4 @@
 #titleBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-
   -webkit-app-region: drag;
 
   font-family: 'Poppins';

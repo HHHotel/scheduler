@@ -66,7 +66,8 @@
         "date-fns": "^2.8.1",
         "electron-log": "^3.0.9",
         "electron-updater": "^4.2.0",
-        "fs": "0.0.1-security"
+        "fs": "0.0.1-security",
+        "scroll-into-view": "^1.14.1"
     },
     "devDependencies": {
         "@types/angular": "^1.6.57",

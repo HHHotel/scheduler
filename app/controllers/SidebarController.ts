@@ -148,6 +148,8 @@ export class SidebarController {
             newBooking.endDate
         );
 
+        console.log(newBooking, newBookingDuration);
+
         if (newBookingDuration < 0) {
             alert("Please enter a valid end time");
             return;
@@ -199,7 +201,6 @@ export class SidebarController {
              * @param d0 date to increment
              * @param incString string that describes how to increment the date
              *        options are [ daily | weekly | monthly | yearly ] case-insensitive
-             *        Returns null if incString is not one of those options
              * @returns an incremented date
              */
             // tslint:disable-next-line: completed-docs
@@ -218,10 +219,20 @@ export class SidebarController {
 
                 return null;
             }
-            // TODO change the increment strategy from just number to date-fns
-            let currentDate: Date | null = baseEvent.startDate;
-            while(dates.differenceInDays(currentDate, repeatOpts.stopDate) > 0) {
-                currentDate = incrementDate(currentDate, repeatOptions.frequency);
+
+            let currentDate: Date = baseEvent.startDate;
+            while(dates.differenceInDays(currentDate, repeatOpts.stopDate) <= 0) {
+                const newEvent = {
+                    ...baseEvent,
+                    startDate:  new Date(currentDate),
+                    endDate: new Date(currentDate.valueOf() + duration),
+                };
+                houndsService.addEvent(newEvent);
+
+                const nextDate = incrementDate(currentDate, repeatOptions.frequency);
+                if (!nextDate) { break; }
+                currentDate = nextDate;
+
             }
         }
     }
@@ -338,22 +349,7 @@ export class SidebarController {
      *                and then subtracted from that value to get the time info
      */
     private getDurationFromTimeInput(startDate: Date, endDate: Date) {
-        if (dates.isSameDay(startDate, endDate)) {
-            return -1;
-        }
-
-        const startTime =
-            startDate.valueOf() -
-            new Date(startDate.toLocaleDateString()).valueOf();
-        const endTime = endDate.valueOf() - START_OF_TIME;
-
-        const newBookingDuration = endTime - startTime;
-
-        if (newBookingDuration < 0) {
-            return -1;
-        }
-
-        return newBookingDuration;
+        return dates.differenceInMilliseconds(endDate, startDate);
     }
 
     /**

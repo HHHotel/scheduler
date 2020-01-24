@@ -32,53 +32,49 @@
 body,
 html {
     background-color: var(--background-light);
+    margin: 0;
     overflow: hidden;
+    height: 100%;
 }
-input {
 
+input {
     cursor: text;
     user-select: all;
 
-    background: var(--input-background-color);
+}
+
+input,
+select {
+    background: var(--background-ex-light);
 
     border: none;
-    border-bottom: 2px solid var(--background-dark);
+    border-bottom: 2px solid var(--background-light);
     border-radius: 2px;
-
-    box-shadow: 1px 1px 3px var(--shadow);
+    transition: border-bottom .5s;
 
     margin: .5rem 0 1rem;
     padding: .5rem;
     width: 100%;
+}
+
+input:focus {
+    border-bottom: 4px solid var(--background-dark);
+}
+:focus {
+    outline: none;
 }
 
 .radio {
     width: 1rem;
 }
 
-select {
-    background: var(--input-background-color);
-
-    border: none;
-    border-bottom: 2px solid var(--background-dark);
-    border-radius: 2px;
-
-    box-shadow: 1px 1px 3px var(--shadow);
-
-    margin: .5rem 0 1rem;
-    padding: .5rem;
-    width: 100%;
-}
-
-
 button {
-    padding: .5rem;
+    padding: .4rem;
 
-    background-color: var(--background-dark);
+    background-color: var(--background-complement);
     color: var(--font-light);
 
     border: none;
-    border-radius: .2rem .5rem;
 
     box-shadow: 3px 2px 5px var(--shadow)
     , -2px 2px 5px var(--shadow);
@@ -95,8 +91,8 @@ button:active {
 }
 
 button:hover {
-    box-shadow: 3px 2px 20px var(--shadow)
-    , -2px 2px 20px var(--shadow);
+    box-shadow: 3px 2px 15px var(--shadow)
+    , -2px 2px 15px var(--shadow);
 }
 
 .page-break {
@@ -107,7 +103,7 @@ button:hover {
 }
 
 .hand,
-.hand * {
+.hand > * {
     user-select: none;
     cursor: pointer;
 }
@@ -123,23 +119,16 @@ button:hover {
 }
 
 *::-webkit-scrollbar {
-    width: .5rem;
-    border-radius: 20px;
-}
-
-*::-webkit-scrollbar-track {
-    background: var(--background-ex-light);
-    box-shadow: inset 0 0 3px var(--shadow);
+    width: .4rem;
 }
 
 *::-webkit-scrollbar-thumb {
-    border-radius: 20px;
-    background-color: var(--background-dark);
-    box-shadow: 3px 0px 5px var(--shadow);
+    border-radius: 1rem;
+    background-color: var(--background-complement);
+    box-shadow: 1px 2px 5px var(--shadow);
 }
 
 .app-wrapper {
-    margin-top: 2rem;
     display: flex;
     flex-flow: row nowrap;
 }
@@ -164,7 +153,19 @@ button:hover {
     height: 100vh;
 }
 
-.cirle-loader {
+.invert {
+    filter: invert(1);
+}
+
+.next-week > img {
+    transform: rotate(90deg);
+}
+
+.prev-week > img {
+    transform: rotate(-90deg);
+}
+
+.circle-loader {
   border: 1rem solid var(--background-light);
   border-top: 1rem solid var(--background-dark);
   border-radius: 50%;

@@ -49,13 +49,11 @@ export class RootController implements ng.IController {
             this.$settings.save();
         });
 
-        /*
-           this.$scope.$on("load", () => {
-           if (this.dogProfile) {
-           this.dogLookup(this.dogProfile.id);
-           }
-           });
-         */
+        this.$scope.$on("load", () => {
+            if (this.dogProfile) {
+                this.dogLookup(this.dogProfile.id);
+            }
+        });
 
     }
 
@@ -114,13 +112,18 @@ export class RootController implements ng.IController {
     public goTo(event: IHoundEvent) {
         this.closeDogProfile();
         this.jumpToWeek(event.startDate).then(() => {
-            const el = document.querySelector(event.id);
+            const el = document.getElementById(event.id);
             if (el) {
                 const opts: ScrollIntoViewOptions = {
                     behavior: "smooth",
                     block: "center",
+                    inline: "start",
                 };
-                el.scrollIntoView(opts);
+
+                /* Can't use vanilla el.scrollIntoView because it was scrolling the body
+                 * despite overflow being set to hidden, this library works fine */
+                const scrollIntoView = require("scroll-into-view");
+                scrollIntoView(el, {time: 150});
             }
         });
 
