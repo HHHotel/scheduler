@@ -21,6 +21,7 @@ function createWindow() {
         width: 800,
         height: 600,
         frame: false,
+        title: "Hounds",
         webPreferences: {
             experimentalFeatures: false,
             nodeIntegration: true
@@ -58,13 +59,33 @@ app.on("ready", () => {
 
     createWindow();
 
-    const menu = electron.Menu.getApplicationMenu();
+    const menuTemplate = [
+        {
+            label: "File",
+            submenu: [
+                {
+                    label: "Print",
+                    accelerator: "CmdOrCtrl+P",
+                    click: () => printSchedule(),
+                },
+                {
+                    label: "Reload",
+                    accelerator: "CmdOrCtrl+R",
+                    role: "reload",
+                },
+                {
+                    label: "Dev Tools",
+                    accelerator: "CmdOrCtrl+Shift+I",
+                    role: "toggleDevTools",
+                },
+            ],
+        },
+    ];
+    const menu = new electron.Menu.buildFromTemplate(menuTemplate);
+    electron.Menu.setApplicationMenu(menu);
 
-    menu.append(new electron.MenuItem({
-        label: "Print",
-        accelerator: "CmdOrCtrl+P",
-        click: () => printSchedule(),
-    }));
+    process.title = "Hounds";
+    process.arg0 = "asdfasdf";
 });
 
 // Quit when all windows are closed.
@@ -84,24 +105,11 @@ app.on("activate", function () {
     }
 });
 
-const {
-    ipcMain
-} = require("electron");
+const { ipcMain } = require("electron");
 
 ipcMain.on("print-schedule", () => {
     printSchedule();
 });
-
-// const menu = new electron.Menu();
-const menu = electron.Menu.getApplicationMenu();
-
-// menu.append(new electron.MenuItem({
-//     label: "Print",
-//     accelerator: "CmdOrCtrl+P",
-//     click: () => printSchedule(),
-// }));
-
-// electron.Menu.setApplicationMenu(menu);
 
 function printSchedule() {
     mainWindow.webContents.print({

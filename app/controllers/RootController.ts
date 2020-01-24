@@ -27,13 +27,22 @@ export class RootController implements ng.IController {
     ) {
         // Check the authentication and logout if not valid
         this.hounds
-            .checkAuth()
-            .then(() => {
-                this.$location.path("/main");
-            })
-            .catch(() => {
-                this.logout();
+        .checkAuth()
+        .then(() => {
+            this.$location.path("/main");
+
+            /* Make sure you are unable to drag all the images */
+            const images = document.querySelectorAll("img");
+            images.forEach((img) => {
+                img.ondragstart = () => false;
             });
+
+            this.$scope.$apply();
+        })
+        .catch(() => {
+            this.logout();
+            this.$scope.$apply();
+        });
 
         // Save settings before the window is closed
         window.addEventListener("beforeunload", () => {
@@ -41,12 +50,13 @@ export class RootController implements ng.IController {
         });
 
         /*
-        this.$scope.$on("load", () => {
-            if (this.dogProfile) {
-                this.dogLookup(this.dogProfile.id);
-            }
-        });
-        */
+           this.$scope.$on("load", () => {
+           if (this.dogProfile) {
+           this.dogLookup(this.dogProfile.id);
+           }
+           });
+         */
+
     }
 
     /**

@@ -5,6 +5,7 @@
     --background-ex-light: #f2efef;
     --background-dark: #386351;
     --background-ex-dark: #131418;
+    --background-complement: #58635A;
 
     --input-background-color: #d3dadf;
 
@@ -33,8 +34,8 @@ html {
     background-color: var(--background-light);
     overflow: hidden;
 }
-
 input {
+
     cursor: text;
     user-select: all;
 
@@ -139,6 +140,8 @@ button:hover {
 
 .app-wrapper {
     margin-top: 2rem;
+    display: flex;
+    flex-flow: row nowrap;
 }
 
 .app-wrapper > * {
@@ -147,7 +150,7 @@ button:hover {
 
 .main-content {
     overflow: hidden;
-    width: 70%;
+    flex-grow: 1;
 }
 
 .sidebar-closed {
@@ -156,8 +159,9 @@ button:hover {
 
 .sidebar-wrapper {
     overflow: hidden;
-    width: 30%;
-    height: calc(100vh - 5rem);
+    min-width: 345px;
+    width: 24%;
+    height: 100vh;
 }
 
 .cirle-loader {

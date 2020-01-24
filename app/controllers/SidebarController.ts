@@ -104,6 +104,7 @@ export class SidebarController {
             alert("Please enter all details");
             return;
         }
+
         const newEventDuration = this.getDurationFromTimeInput(
             newEvent.startDate,
             newEvent.endDate
@@ -136,13 +137,8 @@ export class SidebarController {
         newBooking: IHoundBooking,
         repeatOptions: IRepeatOptions
     ) {
-        if (
-            !newBooking ||
-            !newBooking.id ||
-            !newBooking.startDate ||
-            !newBooking.endDate ||
-            !newBooking.type
-        ) {
+        // TODO simplify this and others to make sure the entire object is properly assigned
+        if ( !newBooking || !newBooking.id || !newBooking.startDate || !newBooking.endDate || !newBooking.type) {
             alert("Insufficent newBooking details");
             return;
         }
@@ -158,17 +154,16 @@ export class SidebarController {
         }
 
         if (repeatOptions && repeatOptions.stopDate) {
-            const inc = getRepeatIncrement(repeatOptions.frequency);
-            if (inc < 0) {
-                alert("Enter repeat frequency");
+            const allowedFrequencies = ["daily", "weekly", "monthly", "yearly"];
+            if (allowedFrequencies.indexOf(repeatOptions.frequency) < 0) {
+                alert("Please enter a repeat frequency");
                 return;
             }
 
             addEventUntil(
                 newBooking,
                 newBookingDuration,
-                repeatOptions.stopDate,
-                inc,
+                repeatOptions,
                 this.hounds
             );
         } else {
@@ -183,27 +178,6 @@ export class SidebarController {
         this.booking = this.zeroBooking();
 
         /**
-         * Changes the repeat string "daily", "weekly" into a
-         * number of milliseconds to add to get the next event
-         * @param {string} repeatOpt
-         *
-         * @returns milliseconds to add to event
-         */
-        // tslint:disable-next-line: completed-docs
-        function getRepeatIncrement(repeatOpt: string): number {
-            const DAILY_INC = 86400000; // 24 * 60 * 60 * 1000
-            const WEEKLY_INC = 604800000; // 7 * 24 * ...
-            switch (repeatOpt) {
-                case "daily":
-                    return DAILY_INC;
-                case "weekly":
-                    return WEEKLY_INC;
-                default:
-                    return -1;
-            }
-        }
-
-        /**
          * Repeats an event until stop date, inclusive, using the increment
          * to add each thing
          * @param baseEvent Event details to repeat
@@ -216,22 +190,38 @@ export class SidebarController {
         function addEventUntil(
             baseEvent: IHoundEvent,
             duration: number,
-            stopDate: any,
-            increment: number,
+            repeatOpts: IRepeatOptions,
             houndsService: HoundsService
         ) {
+
+            /**
+             * Returns a new date increased by the amount describe by the incString
+             * @param d0 date to increment
+             * @param incString string that describes how to increment the date
+             *        options are [ daily | weekly | monthly | yearly ] case-insensitive
+             *        Returns null if incString is not one of those options
+             * @returns an incremented date
+             */
+            // tslint:disable-next-line: completed-docs
+            function incrementDate(d0: Date, incString: string): Date | null {
+                incString = incString.toLowerCase();
+                switch(incString) {
+                    case "daily":
+                        return dates.addDays(d0, 1);
+                    case "weekly":
+                        return dates.addDays(d0, 7);
+                    case "monthly":
+                        return dates.addMonths(d0, 1);
+                    case "yearly":
+                        return dates.addYears(d0, 1);
+                }
+
+                return null;
+            }
             // TODO change the increment strategy from just number to date-fns
-            for (
-                let i = baseEvent.startDate.valueOf();
-            i < stopDate.valueOf() + increment;
-            i += increment
-            ) {
-                const event: IHoundEvent = {
-                    ...baseEvent,
-                    startDate: new Date(i),
-                    endDate: new Date(i + duration)
-                };
-                houndsService.addEvent(event);
+            let currentDate: Date | null = baseEvent.startDate;
+            while(dates.differenceInDays(currentDate, repeatOpts.stopDate) > 0) {
+                currentDate = incrementDate(currentDate, repeatOptions.frequency);
             }
         }
     }

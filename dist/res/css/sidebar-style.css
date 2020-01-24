@@ -1,19 +1,26 @@
 .sidebar-header {
     height: 3rem;
 
-    padding: .2rem;
+    padding: 0 .2rem;
 
-    background-color: var(--background-dark);
+    background-color: var(--background-ex-dark);
 
-    border-bottom: 1px solid var(--font-light);
+    display: flex;
+    flex-flow: row nowrap
+    justify-content: center;
+
+    overflow-x: scroll;
+}
+
+.sidebar-header::-webkit-scrollbar {
+    display: none;
 }
 
 .sidebar-sub-heading {
-    background: var(--background-ex-dark);
+    background: var(--background-complement);
     color: var(--font-light);
 
     padding: .25rem;
-
     text-align: center;
 }
 
@@ -24,32 +31,35 @@
 }
 
 .sidebar-button {
-    display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-
-    float: left;
+    flex-grow: 1;
 
     height: 100%;
-    width: 12%;
-
     padding: .5rem;
-    margin-right: .2rem;
 
-    color: var(--font-dark);
+    background-color: var(--background-ex-dark);
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
 
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-
+    display: flex;
 }
 
-.sidebar-button:hover {
-    opacity: .4;
+.sidebar-button > * {
+    filter: invert(1);
+}
+
+.sidebar-button:hover:not(.sidebar-selected) {
+    background-color: var(--font-dark);
 }
 
 .sidebar-button > * {
     height: 100%;
-    width: 100%;
+    width: auto;
+}
+
+.sidebar-selected {
+    background-color: var(--background-complement);
 }
 
 .sidebar-panel {

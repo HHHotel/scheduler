@@ -41,8 +41,8 @@ module(HOUNDS_MAIN_PKG).controller("titleBar", [
                 if (win) {
                     win.minimize();
                 }
-            };
 
+            };
             $scope.maximize = () => {
                 if (win && win.isMaximized()) {
                     win.unmaximize();
@@ -58,18 +58,3 @@ module(HOUNDS_MAIN_PKG).controller("titleBar", [
             };
 
         }]);
-
-/* SAVE FOR RIGHT CLICK DIRECTIVE
-module(HOUNDS_MAIN_PKG).directive("ngRightClick", ($parse) => {
-    return (scope, element, attrs) => {
-        const fn = $parse(attrs.ngRightClick);
-        element.bind("contextmenu", (event) => {
-            scope.$apply(() => {
-                event.preventDefault();
-                fn(scope, { $event: event });
-            });
-        });
-    };
-});
-
-*/

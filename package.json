@@ -1,5 +1,5 @@
 {
-    "name": "hounds",
+    "name": "Hounds",
     "version": "0.3.4",
     "description": "Dog Scheduling App",
     "main": "main.js",
@@ -76,6 +76,7 @@
         "chai": "^4.2.0",
         "electron": "^4.2.12",
         "electron-builder": "^21.2.0",
+        "eslint": "^6.8.0",
         "htmlhint": "^0.11.0",
         "mocha": "^6.2.2",
         "prettier": "^1.19.1",
