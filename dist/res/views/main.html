@@ -83,14 +83,20 @@
 
         <div class = "header"> <!-- App Header -->
             <div ng-click = "root.$settings.sidebarOpen = !root.$settings.sidebarOpen" class = "menu-btn">
-                <span class = "hand">Sidebar</span>
+                <span class = "hand invert">
+                    <img src="images/hamburger.svg" />
+                </span>
             </div>
 
             <h1>{{week.week.toString()}}</h1>
 
             <div class = "week-scroller">
-                <span ng-click = "week.prevWeek()" class = "prev-week hand">Prev</span>
-                <span ng-click = "week.nextWeek()" class = "next-week hand">Next</span>
+                <span ng-click = "week.prevWeek()" class = "prev-week hand invert">
+                    <img src="images/round_triangle.svg" />
+                </span>
+                <span ng-click = "week.nextWeek()" class = "next-week hand invert">
+                    <img src="images/round_triangle.svg" />
+                </span>
             </div>
 
         </div>
@@ -103,7 +109,7 @@
                     <div class = "dog-list">
                         <div ng-repeat = "event in week.hounds.events[$index] | orderBy:event:false:week.dayEventComparator" 
                              ng-click = "event.dogId ? root.dogLookup(event.dogId) : root.eventCopy(event)">
-                            <p class="event-text {{event.type}}" id = "{{event.dogId || event.id}}">{{ week.getEventText(event) }}</p>
+                            <p class="event-text {{event.type}}" id = "{{event.id}}">{{ week.getEventText(event) }}</p>
                         </div>
                     </div>
                 </div>
