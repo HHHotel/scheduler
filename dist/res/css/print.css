@@ -3,6 +3,10 @@ body, html {
     overflow: visible !important;
 }
 
+#print-timestamp {
+    display: block;
+}
+
 #titleBar,
 #titleBar > *,
 .header > *,
@@ -67,3 +71,5 @@ body, html {
 .dog-list {
     overflow: visible !important;
 }
+
+

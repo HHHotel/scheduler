@@ -2,24 +2,18 @@
 
 ## Features  
 
-- User specific display for features  
-
-- General input validation  
 - Better dialogs / popups  
-  - Confirmation delete dog
+    - Confirmation delete dog  
+    - General input validation  
 
 - Timestamp for printout  
 
-- Edit for normal events
+- Drop down menu for editing bookings  
+- Move Grooming into dog profile  
 
-- Daylight savings can't put an end time later than 20:00
+- Add an event "copy" function  
+- Update to new angular / vanillajs  
 
-- Drop down menu for editing bookings
-- Move Grooming into dog profile
-
-- Add an event "copy" function
-- Update to new angular
-
-- Check API Responses and alert user on an error
+- Check API Responses and alert user on an error  
 
 ## ERRORS  
