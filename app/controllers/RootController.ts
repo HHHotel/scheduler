@@ -3,6 +3,7 @@ import { HoundsService } from "../services/Hounds.service";
 import { HoundsSettings } from "../services/Settings.service";
 import { IHoundDog, IScheduleEvent, IHoundEvent } from "@happyhoundhotel/hounds-ts";
 import { SchedulerWeek } from "../services/Week.service";
+import * as dates from "date-fns";
 
 /** Root controller for the Hounds app */
 export class RootController implements ng.IController {
@@ -150,5 +151,13 @@ export class RootController implements ng.IController {
         this.$location.path("/");
         this.$scope.$broadcast("logout");
         this.$scope.$apply();
+    }
+
+    /**
+     * Gets a time stamp for the current time
+     * @returns a date string for the current time
+     */
+    public getTimestamp(): string {
+        return dates.format(new Date(), "MMM d @ hh:mm");
     }
 }

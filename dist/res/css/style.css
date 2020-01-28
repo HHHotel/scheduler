@@ -180,4 +180,6 @@ button:hover {
   100% { transform: rotate(360deg); }
 } 
 
-
+#print-timestamp {
+    display: none;
+}

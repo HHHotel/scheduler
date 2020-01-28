@@ -1,10 +1,14 @@
 body, html {
-    background-color: #FFF !important;
-    overflow: visible !important;
+    background-color: #FFF;
+    overflow: visible;
 }
 
 #print-timestamp {
     display: block;
+    text-align: center;
+    font-size: .8rem;
+    font-weight: normal;
+    color: var(--shadow);
 }
 
 #titleBar,
@@ -12,12 +16,12 @@ body, html {
 .header > *,
 .sidebar-wrapper,
 .sidebar-wrapper > * {
-    display: none !important;
+    display: none;
 }
 
 .header,
 .header > h1 {
-    display: inline-block !important;
+    display: inline-block;
     color: #000;
     width: 100%;
     text-align: center;
@@ -29,7 +33,7 @@ body, html {
 }
 
 .week {
-    display: inline-block !important;
+    display: inline-block;
 }
 
 .day-title {
@@ -39,19 +43,19 @@ body, html {
 .week-wrapper,
 .week,
 .main-content {
-    width: 100% !important;
-    overflow: visible !important;
+    width: 100%;
+    overflow: visible;
 }
 
 .day {
     display: inline-block;
-    background-color: #FFF !important;
+    background-color: #FFF;
     border: 1px solid black;
     border-radius: .2rem;
-    height: calc(100vh - 5.3rem) !important;
+    height: calc(100vh - 5.3rem);
     font-size: .7rem;
     overflow: hidden;
-    box-shadow: none !important;
+    box-shadow: none;
 }
 .day-0,
 .day-1,
@@ -64,12 +68,12 @@ body, html {
 .day-4,
 .day-5,
 .day-6 {
-    height: 99vh !important;
+    height: 99vh;
     width: 25%;
 }
 
 .dog-list {
-    overflow: visible !important;
+    overflow: visible;
 }
 
 

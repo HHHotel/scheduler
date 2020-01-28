@@ -101,6 +101,8 @@
 
         </div>
 
+        <h3 id="print-timestamp"><i>Printed: {{ root.getTimestamp() }}</i></h3>
+
         <div class = "week-wrapper"> <!-- Week Wrapper -->
 
             <div class = "week">
@@ -128,7 +130,5 @@
     </div>
 
     <ng-include ng-show = "root.dogProfile" src="'./views/profile.html'"></ng-include>
-
-    <div style="display: none" id="#print-timestamp">{{ new Date().toLocaleString() }}</div>
 
 </div>

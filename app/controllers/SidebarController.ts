@@ -137,7 +137,6 @@ export class SidebarController {
         newBooking: IHoundBooking,
         repeatOptions: IRepeatOptions
     ) {
-        // TODO simplify this and others to make sure the entire object is properly assigned
         if ( !newBooking || !newBooking.id || !newBooking.startDate || !newBooking.endDate || !newBooking.type) {
             alert("Insufficent newBooking details");
             return;
@@ -147,8 +146,6 @@ export class SidebarController {
             newBooking.startDate,
             newBooking.endDate
         );
-
-        console.log(newBooking, newBookingDuration);
 
         if (newBookingDuration < 0) {
             alert("Please enter a valid end time");
@@ -201,6 +198,7 @@ export class SidebarController {
              * @param d0 date to increment
              * @param incString string that describes how to increment the date
              *        options are [ daily | weekly | monthly | yearly ] case-insensitive
+             *        Returns null if incString is not one of those options
              * @returns an incremented date
              */
             // tslint:disable-next-line: completed-docs
@@ -349,7 +347,22 @@ export class SidebarController {
      *                and then subtracted from that value to get the time info
      */
     private getDurationFromTimeInput(startDate: Date, endDate: Date) {
-        return dates.differenceInMilliseconds(endDate, startDate);
+        if (dates.isSameDay(startDate, endDate)) {
+            return -1;
+        }
+
+        const startTime =
+            startDate.valueOf() -
+            new Date(startDate.toLocaleDateString()).valueOf();
+        const endTime = endDate.valueOf() - START_OF_TIME;
+
+        const newBookingDuration = endTime - startTime;
+
+        if (newBookingDuration < 0) {
+            return -1;
+        }
+
+        return newBookingDuration;
     }
 
     /**
