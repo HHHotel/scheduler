@@ -93,6 +93,15 @@ export class RootController implements ng.IController {
     }
 
     /**
+     * Deletes a dog
+     * @param id to delete
+     */
+    public deleteDog(id: string) {
+        this.hounds.removeDog(id);
+        this.closeDogProfile();
+    }
+
+    /**
      * Displays the dog profile of the id given
      * @param id dog id to get
      */

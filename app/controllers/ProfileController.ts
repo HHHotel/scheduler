@@ -87,6 +87,5 @@ export class ProfileController implements ng.IComponentController {
      */
     public deactivate(id: string) {
         this.hounds.deactivateDog(id);
-
     }
 }

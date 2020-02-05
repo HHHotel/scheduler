@@ -54,6 +54,11 @@
 
                     <input type="datetime-local" class="profile-edit-input" ng-model="booking.endDate" />
                 </div>
+                <div class="delete-dog-button-wrapper">
+                    <button class="delete-dog-button" 
+                            ng-show="root.$settings.apiConfig.apiAuth.username === 'admin'"
+                            ng-click="root.deleteDog(root.dogProfile.id)">Delete Dog!</button>
+                </div>
             </div>
         </div>
     </div>

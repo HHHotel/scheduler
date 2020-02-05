@@ -98,3 +98,13 @@
     width: 80%;
     margin: auto 10%;
 }
+
+.delete-dog-button {
+    margin-top: .5rem;
+}
+
+.delete-dog-button-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
