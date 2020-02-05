@@ -21,9 +21,15 @@
             <button ng-show="profile.editMode" class="profile-button"
                 ng-click="profile.editMode = false; root.saveProfile(root.dogProfile)">Save</button>
 
-            <button class="profile-button"
-                ng-click="profile.deactivate(root.dogProfile.id); root.closeDogProfile()">Deactivate
-                Dog</button>
+            <button ng-show = "root.dogProfile.activeClient" class="profile-button"
+                ng-click="profile.deactivate(root.dogProfile.id); root.closeDogProfile()">
+                Deactivate Dog
+            </button>
+
+            <button ng-show = "!root.dogProfile.activeClient" class="profile-button"
+                ng-click="profile.reactivate(root.dogProfile.id); root.closeDogProfile()">
+                Reactivate Dog
+            </button>
 
             <div ng-if="!profile.editMode" class="dog-profile-name">{{root.dogProfile.name}}</div>
             <h2 class="dog-profile-name" style="font-size:1rem">

@@ -97,4 +97,12 @@ export class ProfileController implements ng.IComponentController {
     public deactivate(id: string) {
         this.hounds.deactivateDog(id);
     }
+
+    /**
+     * reactivates a dog 
+     * @param id to reactivate
+     */
+    public reactivate(id: string) {
+        this.hounds.reactivateDog(id);
+    }
 }

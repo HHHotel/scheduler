@@ -36,9 +36,9 @@
         <label>Closing Hour PM</label>
         <input class="settings-number" type="number" ng-model="root.$settings.HOURS.CLOSING.PM">
     </div>
+    <button ng-click="root.$settings.save()">Save</button>
 </div>
 
-<button ng-click="root.$settings.save()">Save</button>
 <button class="logout-button" ng-click="root.logout()">Logout</button>
 <h3>Version {{root.$settings.apiConfig.apiVersion}}</h3>
 
