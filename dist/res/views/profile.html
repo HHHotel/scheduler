@@ -56,7 +56,7 @@
                 </div>
                 <div class="delete-dog-button-wrapper">
                     <button class="delete-dog-button" 
-                            ng-show="root.$settings.apiConfig.apiAuth.username === 'admin'"
+                            ng-show="profile.canShowDeleteButton(root.$settings.apiConfig.apiAuth.username)"
                             ng-click="root.deleteDog(root.dogProfile.id)">Delete Dog!</button>
                 </div>
             </div>

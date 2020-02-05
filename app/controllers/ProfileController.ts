@@ -82,6 +82,15 @@ export class ProfileController implements ng.IComponentController {
     }
 
     /**
+     * Tests if a given user should be shown the delete dog button
+     * @param username username to test for 
+     */
+    public canShowDeleteButton(username: string) {
+        const APPROVED_USERS = ["admin", "linda"];
+        return APPROVED_USERS.indexOf(username.toLowerCase()) >= 0;
+    }
+
+    /**
      * Deactivates a dog 
      * @param id to deactivate
      */
