@@ -14,11 +14,7 @@ export class RootController implements ng.IController {
         "HoundsService",
         "WeekService",
         "HoundsSettings",
-        "$interval"
     ];
-
-    /** Variable to hold load interval */
-    public loadInterval: IPromise<any>;
 
     constructor(
         private $scope: ng.IScope,
@@ -26,7 +22,6 @@ export class RootController implements ng.IController {
         private hounds: HoundsService,
         private week: SchedulerWeek,
         private $settings: HoundsSettings,
-        private $interval: IIntervalService
     ) {
         // Check the authentication and logout if not valid
         this.hounds
@@ -47,15 +42,16 @@ export class RootController implements ng.IController {
             this.$scope.$apply();
         });
 
+        const ws = new WebSocket("ws://localhost:8080");
+
         // Save settings before the window is closed
         window.addEventListener("beforeunload", () => {
             this.$settings.save();
-            this.$interval.cancel(this.loadInterval);
         });
 
-        this.loadInterval = this.$interval(() => {
+        ws.addEventListener("load", () => {
             this.$scope.$broadcast("load");
-        }, 5000); // Load data from API every 5 seconds
+        });
     }
 
     /**
@@ -127,7 +123,6 @@ export class RootController implements ng.IController {
     public logout() {
         this.$location.path("/");
         this.$scope.$broadcast("logout");
-        this.$interval.cancel(this.loadInterval);
         this.$scope.$apply();
     }
 
