@@ -371,6 +371,7 @@ export class SidebarController {
      */
     private zeroDog(): IHoundDog {
         return {
+            activeClient: true,
             name: "",
             clientName: "",
             id: "",
@@ -400,8 +401,6 @@ export class SidebarController {
         return {
             ...this.zeroEvent(),
             dogId: "",
-            dogName: "",
-            clientName: ""
         };
     }
 }

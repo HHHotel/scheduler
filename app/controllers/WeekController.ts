@@ -18,32 +18,16 @@ export class WeekController implements ng.IController {
         "HoundsService",
         "WeekService",
         "HoundsSettings",
-        "$interval",
         "$location"
     ];
-
-    /** interval for loading data for the API */
-    private loadInterval: IPromise<any>;
 
     constructor(
         private $scope: ng.IScope,
         public hounds: HoundsService,
         private week: SchedulerWeek,
         private $settings: HoundsSettings,
-        private $interval: IIntervalService,
         private $location: ILocationService
     ) {
-        this.loadInterval = this.$interval(() => {
-            this.$scope.$emit("load");
-        }, 5000); // Load data from API every 5 seconds
-
-        window.addEventListener("beforeunload", () => {
-            this.$interval.cancel(this.loadInterval); // Cancel the load interval on close
-        });
-
-        this.$scope.$on("logout", () => {
-            this.$interval.cancel(this.loadInterval);
-        });
 
         this.$scope.$on("load", async () => {
             try {
@@ -51,7 +35,6 @@ export class WeekController implements ng.IController {
             } catch (err) {
                 alert("An error has occured loading the week");
                 this.$location.path("/");
-                this.$interval.cancel(this.loadInterval);
                 this.$scope.$apply();
             }
         });

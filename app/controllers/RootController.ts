@@ -1,4 +1,4 @@
-import { ILocationService } from "angular";
+import { ILocationService, IIntervalService, IPromise } from "angular";
 import { HoundsService } from "../services/Hounds.service";
 import { HoundsSettings } from "../services/Settings.service";
 import { IHoundDog, IScheduleEvent, IHoundEvent } from "@happyhoundhotel/hounds-ts";
@@ -13,18 +13,20 @@ export class RootController implements ng.IController {
         "$location",
         "HoundsService",
         "WeekService",
-        "HoundsSettings"
+        "HoundsSettings",
+        "$interval"
     ];
 
-    /** Variable to hold dog profile data in */
-    public dogProfile?: IHoundDog;
+    /** Variable to hold load interval */
+    public loadInterval: IPromise<any>;
 
     constructor(
         private $scope: ng.IScope,
         private $location: ILocationService,
         private hounds: HoundsService,
         private week: SchedulerWeek,
-        private $settings: HoundsSettings
+        private $settings: HoundsSettings,
+        private $interval: IIntervalService
     ) {
         // Check the authentication and logout if not valid
         this.hounds
@@ -48,14 +50,12 @@ export class RootController implements ng.IController {
         // Save settings before the window is closed
         window.addEventListener("beforeunload", () => {
             this.$settings.save();
+            this.$interval.cancel(this.loadInterval);
         });
 
-        this.$scope.$on("load", () => {
-            if (this.dogProfile) {
-                this.dogLookup(this.dogProfile.id);
-            }
-        });
-
+        this.loadInterval = this.$interval(() => {
+            this.$scope.$broadcast("load");
+        }, 5000); // Load data from API every 5 seconds
     }
 
     /**
@@ -77,42 +77,11 @@ export class RootController implements ng.IController {
     }
 
     /**
-     * edit dog from the API
-     * @param dog dog profile to pass to Hounds service
+     * Retrieves a dog from the API and opens the dog profile modal
+     * @param dogId id to lookup
      */
-    public saveProfile(dog: IHoundDog) {
-        this.hounds.editDog(dog);
-    }
-
-    /**
-     * Closes the dogProfile
-     */
-    public closeDogProfile() {
-        this.dogProfile = undefined;
-        this.$scope.$broadcast("profile-close");
-    }
-
-    /**
-     * Deletes a dog
-     * @param id to delete
-     */
-    public deleteDog(id: string) {
-        this.hounds.removeDog(id);
-        this.closeDogProfile();
-    }
-
-    /**
-     * Displays the dog profile of the id given
-     * @param id dog id to get
-     */
-    public async dogLookup(id: string) {
-        if (!id) {
-            return;
-        }
-
-        const newProfile = await this.hounds.retrieveDog(id);
-        this.dogProfile = newProfile;
-        this.$scope.$apply();
+    public async dogLookup(dogId: string) {
+        this.$scope.$broadcast("open-profile", dogId);
     }
 
     /**
@@ -120,7 +89,6 @@ export class RootController implements ng.IController {
      * @param event event to go to
      */
     public goTo(event: IHoundEvent) {
-        this.closeDogProfile();
         this.jumpToWeek(event.startDate).then(() => {
             const el = document.getElementById(event.id);
             if (el) {
@@ -159,6 +127,7 @@ export class RootController implements ng.IController {
     public logout() {
         this.$location.path("/");
         this.$scope.$broadcast("logout");
+        this.$interval.cancel(this.loadInterval);
         this.$scope.$apply();
     }
 
