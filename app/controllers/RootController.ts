@@ -5,6 +5,8 @@ import { IHoundDog, IScheduleEvent, IHoundEvent } from "@happyhoundhotel/hounds-
 import { SchedulerWeek } from "../services/Week.service";
 import * as dates from "date-fns";
 
+import WebSocketClient from "../WebSocketWrapper";
+
 /** Root controller for the Hounds app */
 export class RootController implements ng.IController {
     /** Declare dependencies for AngularJs injection */
@@ -34,7 +36,6 @@ export class RootController implements ng.IController {
             images.forEach((img) => {
                 img.ondragstart = () => false;
             });
-
             this.$scope.$apply();
         })
         .catch(() => {
@@ -42,15 +43,21 @@ export class RootController implements ng.IController {
             this.$scope.$apply();
         });
 
-        const ws = new WebSocket("ws://localhost:8080");
 
         // Save settings before the window is closed
         window.addEventListener("beforeunload", () => {
             this.$settings.save();
         });
 
-        ws.addEventListener("load", () => {
+        const ws = new WebSocketClient(this.$settings.apiConfig.apiURL);
+
+        ws.on("load", () => {
             this.$scope.$broadcast("load");
+        });
+
+        ws.on("close", () => {
+            this.logout();
+            this.$scope.$apply();
         });
     }
 
@@ -123,7 +130,6 @@ export class RootController implements ng.IController {
     public logout() {
         this.$location.path("/");
         this.$scope.$broadcast("logout");
-        this.$scope.$apply();
     }
 
     /**
