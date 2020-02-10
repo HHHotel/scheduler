@@ -23,6 +23,10 @@ export class ProfileController implements ng.IComponentController {
     public bookingSearch: string = "";
     /** boolean value for whether or not to edit the profile */
     public editMode: boolean = false;
+    /** Object to store profile data about dog */
+    public dogProfile?: IHoundDog = undefined;
+    /** Object to store unedited dog profile */
+    public oldDogProfile?: IHoundDog = undefined;
 
     constructor(
         private $scope: ng.IScope,
@@ -30,9 +34,29 @@ export class ProfileController implements ng.IComponentController {
         private week: SchedulerWeek,
         private $settings: HoundsSettings
     ) {
-        this.$scope.$on("profile-close", () => {
-            this.editMode = false;
-            this.bookingSearch = "";
+
+        const self = this;
+        /** 
+         * Updates the dogProfile from API
+         * @param id dog id to retrieve
+         */
+        // tslint:disable-next-line: completed-docs
+        async function updateProfile(id: string) {
+            const newProfile = await hounds.retrieveDog(id);
+            self.dogProfile = newProfile;
+            self.oldDogProfile = newProfile;
+
+            self.$scope.$apply();
+        }
+
+        this.$scope.$on("open-profile", (openEvent, dogId) => {
+            updateProfile(dogId);
+        });
+
+        this.$scope.$on("load", () => {
+            if(!this.editMode && this.dogProfile) {
+                updateProfile(this.dogProfile.id);
+            }
         });
     }
 
@@ -54,28 +78,28 @@ export class ProfileController implements ng.IComponentController {
         switch (booking.type) {
             case DEFAULT.CONSTANTS.BOARDING:
                 if (sameTOD) {
-                    return (
-                        dates.format(booking.startDate, "MM/d/y") +
+                return (
+                    dates.format(booking.startDate, "MM/d/y") +
                         " - " +
                         dates.format(booking.endDate, "MM/d/y b")
-                    );
-                } else {
-                    return (
-                        dates.format(booking.startDate, "MM/d/y b") +
+                );
+            } else {
+                return (
+                    dates.format(booking.startDate, "MM/d/y b") +
                         " - " +
                         dates.format(booking.endDate, "MM/d/y b")
-                    );
-                }
+                );
+            }
             case DEFAULT.CONSTANTS.DAYCARE:
                 if (sameTOD) {
-                    return dates.format(booking.startDate, "MM/d/y b");
-                } else {
-                    return (
-                        dates.format(booking.startDate, "MM/d/y b") +
+                return dates.format(booking.startDate, "MM/d/y b");
+            } else {
+                return (
+                    dates.format(booking.startDate, "MM/d/y b") +
                         " - " +
                         dates.format(booking.endDate, "b")
-                    );
-                }
+                );
+            }
             default:
                 return "Error";
         }
@@ -88,6 +112,34 @@ export class ProfileController implements ng.IComponentController {
     public canShowDeleteButton(username: string) {
         const APPROVED_USERS = ["admin", "linda"];
         return APPROVED_USERS.indexOf(username.toLowerCase()) >= 0;
+    }
+
+    /**
+     * Closes the dog profile popup
+     */
+    public closeDogProfile() {
+        this.dogProfile = undefined;
+        this.oldDogProfile = undefined;
+        this.editMode = false;
+        this.bookingSearch = "";
+    }
+
+    /**
+     * Updates the API with the edited dogProfile information
+     */
+    public saveProfile() {
+        if (!this.dogProfile || !this.oldDogProfile) { return; }
+
+        this.hounds.editDog(this.dogProfile);
+    }
+
+    /**
+     * Deletes a dog
+     * @param id to delete
+     */
+    public deleteDog(id: string) {
+        this.hounds.removeDog(id);
+        this.closeDogProfile();
     }
 
     /**
