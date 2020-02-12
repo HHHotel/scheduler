@@ -10,8 +10,6 @@ import { SchedulerWeek } from "../services/Week.service";
 import * as dates from "date-fns";
 import { HoundsSettings } from "../services/Settings.service";
 
-const START_OF_TIME = new Date(new Date().toDateString()).valueOf(); // Used for time inputs for event forms
-
 interface IRepeatOptions {
     /** model for whether or not to show the repeat options forms */
     showRepeat: boolean;
@@ -48,7 +46,7 @@ export class SidebarController {
     /** model for new booking form */
     public booking: IHoundBooking;
     /** repeat options for Daycare event */
-    public repeatOptions?: IRepeatOptions = undefined;
+    public repeatOptions: IRepeatOptions;
     /** model for new dog form */
     public dog: IHoundDog;
     /** model for new event form */
@@ -67,6 +65,11 @@ export class SidebarController {
         this.dog = this.zeroDog();
         this.event = this.zeroEvent();
         this.booking = this.zeroBooking();
+        this.repeatOptions = {
+            stopDate: undefined as any,
+            frequency: "daily",
+            showRepeat: false,
+        };
 
         this.searchEvents = [];
 
@@ -76,8 +79,11 @@ export class SidebarController {
 
         this.$scope.$on("copy-event", (ev, data: IHoundEvent) => {
             this.index = 1;
-            const time = data.endDate.valueOf() - new Date(data.endDate.toDateString()).valueOf();
-            data.endDate = new Date(START_OF_TIME + time);
+            const time = dates.differenceInMilliseconds(
+                data.endDate,
+                dates.startOfDay(data.endDate),
+            );
+            data.endDate = dates.addMilliseconds(new Date("1-1-1970"), time);
             this.event = data;
         });
     }
@@ -92,32 +98,63 @@ export class SidebarController {
             return;
         }
         this.hounds.addDog(newDog);
-        this.dog = this.zeroDog();
+        this.clearSidebar();
     }
+
+    /**
+     * Checks that all required event details are present
+     * and returns a new event with properly formatted dates
+     * @param event
+     * @returns {IHoundEvent} null when there is insufficent detail
+     */
+    public prepareEvent(event: IHoundEvent): IHoundEvent | null {
+        if (!event || !event.type) {
+            alert("Please enter all details");
+            return null;
+        }
+
+        let eventDuration = 0;
+        if (event.type !== DEFAULT.CONSTANTS.BOARDING) {
+            const startTime = dates.differenceInMilliseconds(
+                event.startDate,
+                dates.startOfDay(event.startDate),
+            );
+            const endTime = dates.differenceInMilliseconds(
+                event.endDate,
+                dates.startOfDay(event.endDate),
+            );
+            eventDuration = endTime - startTime;
+        } else {
+            eventDuration = dates.differenceInMilliseconds(
+                event.endDate,
+                event.startDate,
+            );
+        }
+
+        if (eventDuration < 0) {
+            alert("Please enter a valid end time");
+            return null;
+        }
+
+        return {
+            text: event.text,
+            type: event.type,
+            id: event.id,
+            startDate: event.startDate,
+            endDate: dates.addMilliseconds(event.startDate, eventDuration),
+        };
+    } 
 
     /**
      * Adds a new event using the API
      * @param newEvent event to add
      */
-    public async addEvent(newEvent: IHoundEvent) {
-        if (!newEvent || !newEvent.text || !newEvent.type) {
+    public async addEvent(event: IHoundEvent) {
+        const newEvent = this.prepareEvent(event);
+        if (!newEvent || !newEvent.text) {
             alert("Please enter all details");
             return;
         }
-
-        const newEventDuration = this.getDurationFromTimeInput(
-            newEvent.startDate,
-            newEvent.endDate
-        );
-
-        if (newEventDuration < 0) {
-            alert("Please enter a valid end time");
-            return;
-        }
-
-        newEvent.endDate = new Date(
-            newEvent.startDate.valueOf() + newEventDuration
-        );
 
         if (newEvent.id) {
             const res = await this.hounds.removeEvent(newEvent.id);
@@ -125,7 +162,7 @@ export class SidebarController {
         }
 
         this.hounds.addEvent(newEvent);
-        this.event = this.zeroEvent();
+        this.clearSidebar();
     }
 
     /**
@@ -133,105 +170,78 @@ export class SidebarController {
      * @param newBooking booking to add
      * @param repeatOptions repeat options for the booking
      */
-    public addBooking(
-        newBooking: IHoundBooking,
-        repeatOptions: IRepeatOptions
-    ) {
-        if ( !newBooking || !newBooking.id || !newBooking.startDate || !newBooking.endDate || !newBooking.type) {
-            alert("Insufficent newBooking details");
+    public addBooking(booking: IHoundBooking, repeatOptions?: IRepeatOptions) {
+        const newBooking = this.prepareEvent(booking) as IHoundBooking;
+        if (!booking.dogId) {
+            alert("Please pick a dog for this booking");
             return;
         }
+        newBooking.id = booking.dogId; // Overwrite id field with dogId
+        // It will get a unique id serverside
 
-        const newBookingDuration = this.getDurationFromTimeInput(
-            newBooking.startDate,
-            newBooking.endDate
-        );
-
-        if (newBookingDuration < 0) {
-            alert("Please enter a valid end time");
-            return;
-        }
-
-        if (repeatOptions && repeatOptions.stopDate) {
+        if (!repeatOptions || !repeatOptions.stopDate || !repeatOptions.frequency) { // Booking is not repeated
+            this.hounds.addEvent(newBooking);
+        } else { // Booking is repeated
             const allowedFrequencies = ["daily", "weekly", "monthly", "yearly"];
             if (allowedFrequencies.indexOf(repeatOptions.frequency) < 0) {
                 alert("Please enter a repeat frequency");
                 return;
             }
 
-            addEventUntil(
-                newBooking,
-                newBookingDuration,
-                repeatOptions,
-                this.hounds
+            const bookingDuration = dates.differenceInMilliseconds(
+                newBooking.endDate, // end - start
+                newBooking.startDate
             );
-        } else {
-            if (newBooking.type !== DEFAULT.CONSTANTS.BOARDING) {
-                newBooking.endDate = new Date(
-                    newBooking.startDate.valueOf() + newBookingDuration
-                );
-            }
-            this.hounds.addEvent(newBooking);
+
+            getIntervalDates(
+                newBooking.startDate,
+                repeatOptions.stopDate,
+                repeatOptions.frequency,
+            ).map((date) => { // Create an array of IHoundBooking
+                return { 
+                    ...newBooking,
+                    startDate: date, // Set start and end dates properly
+                    endDate: new Date(date.valueOf() + bookingDuration),
+                };
+            }).forEach((intervalBooking) => { // add each event to api
+                this.hounds.addEvent(intervalBooking);
+            });
+
         }
 
-        this.booking = this.zeroBooking();
+        this.clearSidebar();
 
         /**
-         * Repeats an event until stop date, inclusive, using the increment
-         * to add each thing
-         * @param baseEvent Event details to repeat
-         * @param duration duration is the event end - event start
-         * @param stopDate date to stop repeating on, inclusive
-         * @param increment milliseconds to add to end and start dates
-         * @param houndsService API service to add event to
+         * Get an array of dates for each type of increment from start to end inclusive
+         * @param start Date
+         * @param end Date
+         * @param repeatType 'daily' | 'weekly' | 'monthly' | 'yearly'
          */
         // tslint:disable-next-line: completed-docs
-        function addEventUntil(
-            baseEvent: IHoundEvent,
-            duration: number,
-            repeatOpts: IRepeatOptions,
-            houndsService: HoundsService
-        ) {
-
-            /**
-             * Returns a new date increased by the amount describe by the incString
-             * @param d0 date to increment
-             * @param incString string that describes how to increment the date
-             *        options are [ daily | weekly | monthly | yearly ] case-insensitive
-             *        Returns null if incString is not one of those options
-             * @returns an incremented date
-             */
+        function getIntervalDates(start: Date, end: Date, repeatType: string): Date[] {
             // tslint:disable-next-line: completed-docs
-            function incrementDate(d0: Date, incString: string): Date | null {
-                incString = incString.toLowerCase();
-                switch(incString) {
+            function incrementDate(date: Date) {
+                switch (repeatType) {
                     case "daily":
-                        return dates.addDays(d0, 1);
+                        return dates.addDays(date, 1);
                     case "weekly":
-                        return dates.addDays(d0, 7);
+                        return dates.addWeeks(date, 1);
                     case "monthly":
-                        return dates.addMonths(d0, 1);
+                        return dates.addMonths(date, 1);
                     case "yearly":
-                        return dates.addYears(d0, 1);
+                        return dates.addYears(date, 1);
+                    default:
+                        return dates.addDays(date, 1);
                 }
-
-                return null;
             }
 
-            let currentDate: Date = baseEvent.startDate;
-            while(dates.differenceInDays(currentDate, repeatOpts.stopDate) <= 0) {
-                const newEvent = {
-                    ...baseEvent,
-                    startDate:  new Date(currentDate),
-                    endDate: new Date(currentDate.valueOf() + duration),
-                };
-                houndsService.addEvent(newEvent);
-
-                const nextDate = incrementDate(currentDate, repeatOptions.frequency);
-                if (!nextDate) { break; }
-                currentDate = nextDate;
-
+            let d0 = new Date(start);
+            const datesInterval: Date[] = [d0];
+            while(dates.differenceInCalendarDays(end, d0) > 0) {
+                d0 = incrementDate(d0);
+                datesInterval.push(d0);
             }
+            return datesInterval;
         }
     }
 
@@ -307,6 +317,7 @@ export class SidebarController {
 
         const permissions = DEFAULT.CONSTANTS.USER_CONSTANT[permissionType];
         this.hounds.addUser(username, password, permissions);
+        this.clearSidebar();
     }
 
     /**
@@ -320,6 +331,7 @@ export class SidebarController {
         }
 
         this.hounds.deleteUser(username);
+        this.clearSidebar();
     }
 
     /**
@@ -338,31 +350,8 @@ export class SidebarController {
             oldPassword,
             newPassword
         );
-    }
 
-    /**
-     * Gets the end date from the input type time
-     * @param startDate startDate to get
-     * @param endDate date object that is initalized to a known value
-     *                and then subtracted from that value to get the time info
-     */
-    private getDurationFromTimeInput(startDate: Date, endDate: Date) {
-        if (dates.isSameDay(startDate, endDate)) {
-            return -1;
-        }
-
-        const startTime =
-            startDate.valueOf() -
-            new Date(startDate.toLocaleDateString()).valueOf();
-        const endTime = endDate.valueOf() - START_OF_TIME;
-
-        const newBookingDuration = endTime - startTime;
-
-        if (newBookingDuration < 0) {
-            return -1;
-        }
-
-        return newBookingDuration;
+        this.clearSidebar();
     }
 
     /**
@@ -385,10 +374,10 @@ export class SidebarController {
      */
     private zeroEvent(): IHoundEvent {
         return {
-            startDate: new Date(new Date().toDateString()),
-            endDate: new Date(START_OF_TIME), // Needs to be the same as the
+            startDate: undefined as any as Date,
+            endDate: undefined as any as Date, // Needs to be the same as the
             id: "",
-            type: "",
+            type: "boarding",
             text: ""
         };
     }
@@ -402,5 +391,24 @@ export class SidebarController {
             ...this.zeroEvent(),
             dogId: "",
         };
+    }
+
+    /**
+     * Clears all the fields in this object
+     */
+    private clearSidebar() {
+        this.newUser = {
+            username: "",
+            password: "",
+            permissionsLevel: 0
+        };
+        this.booking = this.zeroBooking();
+        this.repeatOptions = {
+            stopDate: undefined as any,
+            frequency: "daily",
+            showRepeat: false,
+        };
+        this.dog = this.zeroDog();
+        this.event = this.zeroEvent();
     }
 }

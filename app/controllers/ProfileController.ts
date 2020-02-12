@@ -143,6 +143,14 @@ export class ProfileController implements ng.IComponentController {
     }
 
     /**
+     * Deletes an event 
+     * @param id to delete
+     */
+    public removeEvent(id: string) {
+        this.hounds.removeEvent(id);
+    }
+
+    /**
      * Deactivates a dog 
      * @param id to deactivate
      */

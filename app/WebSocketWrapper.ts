@@ -1,7 +1,5 @@
 import logger from "electron-log";
 
-const RECONNECT_TIME = 5000;
-
 export interface IWebSocketMessage {
     /** Data payload sent by server */
     data: any;
@@ -16,6 +14,11 @@ export interface IWebSocketMessage {
  */
 export default class WebSocketClient {
 
+    /** Interval with which to ping the server in ms */
+    private static PING_INTERVAL = 30000;
+    /** Timeout before attempting to reconnect to the server */
+    private static RECONNECT_TIME = 5000;
+
     /** Native WebSocket Client */
     private connection: WebSocket;
     /** Array holding the listeners attached to this object */
@@ -27,6 +30,8 @@ export default class WebSocketClient {
     }>;
     /** WebSocket Server url */
     private url: string;
+    /** Stack of messages waiting to be send */
+    private messageStack: IWebSocketMessage[] = [];
 
     constructor(url: string) {
         // tslint:disable-next-line: completed-docs
@@ -55,19 +60,41 @@ export default class WebSocketClient {
 
         this.connection.onopen = (...args) => {
             logger.info("WebSocketClient: open", ...args);
+            this.sendAll(this.messageStack);
         }
         this.connection.onerror = (...args) => {
             logger.error("WebSocketClient: error", ...args);	
         }
         this.connection.onclose = (...args) => {
             logger.info("WebSocketClient: closed", ...args);	
+            this.messageStack = [];
         }
+
+        this.connection.onmessage = (msg: MessageEvent) => {
+            const serverMsg = this.formatWebSocketMessage(msg);
+            this.listeners.forEach((item) => {
+                if (serverMsg.name === item.name) {
+                    item.handler(serverMsg);
+                }
+            });
+        };
 
         this.connection.addEventListener("close", (e) => {
             if (e.code !== 1000) {
                 this.reconnect();
             }
         });
+
+        const self = this;
+        // tslint:disable-next-line: completed-docs
+        function respondToPong(msg?: IWebSocketMessage) { 
+            setTimeout(() => {
+                self.ping();
+            }, WebSocketClient.PING_INTERVAL);
+        }
+
+        this.on("pong", (msg) => respondToPong(msg as IWebSocketMessage));
+        respondToPong();
 
         // Persist listeners when connection is reset
         this.listeners.forEach((item) => {
@@ -85,14 +112,6 @@ export default class WebSocketClient {
                 handler(ev);
             };
             this.connection.addEventListener(name, listener);
-        } else {
-            const listener: any = (msg: MessageEvent) => {
-                const serverMsg = JSON.parse(msg.data);
-                if (serverMsg.type === name) {
-                    handler(this.formatWebSocketMessage(msg));
-                }
-            };
-            this.connection.addEventListener("message", listener);
         }
 
         if (!nopersist) {
@@ -111,8 +130,35 @@ export default class WebSocketClient {
     /**
      * Sends data to the server
      */ 
-    public send(data: any) {
-        this.connection.send(JSON.stringify(data));
+    public send(name: string, data?: any) {
+        const message: IWebSocketMessage = {
+            name,
+            data,
+            url: this.url,
+        };
+        if (this.connection.readyState === WebSocket.OPEN) {
+            this.connection.send(JSON.stringify(message));
+        } else {
+            this.messageStack.push(message);
+        }
+    }
+
+    /**
+     * Sends a batch of messages to the server
+     * The connection is assumed to be open for this to work
+     */
+    public sendAll(msgList: IWebSocketMessage[]) {
+        while (msgList.length > 0) {
+            const msg = msgList.pop();
+            this.connection.send(JSON.stringify(msg));
+        }
+    }
+
+    /**
+     * Pings the server
+     */
+    public ping() {
+        this.send("ping");
     }
 
     /**
@@ -122,7 +168,7 @@ export default class WebSocketClient {
         setTimeout(() => {
             logger.info("WebSocketClient: reconnecting...");
             this.open(this.url);
-        }, RECONNECT_TIME);
+        }, WebSocketClient.RECONNECT_TIME);
     }
 
     /**
@@ -131,10 +177,10 @@ export default class WebSocketClient {
      * @returns {IWebSocketMessage} converted object
      */
     private formatWebSocketMessage(msg: MessageEvent): IWebSocketMessage {
-        const serverMsg = JSON.parse(msg.data);
+        const serverMsg: IWebSocketMessage = JSON.parse(msg.data);
         return {
-            name,
-            data: serverMsg.payload,
+            name: serverMsg.name,
+            data: serverMsg.data,
             url: msg.origin,
         };
     }

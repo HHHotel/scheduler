@@ -22,9 +22,9 @@
 
         <div class="search">
             <div ng-repeat="event in sidebar.searchEvents | filter: {name: ''} | limitTo: 7"
-                ng-class="{'highlighted': sidebar.booking.id === event.id}" class="clearfix">
+                 ng-class="{'highlighted': sidebar.booking.dogId === event.id}" class="clearfix">
                 {{ event.name }}
-                <button ng-click="sidebar.booking.id = event.id" class="hand">select</button>
+                <button ng-click="sidebar.booking.dogId = event.id" class="hand">select</button>
                 <br />
             </div>
 
