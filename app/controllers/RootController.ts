@@ -1,9 +1,11 @@
-import { ILocationService } from "angular";
+import { ILocationService, IIntervalService, IPromise } from "angular";
 import { HoundsService } from "../services/Hounds.service";
 import { HoundsSettings } from "../services/Settings.service";
 import { IHoundDog, IScheduleEvent, IHoundEvent } from "@happyhoundhotel/hounds-ts";
 import { SchedulerWeek } from "../services/Week.service";
 import * as dates from "date-fns";
+
+import WebSocketClient from "../WebSocketWrapper";
 
 /** Root controller for the Hounds app */
 export class RootController implements ng.IController {
@@ -13,18 +15,15 @@ export class RootController implements ng.IController {
         "$location",
         "HoundsService",
         "WeekService",
-        "HoundsSettings"
+        "HoundsSettings",
     ];
-
-    /** Variable to hold dog profile data in */
-    public dogProfile?: IHoundDog;
 
     constructor(
         private $scope: ng.IScope,
         private $location: ILocationService,
         private hounds: HoundsService,
         private week: SchedulerWeek,
-        private $settings: HoundsSettings
+        private $settings: HoundsSettings,
     ) {
         // Check the authentication and logout if not valid
         this.hounds
@@ -37,7 +36,6 @@ export class RootController implements ng.IController {
             images.forEach((img) => {
                 img.ondragstart = () => false;
             });
-
             this.$scope.$apply();
         })
         .catch(() => {
@@ -45,17 +43,22 @@ export class RootController implements ng.IController {
             this.$scope.$apply();
         });
 
+
         // Save settings before the window is closed
         window.addEventListener("beforeunload", () => {
             this.$settings.save();
         });
 
-        this.$scope.$on("load", () => {
-            if (this.dogProfile) {
-                this.dogLookup(this.dogProfile.id);
-            }
+        const ws = new WebSocketClient(this.$settings.apiConfig.apiURL);
+
+        ws.on("load", () => {
+            this.$scope.$broadcast("load");
         });
 
+        ws.on("close", () => {
+            this.logout();
+            this.$scope.$apply();
+        });
     }
 
     /**
@@ -77,42 +80,11 @@ export class RootController implements ng.IController {
     }
 
     /**
-     * edit dog from the API
-     * @param dog dog profile to pass to Hounds service
+     * Retrieves a dog from the API and opens the dog profile modal
+     * @param dogId id to lookup
      */
-    public saveProfile(dog: IHoundDog) {
-        this.hounds.editDog(dog);
-    }
-
-    /**
-     * Closes the dogProfile
-     */
-    public closeDogProfile() {
-        this.dogProfile = undefined;
-        this.$scope.$broadcast("profile-close");
-    }
-
-    /**
-     * Deletes a dog
-     * @param id to delete
-     */
-    public deleteDog(id: string) {
-        this.hounds.removeDog(id);
-        this.closeDogProfile();
-    }
-
-    /**
-     * Displays the dog profile of the id given
-     * @param id dog id to get
-     */
-    public async dogLookup(id: string) {
-        if (!id) {
-            return;
-        }
-
-        const newProfile = await this.hounds.retrieveDog(id);
-        this.dogProfile = newProfile;
-        this.$scope.$apply();
+    public async dogLookup(dogId: string) {
+        this.$scope.$broadcast("open-profile", dogId);
     }
 
     /**
@@ -120,7 +92,6 @@ export class RootController implements ng.IController {
      * @param event event to go to
      */
     public goTo(event: IHoundEvent) {
-        this.closeDogProfile();
         this.jumpToWeek(event.startDate).then(() => {
             const el = document.getElementById(event.id);
             if (el) {
@@ -159,7 +130,6 @@ export class RootController implements ng.IController {
     public logout() {
         this.$location.path("/");
         this.$scope.$broadcast("logout");
-        this.$scope.$apply();
     }
 
     /**
