@@ -1,6 +1,6 @@
 {
     "name": "Hounds",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "description": "Dog Scheduling App",
     "main": "main.js",
     "scripts": {
@@ -60,20 +60,22 @@
     "repository": "https://github.com/hhhotel/scheduler",
     "license": "MIT",
     "dependencies": {
-        "@happyhoundhotel/hounds-ts": "^0.3.17",
+        "@happyhoundhotel/hounds-ts": "^0.3.18",
         "angular": "^1.7.9",
         "angular-route": "^1.7.9",
         "date-fns": "^2.8.1",
         "electron-log": "^3.0.9",
         "electron-updater": "^4.2.0",
         "fs": "0.0.1-security",
-        "scroll-into-view": "^1.14.1"
+        "scroll-into-view": "^1.14.1",
+        "ws": "^7.2.1"
     },
     "devDependencies": {
         "@types/angular": "^1.6.57",
         "@types/angular-route": "^1.7.0",
         "@types/chai": "^4.2.7",
         "@types/mocha": "^5.2.7",
+        "@types/ws": "^7.2.1",
         "chai": "^4.2.0",
         "electron": "^4.2.12",
         "electron-builder": "^21.2.0",
