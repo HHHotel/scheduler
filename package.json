@@ -68,7 +68,7 @@
         "electron-updater": "^4.2.0",
         "fs": "0.0.1-security",
         "scroll-into-view": "^1.14.1",
-        "ws": "^7.2.1"
+        "ws": "^7.4.6"
     },
     "devDependencies": {
         "@types/angular": "^1.6.57",
