@@ -77,7 +77,7 @@
         "@types/mocha": "^5.2.7",
         "@types/ws": "^7.2.1",
         "chai": "^4.2.0",
-        "electron": "^4.2.12",
+        "electron": "^18.3.7",
         "electron-builder": "^21.2.0",
         "eslint": "^6.8.0",
         "htmlhint": "^0.11.0",
