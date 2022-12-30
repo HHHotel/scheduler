@@ -81,7 +81,7 @@
         "electron-builder": "^21.2.0",
         "eslint": "^6.8.0",
         "htmlhint": "^0.11.0",
-        "mocha": "^6.2.2",
+        "mocha": "^10.2.0",
         "prettier": "^1.19.1",
         "ts-loader": "^6.2.1",
         "ts-mocha": "^6.0.0",
